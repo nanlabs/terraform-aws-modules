@@ -28,7 +28,7 @@ jobs:
       - name: Render terraform docs inside modules
         uses: terraform-docs/gh-actions@v1.2.0
         with:
-          working-dir: modules/*,examples/*
+          working-dir: modules/*
           output-file: docs/MODULE.md
           output-method: replace
           git-push: "true"
