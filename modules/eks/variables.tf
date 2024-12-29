@@ -73,7 +73,7 @@ variable "addons_depends_on" {
 
 variable "node_groups" {
   description = "List of node groups to create in the EKS cluster"
-  type = list(object({
+  type = map(object({
     instance_types                 = list(string)
     min_size                       = number
     max_size                       = number
@@ -84,9 +84,11 @@ variable "node_groups" {
     start_schedule_recurrence_cron = optional(string)
     stop_schedule_recurrence_cron  = optional(string)
     kubernetes_labels              = optional(map(string))
+    kubelet_additional_options     = optional(list(string))
+    bootstrap_additional_options   = optional(list(string))
     tags                           = optional(map(string))
   }))
-  default = []
+  default = {}
 }
 
 variable "private_ipv6_enabled" {

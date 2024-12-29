@@ -8,7 +8,7 @@ locals {
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html#vpc-cni-latest-available-version
   vpc_cni_addon = {
     addon_name               = "vpc-cni"
-    addon_version            = "v1.18.3-eksbuild.2"
+    addon_version            = "v1.18.6-eksbuild.1"
     resolve_conflicts        = "OVERWRITE"
     service_account_role_arn = one(module.vpc_cni_eks_iam_role[*].service_account_role_arn)
     # Specify the VPC CNI addon should be deployed before compute to ensure
@@ -18,8 +18,7 @@ locals {
     configuration_values = jsonencode({
       env = {
         # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
-        ENABLE_PREFIX_DELEGATION = "true"
-        WARM_PREFIX_TARGET       = "1"
+        WARM_IP_TARGET = "1"
       }
     })
   }
@@ -31,7 +30,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "4.2.0"
+  version = "4.4.1"
 
   subnet_ids                   = concat(var.private_subnets, var.public_subnets)
   kubernetes_version           = var.kubernetes_version
@@ -73,19 +72,28 @@ module "eks_cluster" {
 
 module "eks_node_groups" {
   source  = "cloudposse/eks-node-group/aws"
-  version = "3.0.1"
+  version = "3.1.1"
 
   for_each = { for idx, node_group in var.node_groups : idx => node_group }
 
-  cluster_name      = module.eks_cluster.eks_cluster_id
-  subnet_ids        = [var.private_subnets[0]]
-  instance_types    = each.value.instance_types
-  desired_size      = each.value.desired_size
-  min_size          = each.value.min_size
-  max_size          = each.value.max_size
-  kubernetes_labels = each.value.kubernetes_labels
+  cluster_name                 = module.eks_cluster.eks_cluster_id
+  subnet_ids                   = [var.private_subnets[0]]
+  instance_types               = each.value.instance_types
+  desired_size                 = each.value.desired_size
+  min_size                     = each.value.min_size
+  max_size                     = each.value.max_size
+  kubernetes_labels            = each.value.kubernetes_labels
+  kubelet_additional_options   = each.value.kubelet_additional_options
+  bootstrap_additional_options = each.value.bootstrap_additional_options
 
   name = "${var.name}-eks-ng-${each.key}"
+
+  create_before_destroy = true
+
+  node_group_terraform_timeouts = [{
+    create = "25m"
+    delete = "20m"
+  }]
 
   tags = merge(var.tags, each.value.tags)
 }

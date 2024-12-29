@@ -12,4 +12,5 @@ output "ssm_parameter_ssh_key" {
 
 output "security_group_id" {
   value = module.ec2_security_group.security_group_id
+
 }

@@ -11,21 +11,23 @@
 data "aws_iam_policy_document" "vpc_cni_ipv6" {
   # See https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html#cni-iam-role-create-ipv6-policy
   statement {
-    sid       = ""
+    sid       = "AllowVpcCniActions"
     effect    = "Allow"
     resources = ["*"]
 
     actions = [
+      "ec2:AssignPrivateIpAddresses",
       "ec2:AssignIpv6Addresses",
       "ec2:DescribeInstances",
       "ec2:DescribeTags",
       "ec2:DescribeNetworkInterfaces",
-      "ec2:DescribeInstanceTypes"
+      "ec2:DescribeInstanceTypes",
+      "ec2:DescribeSubnets"
     ]
   }
 
   statement {
-    sid       = ""
+    sid       = "AllowNetworkInterfaceTagging"
     effect    = "Allow"
     resources = ["arn:aws:ec2:*:*:network-interface/*"]
     actions   = ["ec2:CreateTags"]

@@ -17,6 +17,14 @@ output "eks_cluster_managed_security_group_id" {
   value = module.eks_cluster.eks_cluster_managed_security_group_id
 }
 
+output "eks_cluster_identity_oidc_issuer_arn" {
+  value = module.eks_cluster.eks_cluster_identity_oidc_issuer_arn
+}
+
+output "eks_cluster_identity_oidc_issuer" {
+  value = module.eks_cluster.eks_cluster_identity_oidc_issuer
+}
+
 output "eks_cluster_node_group_roles_arns" {
   description = "The ARNs of the IAM roles associated with the EKS cluster node groups"
   value       = [for ng in module.eks_node_groups : ng.eks_node_group_role_arn]

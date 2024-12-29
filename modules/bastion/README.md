@@ -171,10 +171,10 @@ aws ssm terminate-session --session-id <session-id>
 Here's a complete example script to retrieve the Bastion instance ID, push the SSH public key, and start a Session Manager session:
 
 ```bash
-# Asume an IAM Role
+# Asume el rol IAM necesario
 assume_role_output=$(aws sts assume-role --role-arn arn:aws:iam::<account-id>:role/<role-name> --role-session-name AWSCLI-Session)
 
-# Export credentials
+# Exporta las credenciales temporales del rol asumido
 export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' <<< "$assume_role_output")
 export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' <<< "$assume_role_output")
 export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' <<< "$assume_role_output")
@@ -253,7 +253,10 @@ Solution:
 ## Additional Resources
 
 - [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
-- [Amazon EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
+- [Amazon EC2 Instance Connect](<https://docs>
+
+.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
+
 - [Enabling SSH connections through Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-getting-started-enable-ssh-connections.html#ssh-connections-enable)
 
 ## Module Documentation

@@ -16,8 +16,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 4.2.0 |
-| <a name="module_eks_node_groups"></a> [eks\_node\_groups](#module\_eks\_node\_groups) | cloudposse/eks-node-group/aws | 3.0.1 |
+| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 4.4.1 |
+| <a name="module_eks_node_groups"></a> [eks\_node\_groups](#module\_eks\_node\_groups) | cloudposse/eks-node-group/aws | 3.1.1 |
 | <a name="module_vpc_cni_eks_iam_role"></a> [vpc\_cni\_eks\_iam\_role](#module\_vpc\_cni\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.2.0 |
 
 ## Resources
@@ -55,7 +55,7 @@
 | <a name="input_endpoint_public_access"></a> [endpoint\_public\_access](#input\_endpoint\_public\_access) | Indicates whether or not the Amazon EKS public API server endpoint is enabled | `bool` | `true` | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | The Kubernetes version for the EKS cluster | `string` | `"1.30"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name for the resources | `string` | n/a | yes |
-| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of node groups to create in the EKS cluster | <pre>list(object({<br>    instance_types                 = list(string)<br>    min_size                       = number<br>    max_size                       = number<br>    desired_size                   = number<br>    health_check_type              = string<br>    ami_image_id                   = optional(string)<br>    start_stop_schedule_enabled    = optional(bool)<br>    start_schedule_recurrence_cron = optional(string)<br>    stop_schedule_recurrence_cron  = optional(string)<br>    kubernetes_labels              = optional(map(string))<br>    tags                           = optional(map(string))<br>  }))</pre> | `[]` | no |
+| <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | List of node groups to create in the EKS cluster | <pre>map(object({<br>    instance_types                 = list(string)<br>    min_size                       = number<br>    max_size                       = number<br>    desired_size                   = number<br>    health_check_type              = string<br>    ami_image_id                   = optional(string)<br>    start_stop_schedule_enabled    = optional(bool)<br>    start_schedule_recurrence_cron = optional(string)<br>    stop_schedule_recurrence_cron  = optional(string)<br>    kubernetes_labels              = optional(map(string))<br>    kubelet_additional_options     = optional(list(string))<br>    bootstrap_additional_options   = optional(list(string))<br>    tags                           = optional(map(string))<br>  }))</pre> | `{}` | no |
 | <a name="input_oidc_provider_enabled"></a> [oidc\_provider\_enabled](#input\_oidc\_provider\_enabled) | Enable OIDC provider | `bool` | `true` | no |
 | <a name="input_private_ipv6_enabled"></a> [private\_ipv6\_enabled](#input\_private\_ipv6\_enabled) | Enable IPv6 for Kubernetes network | `bool` | `false` | no |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | List of private subnets in the VPC | `list(string)` | n/a | yes |
@@ -71,6 +71,8 @@
 | <a name="output_eks_cluster_certificate_authority_data"></a> [eks\_cluster\_certificate\_authority\_data](#output\_eks\_cluster\_certificate\_authority\_data) | The base64 encoded certificate data required to communicate with your cluster |
 | <a name="output_eks_cluster_endpoint"></a> [eks\_cluster\_endpoint](#output\_eks\_cluster\_endpoint) | The endpoint for the EKS cluster |
 | <a name="output_eks_cluster_id"></a> [eks\_cluster\_id](#output\_eks\_cluster\_id) | The ID of the EKS cluster |
+| <a name="output_eks_cluster_identity_oidc_issuer"></a> [eks\_cluster\_identity\_oidc\_issuer](#output\_eks\_cluster\_identity\_oidc\_issuer) | n/a |
+| <a name="output_eks_cluster_identity_oidc_issuer_arn"></a> [eks\_cluster\_identity\_oidc\_issuer\_arn](#output\_eks\_cluster\_identity\_oidc\_issuer\_arn) | n/a |
 | <a name="output_eks_cluster_managed_security_group_id"></a> [eks\_cluster\_managed\_security\_group\_id](#output\_eks\_cluster\_managed\_security\_group\_id) | n/a |
 | <a name="output_eks_cluster_node_group_roles_arns"></a> [eks\_cluster\_node\_group\_roles\_arns](#output\_eks\_cluster\_node\_group\_roles\_arns) | The ARNs of the IAM roles associated with the EKS cluster node groups |
 | <a name="output_eks_cluster_node_group_roles_names"></a> [eks\_cluster\_node\_group\_roles\_names](#output\_eks\_cluster\_node\_group\_roles\_names) | The names of the IAM roles associated with the EKS cluster node groups |
