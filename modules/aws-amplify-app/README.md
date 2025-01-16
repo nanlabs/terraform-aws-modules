@@ -6,7 +6,7 @@ Terraform module to bootstrap an AWS Amplify App.
 
 ```hcl
 module "app" {
-  source = "../../modules/amplify-app"
+  source = "../../modules/aws-amplify-app"
 
   name = "example-amplify-app"
 

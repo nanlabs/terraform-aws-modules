@@ -6,7 +6,7 @@ Terrform module to bootstrap a DocumentDB cluster.
 
 ```hcl
 module "db" {
-  source = "../../modules/docdb"
+  source = "../../modules/aws-docdb"
 
   name = "examples-docdb-cluster"
 

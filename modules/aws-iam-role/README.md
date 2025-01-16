@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "base" {
 }
 
 module "role" {
-  source = "../../modules/iam-role"
+  source = "../../modules/aws-iam-role"
 
   name      = "eg-prod-app"
 

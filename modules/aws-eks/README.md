@@ -6,7 +6,7 @@ Terraform module to provision an EKS cluster using the CloudPosse EKS module.
 
 ```hcl
 module "eks" {
-  source = "../../modules/eks"
+  source = "../../modules/aws-eks"
 
   name            = "my-eks-cluster"
 
