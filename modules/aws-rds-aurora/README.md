@@ -6,7 +6,7 @@ Terraform module to bootstrap a RDS Aurora instances and other database resource
 
 ```hcl
 module "db" {
-  source = "../../modules/rds-aurora"
+  source = "../../modules/aws-rds-aurora"
 
   name = "examples-rds-aurora"
 

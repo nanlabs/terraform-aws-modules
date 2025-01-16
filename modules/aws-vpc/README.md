@@ -6,7 +6,7 @@ Terraform module to bootstrap a VPC for use with our shared infrastructure.
 
 ```hcl
 module "vpc" {
-  source = "../../modules/vpc"
+  source = "../../modules/aws-vpc"
 
   name = "shared-vpc"
 

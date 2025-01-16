@@ -65,4 +65,4 @@ for arg in "$@"; do
 done
 
 # Run the connection command
-"${ROOT}/modules/bastion/scripts/connect.sh" --tag="$bastion_tag" "${connect_args[@]}"
+"${ROOT}aws-bastion/scripts/connect.sh" --tag="$bastion_tag" "${connect_args[@]}"

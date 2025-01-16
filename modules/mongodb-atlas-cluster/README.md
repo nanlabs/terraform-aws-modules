@@ -1,4 +1,4 @@
-# MongoDB Atlas Module
+# MongoDB Atlas Cluster Module
 
 This module creates a MongoDB Atlas cluster and configures a VPC peering connection between the Atlas cluster and the specified VPC.
 
@@ -13,7 +13,7 @@ provider "mongodbatlas" {}
 
 
 module "atlas_cluster" {
-  source = "../../modules/mongodb"
+  source = "../../modules/mongodb-atlas-cluster"
 
   project_name = "my-project"
   org_id       = "5edf67f9b9614996228111"

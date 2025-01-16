@@ -6,7 +6,7 @@ Terraform module to bootstrap a RDS DB instance.
 
 ```hcl
 module "db" {
-  source = "../../modules/rds"
+  source = "../../modules/aws-rds"
 
   name = "examples-rds-instance"
 

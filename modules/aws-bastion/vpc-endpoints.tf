@@ -1,5 +1,5 @@
 module "vpc_endpoints" {
-  source = "../../modules/vpc-endpoints"
+  source = "../../modules/aws-vpc-endpoints"
 
   vpc_id = var.vpc_id
 

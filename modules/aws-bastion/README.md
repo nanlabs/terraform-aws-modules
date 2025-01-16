@@ -10,7 +10,7 @@ A bastion host, sometimes called a `jump box`, is a server that provides a singl
 
 ```hcl
 module "bastion" {
-  source                       = "../../modules/bastion"
+  source                       = "../../modules/aws-bastion"
 
   name                         = "example-bastion"
   vpc_id                       = "vpc-1234567890"
