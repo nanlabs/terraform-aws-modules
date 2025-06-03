@@ -8,13 +8,9 @@ Welcome to the **Terraform Cloud Modules** repository! This collection of reusab
 
 </div> <!-- center -->
 
----
-
 ## Motivation
 
 Building and maintaining infrastructure across cloud providers can become repetitive and error-prone. This repository consolidates reusable Terraform modules following best practices, allowing your team to provision infrastructure efficiently, securely, and consistently—whether it’s an AWS VPC, a Kubernetes cluster, or a MongoDB Atlas database.
-
----
 
 ## Key Features
 
@@ -34,8 +30,6 @@ The `examples/` directory provides ready-to-use configurations to demonstrate ho
 
 Modules follow cloud provider recommendations for secure configuration. Sensitive values (like secrets) are never hardcoded and can be managed through secrets managers or parameter stores depending on the environment.
 
----
-
 ## Repository Structure
 
 ```
@@ -43,8 +37,6 @@ modules/         → Reusable infrastructure modules
 examples/        → Usage examples for each module
 scripts/         → Helper scripts (e.g., kubeconfig generator, bastion tunneling)
 ```
-
----
 
 ## Modules
 
@@ -65,13 +57,9 @@ Below is a sample of the available modules:
 
 Check each module's `README.md` inside the `modules/` directory for inputs, outputs, and usage examples.
 
----
-
 ## Examples
 
 Visit the [`examples/`](./examples/) directory for full infrastructure setups using one or more modules. These examples can be used to validate module behavior, onboard new teams, or act as blueprints for real-world deployments.
-
----
 
 ## Infra Tools and Scripts
 
@@ -84,8 +72,6 @@ Find helper scripts in [`scripts/`](./scripts/) for tasks like:
 
 Check the [scripts README](./scripts/README.md) for more info.
 
----
-
 ## Best Practices
 
 * All modules follow Terraform best practices for naming, input validation, and documentation.
@@ -93,13 +79,9 @@ Check the [scripts README](./scripts/README.md) for more info.
 * Consider using [Checkov](https://www.checkov.io/) or [tfsec](https://github.com/aquasecurity/tfsec) for security scanning.
 * Validate your code with `terraform validate` and format with `terraform fmt -recursive`.
 
----
-
 ## Contributing
 
 We welcome improvements and fixes! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
-
----
 
 ## Contributors
 
