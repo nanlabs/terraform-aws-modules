@@ -1,10 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "Terraform Modules - Development Container",
+	"name": "Terraform Modules Development",
 
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
@@ -15,7 +15,8 @@
 		"ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
 		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {},
 		"ghcr.io/dhoeric/features/act:1": {},
-		"ghcr.io/dhoeric/features/terraform-docs:1": {}
+		"ghcr.io/dhoeric/features/terraform-docs:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -25,17 +26,17 @@
 	// "forwardPorts": [],
 
 	// Use 'runArgs' to add additional Docker arguments
-  "runArgs": [
-    "-v",
-    "${localEnv:HOME}/.aws:/home/vscode/.aws" // Mount AWS credentials
-  ],
+	"runArgs": [
+		"-v",
+		"${localEnv:HOME}/.aws:/home/vscode/.aws" // Mount AWS credentials
+	],
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "curl -sfL https://direnv.net/install.sh | bash"
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	// "remoteUser": "vscode"
 }

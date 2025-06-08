@@ -1,6 +1,6 @@
-# Terraform Cloud Modules by NaNLABS 🌍 🔧
+# Terraform Modules by NaNLABS 🌍 🔧
 
-Welcome to the **Terraform Cloud Modules** repository! This collection of reusable modules provides a robust foundation for provisioning cloud infrastructure across a variety of services. With support for AWS and third-party providers like MongoDB Atlas, these modules are designed for flexibility, scalability, and best practices across cloud platforms.
+This repository contains reusable Terraform modules for various cloud providers and services. These modules follow best practices and are designed to be composable, maintainable, and secure.
 
 <div align="center">
 
@@ -12,79 +12,101 @@ Welcome to the **Terraform Cloud Modules** repository! This collection of reusab
 
 Building and maintaining infrastructure across cloud providers can become repetitive and error-prone. This repository consolidates reusable Terraform modules following best practices, allowing your team to provision infrastructure efficiently, securely, and consistently—whether it’s an AWS VPC, a Kubernetes cluster, or a MongoDB Atlas database.
 
-## Key Features
+## Documentation
 
-### 🧱 Modular Design
+- [Development Setup](docs/DEV_SETUP.md) - How to set up your development environment
+- [Modules Guide](docs/MODULES.md) - How to use and create modules
+- [Best Practices](docs/BEST_PRACTICES.md) - Module design, input/output, tagging, and security guidelines
+- [Contributing Guidelines](docs/CONTRIBUTING_GUIDELINES.md) - How to contribute to this repository
 
-All infrastructure components are encapsulated as independent Terraform modules, which you can reuse across projects and environments. Each module has its own documentation and example usage.
+## Available Modules
 
-### ☁️ Multi-Cloud Ready
+### AWS Modules
 
-While most modules are designed for AWS (e.g., VPC, EKS, RDS, IAM), this repository also includes modules for services like **MongoDB Atlas**, making it easier to manage third-party services alongside native cloud resources.
+- [AWS VPC](modules/aws-vpc/) - Virtual Private Cloud module
+- [AWS MSK](modules/aws-msk/) - Managed Streaming for Kafka module
+- [AWS RDS](modules/aws-rds/) - Relational Database Service module
+- [AWS RDS Aurora](modules/aws-rds-aurora/) - Aurora database module
+- [AWS VPC Endpoints](modules/aws-vpc-endpoints/) - VPC Endpoints module
+- [AWS Bastion](modules/aws-bastion/) - Bastion host module
+- [AWS DocumentDB](modules/aws-docdb/) - DocumentDB module
+- [AWS EKS](modules/aws-eks/) - Elastic Kubernetes Service module
+- [AWS IAM Role](modules/aws-iam-role/) - IAM Role module
+- [AWS Amplify App](modules/aws-amplify-app/) - Amplify application module
 
-### 🧪 Examples Included
+### Other Cloud Providers
 
-The `examples/` directory provides ready-to-use configurations to demonstrate how to integrate modules in real-world scenarios. Perfect for bootstrapping your infrastructure setup or testing locally.
+- [MongoDB Atlas Cluster](modules/mongodb-atlas-cluster/) - MongoDB Atlas cluster module
 
-### 🔐 Security and Best Practices
+## Module Usage
 
-Modules follow cloud provider recommendations for secure configuration. Sensitive values (like secrets) are never hardcoded and can be managed through secrets managers or parameter stores depending on the environment.
+Each module is designed to be used independently or composed with other modules. To use a module:
 
-## Repository Structure
+```hcl
+module "vpc" {
+  source = "github.com/nanlabs/terraform-modules//modules/aws-vpc"
+  version = "1.0.0"
 
+  vpc_cidr = "10.0.0.0/16"
+  # ... other variables
+}
 ```
-modules/         → Reusable infrastructure modules
-examples/        → Usage examples for each module
-scripts/         → Helper scripts (e.g., kubeconfig generator, bastion tunneling)
-```
 
-## Modules
+See each module's README.md for detailed usage instructions and examples.
 
-Below is a sample of the available modules:
+## Development
 
-| Module Name             | Description                                      |
-| ----------------------- | ------------------------------------------------ |
-| `aws-vpc`               | Provisions VPCs with public/private subnets.     |
-| `aws-bastion`           | Creates a bastion host for secure SSH access.    |
-| `aws-eks`               | Provisions an Amazon EKS Kubernetes cluster.     |
-| `aws-msk`               | Deploys an Amazon MSK (Kafka) cluster.           |
-| `aws-rds`               | Provisions a PostgreSQL RDS instance.            |
-| `aws-rds-aurora`        | Provisions an Aurora cluster (MySQL/PostgreSQL). |
-| `aws-iam-role`          | Creates IAM roles and policies.                  |
-| `aws-vpc-endpoints`     | Configures VPC endpoints (e.g., S3, DynamoDB).   |
-| `aws-amplify-app`       | Provisions an AWS Amplify application.           |
-| `mongodb-atlas-cluster` | Provisions a MongoDB Atlas database cluster.     |
+### Prerequisites
 
-Check each module's `README.md` inside the `modules/` directory for inputs, outputs, and usage examples.
+- [Git](https://git-scm.com/downloads)
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Visual Studio Code](https://code.visualstudio.com/) (recommended)
+- [AWS CLI](https://aws.amazon.com/cli/) (for AWS modules)
+- [MongoDB Atlas CLI](https://www.mongodb.com/docs/atlas/cli/stable/) (for MongoDB modules)
 
-## Examples
+### Development Container
 
-Visit the [`examples/`](./examples/) directory for full infrastructure setups using one or more modules. These examples can be used to validate module behavior, onboard new teams, or act as blueprints for real-world deployments.
+This repository includes a development container configuration that provides a consistent development environment. To use it:
 
-## Infra Tools and Scripts
+1. Install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in VS Code
+2. Open this repository in VS Code
+3. When prompted, click "Reopen in Container" or use the command palette (F1) and select "Remote-Containers: Reopen in Container"
 
-Find helper scripts in [`scripts/`](./scripts/) for tasks like:
+The development container includes:
 
-* Connecting to bastion hosts
-* Creating tunnels to EKS clusters
-* Generating kubeconfig files
-* Automating environment setup with `direnv`
+- Terraform CLI
+- terraform-docs
+- tfsec
+- Terragrunt
+- AWS CLI
+- MongoDB Atlas CLI
+- Pre-commit hooks
+- Linting tools
 
-Check the [scripts README](./scripts/README.md) for more info.
+### Local Setup
 
-## Best Practices
-
-* All modules follow Terraform best practices for naming, input validation, and documentation.
-* Sensitive data should be injected via secrets managers or parameter stores.
-* Consider using [Checkov](https://www.checkov.io/) or [tfsec](https://github.com/aquasecurity/tfsec) for security scanning.
-* Validate your code with `terraform validate` and format with `terraform fmt -recursive`.
+If you prefer to set up your environment locally, see [Development Setup](docs/DEV_SETUP.md) for detailed instructions.
 
 ## Contributing
 
-We welcome improvements and fixes! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
+We welcome contributions! Please see our [Contributing Guidelines](docs/CONTRIBUTING_GUIDELINES.md) for details.
+
+## Code of Conduct
+
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## References
+
+- [Awesome NAN](https://github.com/nanlabs/awesome-nan) - Best practices and resources
+- [Terraform Documentation](https://www.terraform.io/docs/index.html)
+- [AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 
 ## Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=nanlabs/terraform-cloud-modules)](https://github.com/nanlabs/terraform-cloud-modules/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=nanlabs/terraform-modules)](https://github.com/nanlabs/terraform-modules/graphs/contributors)
 
 Made with [contributors-img](https://contrib.rocks).

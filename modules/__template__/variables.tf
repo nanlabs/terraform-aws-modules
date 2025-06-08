@@ -1,22 +1,27 @@
 variable "name" {
-  description = "Name to be used on all the resources as identifier"
+  description = "Name prefix for all resources"
   type        = string
-  default     = ""
 }
 
 variable "tags" {
-  description = "Any extra tags to assign to objects"
-  type        = map(any)
+  description = "Additional tags for all resources"
+  type        = map(string)
   default     = {}
 }
 
 variable "bucket_name" {
-  description = "The name of the S3 bucket"
+  description = "Name of the S3 bucket"
   type        = string
 }
 
+variable "environment" {
+  description = "Environment name (e.g., dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
 variable "force_destroy" {
-  description = "Force bucket deletion"
+  description = "Whether to force destroy the bucket"
   type        = bool
   default     = false
 }
@@ -28,15 +33,15 @@ variable "acl" {
 }
 
 variable "enable_versioning" {
-  description = "Enable versioning on the S3 bucket"
+  description = "Whether to enable versioning"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "kms_key_id" {
-  description = "KMS key for bucket encryption"
+  description = "KMS key ID for encryption"
   type        = string
-  default     = "alias/aws/s3"
+  default     = null
 }
 
 variable "enable_lifecycle_rule" {
@@ -64,6 +69,26 @@ variable "lifecycle_expiration_days" {
 }
 
 variable "logging_bucket" {
-  description = "Bucket for storing logs"
+  description = "S3 bucket for access logs"
   type        = string
+  default     = null
+}
+
+variable "lifecycle_rules" {
+  description = "List of lifecycle rules"
+  type = list(object({
+    id      = string
+    enabled = bool
+    transition = optional(object({
+      days          = number
+      storage_class = string
+    }))
+    expiration = optional(object({
+      days = number
+    }))
+    noncurrent_version_expiration = optional(object({
+      days = number
+    }))
+  }))
+  default = []
 }
