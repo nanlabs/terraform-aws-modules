@@ -8,11 +8,14 @@ Thank you for your interest in contributing to our Terraform modules repository!
 - For development environment setup, see [docs/DEV_SETUP.md](./docs/DEV_SETUP.md).
 - For module usage and creation, see [docs/MODULES.md](./docs/MODULES.md).
 - For best practices, see [docs/BEST_PRACTICES.md](./docs/BEST_PRACTICES.md) and [awesome-nan](https://github.com/nanlabs/awesome-nan).
+- For versioning and release strategy, see [docs/VERSIONING.md](./docs/VERSIONING.md).
 
 ## Pull Requests
 
 - Ensure your code follows the repository's style and best practices.
 - Add or update documentation as needed.
+- **Update the [CHANGELOG.md](./CHANGELOG.md)** under the `[Unreleased]` section with your changes.
+- **Specify release type** in your PR description if your changes should trigger a new release (see [Versioning Strategy](./docs/VERSIONING.md)).
 - Run all tests and linters before submitting.
 - Reference related issues in your PR description.
 
@@ -57,9 +60,11 @@ To send us a pull request, please:
 1. Fork the repository.
 2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
 3. Ensure local tests pass (_if applicable_).
-4. Commit to your fork using clear commit messages.
-5. Send us a pull request, answering any default questions in the pull request template.
-6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
+4. **Update CHANGELOG.md** with your changes under the `[Unreleased]` section.
+5. **Specify release type** in your commit message or PR description if needed (e.g., `release-type: minor`).
+6. Commit to your fork using clear commit messages.
+7. Send us a pull request, answering any default questions in the pull request template.
+8. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
 
 GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and
 [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).

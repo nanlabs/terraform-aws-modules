@@ -1,74 +1,60 @@
-# Infra Tools Scripts 🛠️
+# Scripts 🛠️
 
-Welcome to the **scripts/** directory, designed to house scripts that facilitate various infrastructure tasks, including connecting to AWS Bastion hosts, tunneling into EKS Clusters, and generating `kubeconfig` files for those clusters. These tools are crafted to streamline your interactions with cloud resources, ensuring both efficiency and security in your operations.
+This directory contains utility scripts for managing the terraform-modules repository.
 
-## Overview
+## Available Scripts
 
-This directory currently includes the following key scripts:
+### `release-manager.sh`
 
-1. **`connect-to-core-networking-bastion-host.sh`**:
+A comprehensive script for managing releases and validating Terraform modules in this repository.
 
-   - This script connects to an AWS Bastion host within a specified environment. You can use it to either establish a direct connection or create a tunnel through the bastion host to another target.
+**Features:**
 
-2. **`connect-to-services-platform-eks-cluster.sh`**:
+- Create new releases with automatic version bumping
+- Validate changed modules
+- Update changelog entries
+- List all available modules
+- Dry-run mode for safe testing
 
-   - This script is specifically designed to create a tunnel through the bastion host directly to an EKS Cluster. This tunnel is crucial for securely interacting with the EKS Cluster using `kubectl` via a local port.
-
-3. **`generate-services-platform-eks-kubeconfig.sh`**:
-   - This script generates a `kubeconfig` file tailored for the EKS Cluster in a specified environment, configured to work with a local tunnel. It also sets up an `.envrc` file in the root of the repository to automatically set the `KUBECONFIG` environment variable using `direnv`.
-
-## Usage Instructions
-
-For detailed information on how to use each script, including all available options, please run the script with the `--help` flag. This will provide you with comprehensive usage instructions.
-
-### Example Usages
-
-#### 1. `connect-to-core-networking-bastion-host.sh`
-
-**Simple Example (Direct Connection):**
+**Usage:**
 
 ```bash
-./connect-to-core-networking-bastion-host.sh --environment=sandbox
+# Validate changed modules
+./scripts/release-manager.sh validate-modules
+
+# Create a new release
+./scripts/release-manager.sh create-release --type=minor
+
+# List all modules
+./scripts/release-manager.sh list-modules
+
+# Get help
+./scripts/release-manager.sh --help
 ```
 
-This command connects directly to the bastion host in the `sandbox` environment.
+**Options:**
 
-**Advanced Example (With Tunnel):**
+- `-h, --help` - Show help message
+- `-v, --version` - Show script version
+- `-t, --type=TYPE` - Release type (major, minor, patch)
+- `-m, --modules=LIST` - Comma-separated list of modules to validate
+- `-f, --force` - Force operation without confirmation
+- `-d, --dry-run` - Show what would be done without executing
 
-```bash
-./connect-to-core-networking-bastion-host.sh --environment=staging --tunnel=8080:remote.host:80
-```
+## Easy Options Framework
 
-This command creates a tunnel from port `8080` on your local machine to port `80` on `remote.host` through the bastion host in the `staging` environment.
+The scripts in this directory use the `easy-options` framework for consistent argument parsing and help generation. This framework is located in the `easy-options/` subdirectory.
 
-#### 2. `connect-to-services-platform-eks-cluster.sh`
+## Adding New Scripts
 
-**Example (Create Tunnel to EKS Cluster):**
+When adding new scripts to this directory:
 
-```bash
-./connect-to-services-platform-eks-cluster.sh --environment=sandbox
-```
+1. **Use the easy-options framework** for consistent CLI interfaces
+2. **Include comprehensive help documentation** in the script header
+3. **Add the script to this README** with usage examples
+4. **Make scripts executable** with `chmod +x`
+5. **Follow the existing naming conventions**
 
-This command sets up a tunnel through the bastion host to the EKS Cluster in the `sandbox` environment, allowing you to use `kubectl` via `http://localhost:${tunnel_local_port}`.
+## Contributing
 
-#### 3. `generate-services-platform-eks-kubeconfig.sh`
-
-**Example (Generate Kubeconfig for EKS Cluster):**
-
-```bash
-./generate-services-platform-eks-kubeconfig.sh --environment=sandbox
-```
-
-This command generates a `kubeconfig` file for the EKS Cluster in the `sandbox` environment, configured to work with a local tunnel. It also sets up an `.envrc` file in the root of the repository to automatically set the `KUBECONFIG` environment variable.
-
-## Adding New Scripts ✨
-
-This repository is built to be scalable and can easily accommodate new scripts. To add a new script:
-
-1. **Create your script** in a similar format to the existing ones.
-2. **Document it** within this README, including a brief description and example usage.
-3. **Ensure consistency** in option flags and usage instructions for ease of use across different scripts.
-
-## Contribution Guide
-
-If you have improvements, fixes, or new scripts to add, feel free to submit a pull request. Ensure that your changes are well-documented and maintain the existing style and structure of this repository.
+For guidelines on contributing new scripts or improvements, see the main [Contributing Guidelines](../docs/CONTRIBUTING_GUIDELINES.md).

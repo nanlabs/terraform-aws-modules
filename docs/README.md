@@ -8,6 +8,7 @@ Welcome to the Terraform Modules documentation. This repository contains reusabl
 - [Modules Guide](MODULES.md) - How to use and create modules
 - [Best Practices](BEST_PRACTICES.md) - Module design, input/output, tagging, and security guidelines
 - [Contributing Guidelines](CONTRIBUTING_GUIDELINES.md) - How to contribute to this repository
+- [Versioning Strategy](VERSIONING.md) - Release management and versioning guidelines
 
 ## Getting Started
 
@@ -15,6 +16,7 @@ Welcome to the Terraform Modules documentation. This repository contains reusabl
 2. Check the [Modules Guide](MODULES.md) to understand how to use and create modules
 3. Follow the [Best Practices](BEST_PRACTICES.md) when working with modules
 4. Read the [Contributing Guidelines](CONTRIBUTING_GUIDELINES.md) if you want to contribute
+5. Understand the [Versioning Strategy](VERSIONING.md) for releases and changelog management
 
 ## References
 

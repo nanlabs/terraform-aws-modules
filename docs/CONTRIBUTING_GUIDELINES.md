@@ -27,11 +27,14 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contribu
    - Use clear, descriptive messages
    - Follow conventional commits format
    - Reference issues when applicable
+   - Include release type for version bumps (e.g., `release-type: minor`)
 
 3. **Pull Requests**
    - Create PRs early for discussion
    - Keep PRs focused and small
    - Update documentation
+   - **Update CHANGELOG.md** under `[Unreleased]` section
+   - **Specify release type** if changes should trigger a new version
    - Include tests and examples
 
 ## Module Development
@@ -49,6 +52,7 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contribu
 2. Update documentation
 3. Add migration guides if needed
 4. Test changes thoroughly
+5. **Consider versioning impact** - breaking changes require major version bump
 
 ## Testing
 
@@ -125,20 +129,81 @@ terraform-docs markdown . > README.md
 
 ## Release Process
 
-1. **Versioning**
-   - Follow semantic versioning
-   - Update version in module
-   - Tag releases properly
+This repository uses **automated releases** with semantic versioning. Contributors should follow these guidelines:
 
-2. **Changelog**
-   - Update CHANGELOG.md
-   - Document all changes
-   - Include migration notes
+### 🔖 Versioning Strategy
 
-3. **Documentation**
-   - Update all docs
-   - Generate new docs
-   - Review for accuracy
+We use **Semantic Versioning (SemVer)** with the format `vMAJOR.MINOR.PATCH`:
+
+- **MAJOR**: Breaking changes or incompatible API changes
+- **MINOR**: New features in a backwards-compatible manner (default)
+- **PATCH**: Backwards-compatible bug fixes
+
+### 📝 Changelog Management
+
+**Required for all contributions:**
+
+1. **Update CHANGELOG.md** under the `[Unreleased]` section
+2. **Categorize your changes:**
+   - `Added` - New features or modules
+   - `Changed` - Changes in existing functionality
+   - `Fixed` - Bug fixes
+   - `Security` - Vulnerability fixes
+   - `Deprecated` - Soon-to-be removed features
+   - `Removed` - Removed features
+
+**Example:**
+
+```markdown
+## [Unreleased]
+
+### Added
+- New AWS DocumentDB module (#123)
+
+### Fixed
+- Fixed VPC security group rules validation (#124)
+```
+
+### 🚀 Release Types
+
+Specify the release type in your PR description or commit message:
+
+- `release-type: major` - For breaking changes
+- `release-type: minor` - For new features (default)
+- `release-type: patch` - For bug fixes
+
+**Example commit:**
+
+```bash
+feat: add new EKS module with advanced networking
+
+release-type: minor
+
+- Added comprehensive EKS module
+- Includes VPC integration and security best practices
+```
+
+### 🤖 Automated Releases
+
+Releases are automatically triggered when:
+
+1. **Changes are merged to `main`** with updates to `CHANGELOG.md`
+2. **Module changes** are detected in the `modules/` directory
+3. **Manual trigger** via GitHub Actions workflow dispatch
+
+### 📋 Contributor Checklist
+
+Before submitting a PR:
+
+- [ ] Updated `CHANGELOG.md` under `[Unreleased]` section
+- [ ] Specified release type if changes should trigger a new version
+- [ ] Tested all changes locally
+- [ ] Updated module documentation if applicable
+- [ ] Followed semantic versioning principles
+
+### 📚 Additional Resources
+
+For detailed information about our versioning strategy, see [Versioning Strategy](VERSIONING.md).
 
 ## Getting Help
 
@@ -152,4 +217,5 @@ terraform-docs markdown . > README.md
 - [Development Setup](DEV_SETUP.md)
 - [Modules Guide](MODULES.md)
 - [Best Practices](BEST_PRACTICES.md)
+- [Versioning Strategy](VERSIONING.md)
 - [Awesome NAN](https://github.com/nanlabs/awesome-nan)
