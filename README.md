@@ -18,6 +18,7 @@ Building and maintaining infrastructure across cloud providers can become repeti
 - [Modules Guide](docs/MODULES.md) - How to use and create modules
 - [Best Practices](docs/BEST_PRACTICES.md) - Module design, input/output, tagging, and security guidelines
 - [Contributing Guidelines](docs/CONTRIBUTING_GUIDELINES.md) - How to contribute to this repository
+- [Versioning Strategy](docs/VERSIONING.md) - Release management and versioning guidelines
 
 ## Available Modules
 
@@ -44,8 +45,7 @@ Each module is designed to be used independently or composed with other modules.
 
 ```hcl
 module "vpc" {
-  source = "github.com/nanlabs/terraform-modules//modules/aws-vpc"
-  version = "1.0.0"
+  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.0.0"
 
   vpc_cidr = "10.0.0.0/16"
   # ... other variables
@@ -53,6 +53,69 @@ module "vpc" {
 ```
 
 See each module's README.md for detailed usage instructions and examples.
+
+## 🔖 Versioning & Release Strategy
+
+This repository uses **Semantic Versioning** (SemVer) with the format `vMAJOR.MINOR.PATCH`:
+
+- **MAJOR**: Incompatible API changes or breaking changes to existing modules
+- **MINOR**: New modules or backwards-compatible functionality additions
+- **PATCH**: Backwards-compatible bug fixes
+
+### 🚀 Automated Releases
+
+Releases are automatically created when:
+
+1. **Changes are merged to `main`** with updates to the `CHANGELOG.md` under the `[Unreleased]` section
+2. **Module changes are detected** in the `modules/` directory
+3. **Manual trigger** via GitHub Actions workflow dispatch
+
+### 📝 Release Types
+
+Specify the release type in your PR or commit message:
+
+- `release-type: major` - For breaking changes
+- `release-type: minor` - For new features (default)
+- `release-type: patch` - For bug fixes
+
+### 🎯 Using Specific Versions
+
+When consuming modules, always pin to a specific version:
+
+```hcl
+# ✅ Good - Pin to specific version
+module "example" {
+  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2.3"
+}
+
+# ⚠️ Acceptable - Pin to minor version (receives patches)
+module "example" {
+  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2"
+}
+
+# ❌ Avoid - Using latest or main branch
+module "example" {
+  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=main"
+}
+```
+
+### 🛠️ Manual Release Management
+
+Use the provided script for manual release operations:
+
+```bash
+# Validate changed modules
+./scripts/release-manager.sh validate-modules
+
+# Create a manual release
+./scripts/release-manager.sh create-release --type=minor
+
+# List all modules
+./scripts/release-manager.sh list-modules
+
+# Get help
+./scripts/release-manager.sh --help
+```
 
 ## Development
 
