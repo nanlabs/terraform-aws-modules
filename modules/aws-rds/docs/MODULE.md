@@ -16,7 +16,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds/aws | 6.1.1 |
+| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds/aws | 6.10.0 |
 
 ## Resources
 

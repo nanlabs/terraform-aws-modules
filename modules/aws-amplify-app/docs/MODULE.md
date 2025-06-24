@@ -16,7 +16,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 1.1.0 |
+| <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 1.4.0 |
 
 ## Resources
 
@@ -55,11 +55,15 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_app_id"></a> [app\_id](#output\_app\_id) | Amplify App ID |
+| <a name="output_app_url"></a> [app\_url](#output\_app\_url) | Default Amplify app URL |
 | <a name="output_arn"></a> [arn](#output\_arn) | Amplify App ARN |
 | <a name="output_backend_environments"></a> [backend\_environments](#output\_backend\_environments) | Created backend environments |
 | <a name="output_branch_names"></a> [branch\_names](#output\_branch\_names) | The names of the created Amplify branches |
 | <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | Amplify App domain (non-custom) |
 | <a name="output_domain_associations"></a> [domain\_associations](#output\_domain\_associations) | Created domain associations |
+| <a name="output_environments"></a> [environments](#output\_environments) | Deployed environments with their URLs |
+| <a name="output_github_pat_parameter_name"></a> [github\_pat\_parameter\_name](#output\_github\_pat\_parameter\_name) | SSM Parameter name for GitHub PAT |
 | <a name="output_name"></a> [name](#output\_name) | Amplify App name |
 | <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
 <!-- END_TF_DOCS -->

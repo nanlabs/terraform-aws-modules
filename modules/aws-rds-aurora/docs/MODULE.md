@@ -14,7 +14,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds-aurora/aws | 8.3.1 |
+| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds-aurora/aws | 8.7.0 |
 
 ## Resources
 
