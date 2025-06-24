@@ -1,0 +1,49 @@
+# Release Management
+
+This file is used to manage releases for the terraform-modules repository.
+
+## Current Version Strategy
+
+This repository uses **Semantic Versioning** (SemVer) with the format `vMAJOR.MINOR.PATCH`:
+
+- **MAJOR**: Incompatible API changes or breaking changes
+- **MINOR**: New functionality in a backwards compatible manner
+- **PATCH**: Backwards compatible bug fixes
+
+## Triggering Releases
+
+### Automatic Release (Recommended)
+
+Releases are automatically triggered when changes are detected in the `CHANGELOG.md` file under the `[Unreleased]` section during a merge to `main`.
+
+### Manual Release
+
+To manually trigger a release:
+
+1. Update this file with a release note
+2. Commit and push to main
+3. The release workflow will automatically detect changes and create a new version
+
+## Release Types
+
+Set the release type by adding one of these lines to your commit message or PR description:
+
+- `release-type: major` - For breaking changes
+- `release-type: minor` - For new features (default)
+- `release-type: patch` - For bug fixes
+
+If no release type is specified, `minor` will be used as default.
+
+## Manual Release Trigger
+
+<!--
+To trigger a manual release, update the content below and commit:
+Last manual release trigger: Never
+-->
+
+## Version History
+
+This section is automatically maintained by the release workflow.
+
+<!-- RELEASE_HISTORY_START -->
+<!-- RELEASE_HISTORY_END -->
