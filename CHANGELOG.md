@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.3.0] - 2025-06-24
 ### Added
 
 - Comprehensive usage guide with advanced patterns and best practices
@@ -24,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better separation of concerns between marketing content and technical documentation
 - Enhanced user experience with clearer navigation paths
 - More accessible entry points for different user types
+
 
 
 
@@ -101,7 +105,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.3.0
 [0.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.2.0
 [0.3.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.3.0
 [0.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.2.0
