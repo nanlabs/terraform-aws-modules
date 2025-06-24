@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-06-24
+
+### Added
+
+- Enhanced maintenance script for improved repository management
+- Terraform version and provider requirements to all examples
+- Comprehensive module documentation updates via terraform-docs automation
+- AWS VPC Endpoints module documentation
+
+### Changed
+
+- Updated all example configurations with proper version constraints
+- Enhanced README documentation for better clarity
+- Improved MongoDB Atlas cluster module documentation
+- Updated all modules with consistent Terraform version requirements
+
+### Fixed
+
+- Documentation consistency across all modules
+- Example configurations now include proper provider requirements
+
 ## [0.1.0] - 2025-06-24
 
 ### Added
@@ -49,20 +70,12 @@ When creating a release:
 4. Create a new empty [Unreleased] section
 
 ### Format:
-<<<<<<< HEAD
-=======
-
->>>>>>> 5d6d358174dd4b5cf42228f9ab7a0ca853c6d582
 ## [Version] - YYYY-MM-DD
 ### Category
 - Description of change (#PR-number)
 
 Links format:
-<<<<<<< HEAD
-[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v1.0.0...HEAD
-=======
-[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.2.0
 [0.1.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.1.0
->>>>>>> 5d6d358174dd4b5cf42228f9ab7a0ca853c6d582
-[1.0.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.0.0
 -->
