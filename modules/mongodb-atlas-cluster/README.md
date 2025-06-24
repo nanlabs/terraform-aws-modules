@@ -1,6 +1,17 @@
 # MongoDB Atlas Cluster Module
 
-This module creates a MongoDB Atlas cluster and configures a VPC peering connection between the Atlas cluster and the specified VPC.
+Terraform module that creates a complete MongoDB Atlas cluster with integrated project management, team configuration, VPC peering, and security controls. This is a **custom implementation** for MongoDB Atlas infrastructure.
+
+## Key Features
+
+This custom module provides comprehensive MongoDB Atlas cluster management:
+
+- **🏢 Project & Organization Management**: Automated project creation with team assignments and role-based access
+- **🔐 Security & Access Control**: IP access list management and team-based permissions
+- **🌐 Network Integration**: VPC peering configuration for secure connectivity
+- **🛡️ Enterprise Security**: Advanced authentication and network security controls
+- **⚙️ Production-Ready Configuration**: Optimized cluster settings for enterprise workloads
+- **🏷️ Consistent Resource Management**: Standardized project and cluster organization
 
 ## Usage
 
@@ -63,8 +74,28 @@ module "atlas_cluster" {
 }
 ```
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | >= 1.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | >= 1.0.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [mongodbatlas_project.project](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/project) | resource |
+| [mongodbatlas_teams.team](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/teams) | resource |
+| [mongodbatlas_project_ip_access_list.access_list](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/project_ip_access_list) | resource |
+| [mongodbatlas_cluster.cluster](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/cluster) | resource |
+
 ## Module Documentation
 
-The module documentation is generated with [terraform-docs](https://github.com/terraform-docs/terraform-docs) by running `terraform-docs md . > ./docs/MODULE.md` from the module directory.
-
-You can also view the latest version of the module documentation [here](./docs/MODULE.md).
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

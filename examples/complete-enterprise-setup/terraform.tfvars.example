@@ -1,0 +1,24 @@
+# Example terraform.tfvars file
+# Copy this file to terraform.tfvars and customize the values
+
+aws_region     = "us-east-1"
+project_name   = "enterprise"
+environment    = "prod"
+
+# EKS Configuration
+kubernetes_version = "1.31"
+
+# Route53 (required for MSK)
+route53_zone_id = "Z1D633PJN98FT9"  # Replace with your hosted zone ID
+
+# Database Configuration
+aurora_master_username = "postgres"
+aurora_master_password = "SuperSecurePassword123!"
+
+docdb_master_username = "docdb"
+docdb_master_password = "AnotherSecurePassword123!"
+
+# Feature toggles
+enable_gpu_nodes    = false  # Set to true if you need GPU workloads
+enable_msk         = true
+enable_documentdb  = true

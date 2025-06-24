@@ -1,6 +1,17 @@
-# EKS
+# AWS EKS Cluster Module
 
-Terraform module to provision an EKS cluster using the CloudPosse EKS module.
+Terraform module that provides an opinionated wrapper around the CloudPosse EKS modules with integrated VPC CNI optimization, node group management, and OIDC configuration.
+
+## Why This Wrapper Exists
+
+This wrapper adds significant value over using the base CloudPosse modules directly:
+
+- **🚀 VPC CNI Optimization**: Pre-configured VPC CNI addon with IP warming settings optimized for faster pod startup times
+- **🔧 Integrated Node Groups**: Simplified node group creation with sensible defaults and timeout configurations
+- **🔑 OIDC Integration**: Built-in OIDC provider setup for service account authentication
+- **📊 Enhanced Monitoring**: Pre-configured CloudWatch logging and monitoring with optimized retention periods
+- **🛡️ Security Hardening**: API-only authentication mode with proper access control configuration
+- **⚙️ Production-Ready Defaults**: Opinionated settings based on EKS best practices for enterprise workloads
 
 ## Usage
 
@@ -59,3 +70,8 @@ module "eks" {
     }
   ]
 }
+```
+
+## Module Documentation
+
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

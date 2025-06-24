@@ -51,3 +51,9 @@ variable "private_subnet_tags" {
   type        = map(any)
   default     = {}
 }
+
+variable "enable_flow_logs" {
+  description = "Enable VPC Flow Logs for security monitoring"
+  type        = bool
+  default     = true
+}

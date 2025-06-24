@@ -1,6 +1,17 @@
-# RDS Aurora Module
+# AWS RDS Aurora Module
 
-Terraform module to bootstrap a RDS Aurora instances and other database resources.
+Terraform module that provides an opinionated wrapper around the terraform-aws-modules RDS Aurora module with Serverless v2 optimization, enhanced monitoring, and production-ready clustering.
+
+## Why This Wrapper Exists
+
+This wrapper adds significant value over using the base terraform-aws-modules RDS Aurora directly:
+
+- **⚡ Serverless v2 Optimization**: Pre-configured Serverless v2 scaling with intelligent capacity management for cost efficiency
+- **📊 Enhanced Monitoring**: Built-in Performance Insights, CloudWatch monitoring, and backup configurations optimized for Aurora workloads
+- **🛡️ Security Hardening**: Encryption at rest, proper IAM role configuration, and secure parameter management
+- **🔧 Production-Ready Clustering**: Opinionated cluster configuration with proper backup retention and maintenance windows
+- **💰 Cost Optimization**: Intelligent scaling configuration that balances performance and cost for variable workloads
+- **🏷️ Consistent Tagging**: Standardized tag structure across all Aurora cluster resources
 
 ## Usage
 
@@ -25,8 +36,25 @@ module "db" {
 }
 ```
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds-aurora/aws | 8.3.1 |
+
 ## Module Documentation
 
-The module documentation is generated with [terraform-docs](https://github.com/terraform-docs/terraform-docs) by running `terraform-docs md . > ./docs/MODULE.md` from the module directory.
-
-You can also view the latest version of the module documentation [here](./docs/MODULE.md).
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

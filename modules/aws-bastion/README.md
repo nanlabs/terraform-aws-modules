@@ -1,6 +1,17 @@
-# Bastion Host Terraform Module
+# AWS Bastion Host Module
 
-Terraform module to bootstrap a bastion host in AWS using EC2.
+Terraform module that creates a secure, hardened bastion host in AWS using EC2 with Systems Manager Session Manager integration, VPC endpoints, and zero-trust network access.
+
+## Why This Module Exists
+
+This is a **custom implementation** (not a wrapper) that provides a complete secure bastion host solution with several key advantages:
+
+- **🔒 Zero Trust Security**: No inbound ports exposed, no SSH keys to manage, no public IP required
+- **🌐 VPC Endpoints Integration**: Uses SSM, EC2, and EC2 Instance Connect VPC endpoints for secure communication
+- **🛡️ Hardened Security**: Follows AWS security best practices with least privilege IAM roles and encrypted storage
+- **📊 Session Logging**: All sessions are logged through CloudWatch for compliance and auditing
+- **⚙️ Automated Configuration**: Cloud-init script for automated instance setup and configuration
+- **🔧 Enterprise Ready**: Production-grade security controls suitable for enterprise environments
 
 ## Summary
 
@@ -259,8 +270,27 @@ Solution:
 
 - [Enabling SSH connections through Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-getting-started-enable-ssh-connections.html#ssh-connections-enable)
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_bastion"></a> [bastion](#module\_bastion) | terraform-aws-modules/ec2-instance/aws | ~> 3.0 |
+| <a name="module_ec2_security_group"></a> [ec2\_security\_group](#module\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | n/a |
+| <a name="module_vpc_endpoints"></a> [vpc\_endpoints](#module\_vpc\_endpoints) | ../aws-vpc-endpoints | n/a |
+
 ## Module Documentation
 
-The module documentation is generated with [terraform-docs](https://github.com/terraform-docs/terraform-docs) by running `terraform-docs md . > ./docs/MODULE.md` from the module directory.
-
-You can also view the latest version of the module documentation [here](./docs/MODULE.md).
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

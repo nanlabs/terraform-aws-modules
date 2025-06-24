@@ -8,7 +8,7 @@ locals {
   # https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html#vpc-cni-latest-available-version
   vpc_cni_addon = {
     addon_name               = "vpc-cni"
-    addon_version            = "v1.18.6-eksbuild.1"
+    addon_version            = "v1.19.0-eksbuild.1"
     resolve_conflicts        = "OVERWRITE"
     service_account_role_arn = one(module.vpc_cni_eks_iam_role[*].service_account_role_arn)
     # Specify the VPC CNI addon should be deployed before compute to ensure
@@ -18,19 +18,55 @@ locals {
     configuration_values = jsonencode({
       env = {
         # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
-        WARM_IP_TARGET = "1"
+        WARM_IP_TARGET    = "1"
+        WARM_PREFIX_TARGET = "1"
+        # Enable prefix assignment mode for better IP utilization
+        ENABLE_PREFIX_DELEGATION = "true"
+        # Reduce cold start time
+        MINIMUM_IP_TARGET = "2"
       }
     })
   }
 
-  addons = concat(var.addons, [
+  # Default addons for better cluster functionality
+  default_addons = [
+    {
+      addon_name    = "kube-proxy"
+      addon_version = null
+      most_recent   = true
+    },
+    {
+      addon_name    = "coredns"
+      addon_version = null
+      most_recent   = true
+      configuration_values = jsonencode({
+        replicaCount = 2
+        resources = {
+          limits = {
+            memory = "170Mi"
+          }
+          requests = {
+            cpu    = "100m"
+            memory = "70Mi"
+          }
+        }
+      })
+    },
+    {
+      addon_name    = "aws-ebs-csi-driver"
+      addon_version = null
+      most_recent   = true
+    }
+  ]
+
+  addons = concat(var.addons, local.default_addons, [
     local.vpc_cni_addon
   ])
 }
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "4.4.1"
+  version = "4.9.0"
 
   subnet_ids                   = concat(var.private_subnets, var.public_subnets)
   kubernetes_version           = var.kubernetes_version
@@ -72,7 +108,7 @@ module "eks_cluster" {
 
 module "eks_node_groups" {
   source  = "cloudposse/eks-node-group/aws"
-  version = "3.1.1"
+  version = "3.2.0"
 
   for_each = { for idx, node_group in var.node_groups : idx => node_group }
 

@@ -1,0 +1,16 @@
+# Example terraform.tfvars file
+# Copy this file to terraform.tfvars and customize the values
+
+aws_region     = "us-east-1"
+project_name   = "my-app"
+environment    = "dev"
+
+# EKS Configuration
+kubernetes_version = "1.31"
+
+# RDS Configuration
+db_master_username = "appuser"
+db_master_password = "ChangeMe123!"  # Use a strong password in production
+
+# Infrastructure Options
+enable_bastion = true

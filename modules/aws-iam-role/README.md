@@ -1,6 +1,16 @@
-# Iam Role Module
+# AWS IAM Role Module
 
-Terraform module to create an AWS IAM role with a policy attached.
+Terraform module that creates flexible IAM roles with custom trust policies, inline policies, and managed policy attachments. This is a **custom implementation** designed for complex IAM scenarios.
+
+## Key Features
+
+This custom module provides advanced IAM role capabilities:
+
+- **🔐 Flexible Trust Policies**: Support for multiple principal types (AWS accounts, services, federated identities) with custom conditions
+- **📋 Multiple Policy Types**: Supports both inline policies and managed policy attachments
+- **🔧 Advanced Configuration**: Custom session duration, permissions boundary, and path configuration
+- **⚙️ Condition Support**: Dynamic conditions for enhanced security (MFA, source IP, time-based access)
+- **🏷️ Consistent Tagging**: Standardized tag structure with automatic name tagging
 
 ## Usage
 
@@ -59,8 +69,27 @@ module "role" {
 }
 ```
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+
 ## Module Documentation
 
-The module documentation is generated with [terraform-docs](https://github.com/terraform-docs/terraform-docs) by running `terraform-docs md . > ./docs/MODULE.md` from the module directory.
-
-You can also view the latest version of the module documentation [here](./docs/MODULE.md).
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

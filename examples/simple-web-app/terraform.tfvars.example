@@ -1,0 +1,15 @@
+# Example terraform.tfvars file
+# Copy this file to terraform.tfvars and customize the values
+
+aws_region     = "us-east-1"
+project_name   = "my-web-app"
+environment    = "dev"
+
+# GitHub repository for your web application
+github_repository = "https://github.com/yourusername/your-web-app"
+
+# SSM Parameter containing your GitHub Personal Access Token
+github_pat_parameter = "/my-project/github-pat"
+
+# Optional: Custom domain name (leave empty to use Amplify default domain)
+# domain_name = "app.example.com"

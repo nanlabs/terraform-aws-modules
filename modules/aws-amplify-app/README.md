@@ -1,6 +1,15 @@
 # AWS Amplify App Module
 
-Terraform module to bootstrap an AWS Amplify App.
+Terraform module that provides an opinionated wrapper around the CloudPosse Amplify App module with integrated GitHub Personal Access Token management via AWS Systems Manager Parameter Store.
+
+## Why This Wrapper Exists
+
+This wrapper adds several valuable features on top of the base CloudPosse module:
+
+- **🔐 Integrated GitHub PAT Management**: Automatically retrieves GitHub Personal Access Token from AWS Systems Manager Parameter Store, eliminating the need to pass sensitive tokens directly
+- **📋 Opinionated Defaults**: Pre-configured settings optimized for common React/Node.js applications
+- **🏷️ Consistent Tagging**: Standardized tag structure across all resources
+- **🔧 Simplified Interface**: Reduced complexity by exposing only the most commonly used parameters while maintaining full flexibility
 
 ## Usage
 
@@ -134,8 +143,31 @@ module "app" {
 }
 ```
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 1.1.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_ssm_parameter.github_pat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+
 ## Module Documentation
 
-The module documentation is generated with [terraform-docs](https://github.com/terraform-docs/terraform-docs) by running `terraform-docs md . > ./docs/MODULE.md` from the module directory.
-
-You can also view the latest version of the module documentation [here](./docs/MODULE.md).
+The complete module documentation with detailed inputs and outputs is auto-generated using [terraform-docs](https://github.com/terraform-docs/terraform-docs) and available in the [module documentation](./docs/MODULE.md).

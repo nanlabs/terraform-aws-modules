@@ -11,7 +11,7 @@ locals {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "5.17.0"
 
   name = var.name
 
@@ -29,6 +29,12 @@ module "vpc" {
 
   enable_dns_hostnames = true
   enable_dns_support   = true
+
+  # Enable VPC Flow Logs for better security monitoring
+  enable_flow_log                      = var.enable_flow_logs
+  create_flow_log_cloudwatch_log_group = var.enable_flow_logs
+  create_flow_log_cloudwatch_iam_role  = var.enable_flow_logs
+  flow_log_max_aggregation_interval    = 60
 
   create_database_subnet_group = true
   public_subnet_tags           = var.public_subnet_tags
