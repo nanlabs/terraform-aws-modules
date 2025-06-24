@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Comprehensive usage guide with advanced patterns and best practices
+- Complete technical documentation moved from README to dedicated guides
+- Enhanced module catalog with detailed information, features, and cost estimates
+
+### Changed
+
+- Simplified main README to focus on marketing and quick start while maintaining visual appeal
+- Moved detailed technical content to specialized documentation files
+- Reorganized documentation structure for better discoverability
+
+### Improved
+
+- Better separation of concerns between marketing content and technical documentation
+- Enhanced user experience with clearer navigation paths
+- More accessible entry points for different user types
+
 
 
 ## [0.2.0] - 2025-06-24

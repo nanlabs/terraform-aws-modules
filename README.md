@@ -86,32 +86,11 @@ cd examples/complete-enterprise-setup
 terraform init && terraform apply
 ```
 
-This repository contains reusable Terraform modules for various cloud providers and services. These modules follow best practices and are designed to be composable, maintainable, and secure.
+> 💡 **New here?** Check our [📚 Usage Guide](docs/USAGE.md) or jump to [🎪 Examples](examples/) • [📦 All Modules](#-available-modules)
 
-## 📋 Table of Contents
+## 🎯 Motivation
 
-- [🎯 How to Use This Repository](#-how-to-use-this-repository)
-- [✨ What Makes Our Modules Special?](#-what-makes-our-modules-special)
-- [🎪 Quick Start Examples](#-quick-start-examples)
-- [� Available Modules](#-available-modules)
-- [🚀 Module Usage](#-module-usage)
-- [🎯 Ready to Get Started?](#-ready-to-get-started)
-- [🔖 Versioning & Release Strategy](#-versioning--release-strategy)
-- [💻 Development](#development)
-- [🤝 Contributing](#-contributing)
-- [📚 Additional Resources](#-additional-resources)
-
-## Motivation
-
-Building and maintaining infrastructure across cloud providers can become repetitive and error-prone. This repository consolidates reusable Terraform modules following best practices, allowing your team to provision infrastructure efficiently, securely, and consistently—whether it’s an AWS VPC, a Kubernetes cluster, or a MongoDB Atlas database.
-
-## Documentation
-
-- [Development Setup](docs/DEV_SETUP.md) - How to set up your development environment
-- [Modules Guide](docs/MODULES.md) - How to use and create modules
-- [Best Practices](docs/BEST_PRACTICES.md) - Module design, input/output, tagging, and security guidelines
-- [Contributing Guidelines](docs/CONTRIBUTING_GUIDELINES.md) - How to contribute to this repository
-- [Versioning Strategy](docs/VERSIONING.md) - Release management and versioning guidelines
+Building and maintaining infrastructure across cloud providers can become repetitive and error-prone. This repository consolidates reusable Terraform modules following best practices, allowing your team to provision infrastructure efficiently, securely, and consistently—whether it's an AWS VPC, a Kubernetes cluster, or a MongoDB Atlas database.
 
 ## 📦 Available Modules
 
@@ -143,27 +122,20 @@ Building and maintaining infrastructure across cloud providers can become repeti
 |--------|-------------|-----------|
 | 🍃 [MongoDB Atlas Cluster](modules/mongodb-atlas-cluster/) | Managed MongoDB in the cloud | Global databases, serverless apps |
 
-## 🚀 Module Usage
+## 🚀 Quick Module Usage
 
 Each module is designed to be **plug-and-play** with sensible defaults, yet highly customizable for complex requirements.
 
-### Quick Start
-
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.0.0"
+  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v0.2.0"
 
   vpc_cidr = "10.0.0.0/16"
   # That's it! VPC with best practices is ready 🎉
 }
 ```
 
-### 💡 Pro Tips
-
-- **📌 Always pin versions**: Use specific tags (e.g., `?ref=v1.2.3`) for production
-- **🔍 Check examples**: Every module includes comprehensive examples
-- **📖 Read the docs**: Each module has detailed README with all options
-- **🧪 Test first**: Use examples to validate before customizing
+> 📖 **Need more details?** Check our [complete usage guide](docs/USAGE.md) with advanced patterns and best practices.
 
 ---
 
@@ -181,165 +153,6 @@ module "vpc" {
 </div>
 
 ---
-
-## 🔖 Versioning & Release Strategy
-
-This repository uses **Semantic Versioning** (SemVer) with the format `vMAJOR.MINOR.PATCH`:
-
-- **MAJOR**: Incompatible API changes or breaking changes to existing modules
-- **MINOR**: New modules or backwards-compatible functionality additions
-- **PATCH**: Backwards-compatible bug fixes
-
-### 🚀 Automated Releases
-
-Releases are automatically created when:
-
-1. **Changes are merged to `main`** with updates to the `CHANGELOG.md` under the `[Unreleased]` section
-2. **Module changes are detected** in the `modules/` directory
-3. **Manual trigger** via GitHub Actions workflow dispatch
-
-### 📝 Release Types
-
-Specify the release type in your PR or commit message:
-
-- `release-type: major` - For breaking changes
-- `release-type: minor` - For new features (default)
-- `release-type: patch` - For bug fixes
-
-### 🎯 Using Specific Versions
-
-When consuming modules, always pin to a specific version:
-
-```hcl
-# ✅ Good - Pin to specific version
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2.3"
-}
-
-# ⚠️ Acceptable - Pin to minor version (receives patches)
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2"
-}
-
-# ❌ Avoid - Using latest or main branch
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=main"
-}
-```
-
-### 🛠️ Manual Release Management
-
-Use the provided script for manual release operations:
-
-```bash
-# Validate changed modules
-./scripts/release-manager.sh validate-modules
-
-# Create a manual release
-./scripts/release-manager.sh create-release --type=minor
-
-# List all modules
-./scripts/release-manager.sh list-modules
-
-# Get help
-./scripts/release-manager.sh --help
-```
-
-## 🔖 Versioning & Release Strategy
-
-This repository uses **Semantic Versioning** (SemVer) with the format `vMAJOR.MINOR.PATCH`:
-
-- **MAJOR**: Incompatible API changes or breaking changes to existing modules
-- **MINOR**: New modules or backwards-compatible functionality additions
-- **PATCH**: Backwards-compatible bug fixes
-
-### 🚀 Automated Releases
-
-Releases are automatically created when:
-
-1. **Changes are merged to `main`** with updates to the `CHANGELOG.md` under the `[Unreleased]` section
-2. **Module changes are detected** in the `modules/` directory
-3. **Manual trigger** via GitHub Actions workflow dispatch
-
-### 📝 Release Types
-
-Specify the release type in your PR or commit message:
-
-- `release-type: major` - For breaking changes
-- `release-type: minor` - For new features (default)
-- `release-type: patch` - For bug fixes
-
-### 🎯 Using Specific Versions
-
-When consuming modules, always pin to a specific version:
-
-```hcl
-# ✅ Good - Pin to specific version
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2.3"
-}
-
-# ⚠️ Acceptable - Pin to minor version (receives patches)
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2"
-}
-
-# ❌ Avoid - Using latest or main branch
-module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=main"
-}
-```
-
-### 🛠️ Manual Release Management
-
-Use the provided script for manual release operations:
-
-```bash
-# Validate changed modules
-./scripts/release-manager.sh validate-modules
-
-# Create a manual release
-./scripts/release-manager.sh create-release --type=minor
-
-# List all modules
-./scripts/release-manager.sh list-modules
-
-# Get help
-./scripts/release-manager.sh --help
-```
-
-## Development
-
-### Prerequisites
-
-- [Git](https://git-scm.com/downloads)
-- [Docker](https://www.docker.com/products/docker-desktop)
-- [Visual Studio Code](https://code.visualstudio.com/) (recommended)
-- [AWS CLI](https://aws.amazon.com/cli/) (for AWS modules)
-- [MongoDB Atlas CLI](https://www.mongodb.com/docs/atlas/cli/stable/) (for MongoDB modules)
-
-### Development Container
-
-This repository includes a development container configuration that provides a consistent development environment. To use it:
-
-1. Install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in VS Code
-2. Open this repository in VS Code
-3. When prompted, click "Reopen in Container" or use the command palette (F1) and select "Remote-Containers: Reopen in Container"
-
-The development container includes:
-
-- Terraform CLI
-- terraform-docs
-- tfsec
-- Terragrunt
-- AWS CLI
-- MongoDB Atlas CLI
-- Pre-commit hooks
-- Linting tools
-
-### Local Setup
-
-If you prefer to set up your environment locally, see [Development Setup](docs/DEV_SETUP.md) for detailed instructions.
 
 ## 🤝 Contributing
 
@@ -360,17 +173,20 @@ We **love** contributions! Whether you're:
 4. **Code contributions** - Submit PRs for new features or fixes
 5. **Documentation** - Help improve guides and examples
 
-### 💝 Recognition
+## 📚 Documentation
 
-All contributors are recognized in our [Contributors Gallery](#contributors) below!
+<div align="center">
 
-## Code of Conduct
+| 📖 **Guide** | 🎯 **Purpose** |
+|:---:|:---:|
+| [📚 Usage Guide](docs/USAGE.md) | Complete module usage, versioning, and advanced patterns |
+| [🛠️ Development Setup](docs/DEV_SETUP.md) | Set up your development environment |
+| [📦 Modules Guide](docs/MODULES.md) | How to use and create modules |
+| [⭐ Best Practices](docs/BEST_PRACTICES.md) | Module design, security, and guidelines |
+| [🚀 Versioning Strategy](docs/VERSIONING.md) | Release management and versioning |
+| [🤝 Contributing](docs/CONTRIBUTING_GUIDELINES.md) | How to contribute to this repository |
 
-Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+</div>
 
 ## 📚 Additional Resources
 
@@ -378,6 +194,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 📖 [Terraform Documentation](https://www.terraform.io/docs/index.html) - Official Terraform docs
 - ☁️ [AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs) - AWS provider reference
 - 💬 [NaN Labs Blog](https://www.nan-labs.com/blog) - Technical articles and insights
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👥 Contributors
 
