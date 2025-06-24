@@ -4,6 +4,39 @@ This directory contains utility scripts for managing the terraform-modules repos
 
 ## Available Scripts
 
+### `maintenance.sh`
+
+A comprehensive script for maintaining the terraform-modules repository with common development tasks.
+
+**Features:**
+
+- Format all Terraform files
+- Validate all Terraform configurations
+- Generate module documentation
+- Run linting and security checks
+- Validate example configurations
+- Check for outdated versions
+- Full maintenance check combining all tasks
+
+**Usage:**
+
+```bash
+# Format all Terraform files
+./scripts/maintenance.sh format
+
+# Validate all configurations
+./scripts/maintenance.sh validate
+
+# Generate documentation
+./scripts/maintenance.sh docs
+
+# Run full maintenance check
+./scripts/maintenance.sh full-check
+
+# Get help
+./scripts/maintenance.sh help
+```
+
 ### `release-manager.sh`
 
 A comprehensive script for managing releases and validating Terraform modules in this repository.
