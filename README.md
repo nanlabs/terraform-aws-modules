@@ -211,7 +211,7 @@ Made with [contributors-img](https://contrib.rocks).
 
 ### 🌟 Built with ❤️ by [NaN Labs](https://www.nan-labs.com/)
 
-[![Website](https://img.shields.io/badge/website-nan-labs.com-blue?style=flat-square)](https://nan-labs.com/)
+[![Website](https://img.shields.io/badge/website-nan--labs.com-blue?style=flat-square)](https://nan-labs.com/)
 [![LinkedIn](https://img.shields.io/badge/linkedin-nanlabs-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/nan-labs/)
 
 🚀 Accelerating development through proven technology solutions
