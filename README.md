@@ -209,11 +209,10 @@ Made with [contributors-img](https://contrib.rocks).
 
 <div align="center">
 
-### 🌟 Built with ❤️ by [NaN Labs](https://www.nanlabs.com/)
+### 🌟 Built with ❤️ by [NaN Labs](https://www.nan-labs.com/)
 
-[![Website](https://img.shields.io/badge/website-nanlabs.com-blue?style=flat-square)](https://www.nanlabs.com/)
-[![Twitter](https://img.shields.io/badge/twitter-@nanlabs-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/nanlabs)
-[![LinkedIn](https://img.shields.io/badge/linkedin-nanlabs-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/nanlabs/)
+[![Website](https://img.shields.io/badge/website-nan-labs.com-blue?style=flat-square)](https://nan-labs.com/)
+[![LinkedIn](https://img.shields.io/badge/linkedin-nanlabs-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/nan-labs/)
 
 🚀 Accelerating development through proven technology solutions
 
