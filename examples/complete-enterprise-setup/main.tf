@@ -206,6 +206,14 @@ module "documentdb" {
   storage_encrypted = true
   tls_enabled       = true
 
+  # SSM Parameters for connection details
+  create_ssm_parameters = true
+  ssm_parameter_prefix  = "/enterprise/${local.cluster_name}/docdb"
+
+  # Secrets Manager for credentials
+  create_secret = true
+  secret_prefix = "enterprise/${local.cluster_name}/docdb"
+
   tags = local.common_tags
 }
 

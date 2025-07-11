@@ -1,4 +1,4 @@
-# Create a random initial password for the RDS Postgres
+# Create a random initial password for the DocumentDB cluster
 resource "random_password" "rds_password" {
   length           = 16
   special          = true
@@ -7,30 +7,31 @@ resource "random_password" "rds_password" {
 
 locals {
   # if var.master_password is not set, use the random password
-  password = var.master_password != "" ? var.master_password : random_password.rds_password.result
-  username = var.master_username
+  password      = var.master_password != "" ? var.master_password : random_password.rds_password.result
+  username      = var.master_username
+  secret_prefix = var.secret_prefix != "" ? var.secret_prefix : "${var.name}/docdb"
 }
 
 resource "aws_secretsmanager_secret" "secret" {
-  description = "DocumentDB Credentials of ${var.db_name} service"
-  name        = "${var.name}/docdb-connection-secret"
+  count = var.create_secret ? 1 : 0
+
+  description = "DocumentDB Credentials for ${var.db_name} cluster"
+  name        = "${local.secret_prefix}-credentials"
+
+  tags = var.tags
 }
 
 resource "aws_secretsmanager_secret_version" "secret" {
+  count = var.create_secret ? 1 : 0
+
   lifecycle {
     ignore_changes = [
       secret_string
     ]
   }
-  secret_id     = aws_secretsmanager_secret.secret.id
-  secret_string = <<EOF
-{
-  "username": "${local.username}",
-  "password": "${local.password}",
-  "engine": "${aws_docdb_cluster.this.*.engine}",
-  "host": "${aws_docdb_cluster.this.*.endpoint}",
-  "port": "${aws_docdb_cluster.this.*.port}",
-  "dbname" : "${var.db_name}"
-}
-EOF
+  secret_id = aws_secretsmanager_secret.secret[0].id
+  secret_string = jsonencode({
+    username = local.username
+    password = local.password
+  })
 }

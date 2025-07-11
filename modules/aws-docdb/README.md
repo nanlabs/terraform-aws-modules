@@ -6,7 +6,8 @@ Terraform module that creates a complete Amazon DocumentDB (MongoDB-compatible) 
 
 This custom module provides comprehensive DocumentDB cluster management:
 
-- **🔐 Integrated Secrets Management**: Secure credential storage in AWS Systems Manager Parameter Store
+- **🔐 Integrated Secrets Management**: Secure credential storage in AWS Secrets Manager
+- **📋 SSM Parameter Integration**: Automatic creation of SSM parameters for cluster connection details
 - **🛡️ Security Hardening**: Encryption at rest, TLS configuration, and security group management
 - **📊 Enhanced Monitoring**: CloudWatch logging integration and cluster parameter optimization
 - **⚙️ Production-Ready Defaults**: Opinionated backup, maintenance, and performance configurations
@@ -29,6 +30,78 @@ module "db" {
 
   instance_class = "db.t3.medium"
   cluster_size   = 2
+
+  # SSM Parameters (enabled by default)
+  create_ssm_parameters = true
+}
+```
+
+## AWS Secrets Manager Integration
+
+The module automatically creates an AWS Secrets Manager secret containing DocumentDB credentials. This feature can be controlled with the `create_secret` variable (enabled by default).
+
+### Created Secret
+
+When `create_secret = true`, a secret is created containing:
+
+- `username` - Master username for the DocumentDB cluster
+- `password` - Master password for the DocumentDB cluster
+
+The secret name follows the pattern: `{secret_prefix}-credentials`
+
+### Custom Secret Prefix
+
+You can customize the secret name using the `secret_prefix` variable:
+
+```hcl
+module "docdb" {
+  source = "../../modules/aws-docdb"
+
+  name = "my-docdb-cluster"
+  secret_prefix = "myapp/production/docdb"
+  
+  # ... other configuration
+}
+```
+
+If not specified, the secret prefix defaults to `{name}/docdb`.
+
+## SSM Parameters
+
+The module automatically creates SSM parameters for easy retrieval of DocumentDB cluster connection details. This feature can be controlled with the `create_ssm_parameters` variable (enabled by default).
+
+### Created Parameters
+
+When `create_ssm_parameters = true`, the following SSM parameters are created:
+
+- `/{name}/cluster_endpoint` - Writer endpoint for the cluster
+- `/{name}/cluster_reader_endpoint` - Read-only endpoint for the cluster
+- `/{name}/cluster_identifier` - DocumentDB cluster identifier
+- `/{name}/cluster_arn` - Amazon Resource Name (ARN) of the cluster
+- `/{name}/port` - Port on which the cluster accepts connections (27017)
+- `/{name}/engine` - Database engine (docdb)
+- `/{name}/engine_version` - Engine version
+- `/{name}/master_username` - Master username (SecureString)
+- `/{name}/security_group_id` - ID of the security group
+- `/{name}/cluster_resource_id` - DocumentDB cluster resource ID
+
+When both `create_ssm_parameters = true` and `create_secret = true`, additional parameters are created:
+
+- `/{name}/connection_secret_arn` - ARN of the connection secret in Secrets Manager
+- `/{name}/connection_secret_name` - Name of the connection secret in Secrets Manager
+
+### Custom SSM Prefix
+
+You can customize the SSM parameter prefix using the `ssm_parameter_prefix` variable:
+
+```hcl
+module "docdb" {
+  source = "../../modules/aws-docdb"
+
+  name = "my-docdb-cluster"
+  ssm_parameter_prefix = "/myapp/production/docdb"
+  
+  # ... other configuration
 }
 ```
 

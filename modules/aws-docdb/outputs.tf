@@ -31,10 +31,30 @@ output "reader_endpoint" {
 
 output "connection_secret_name" {
   description = "The name of the AWS Secrets Manager secret created"
-  value       = aws_secretsmanager_secret.secret.name
+  value       = var.create_secret ? aws_secretsmanager_secret.secret[0].name : null
 }
 
 output "connection_secret_arn" {
   description = "The ARN of the AWS Secrets Manager secret created"
-  value       = aws_secretsmanager_secret.secret.arn
+  value       = var.create_secret ? aws_secretsmanager_secret.secret[0].arn : null
+}
+
+# SSM Parameter Outputs
+output "ssm_parameter_names" {
+  description = "Names of the created SSM parameters for DocumentDB cluster details"
+  value = var.create_ssm_parameters ? merge({
+    cluster_endpoint        = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_endpoint"
+    cluster_reader_endpoint = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_reader_endpoint"
+    cluster_identifier      = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_identifier"
+    cluster_arn             = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_arn"
+    port                    = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/port"
+    engine                  = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/engine"
+    engine_version          = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/engine_version"
+    master_username         = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/master_username"
+    security_group_id       = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/security_group_id"
+    cluster_resource_id     = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_resource_id"
+    }, var.create_secret ? {
+    connection_secret_arn  = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/connection_secret_arn"
+    connection_secret_name = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/connection_secret_name"
+  } : {}) : {}
 }

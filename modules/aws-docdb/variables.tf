@@ -127,3 +127,27 @@ variable "tags" {
   type        = map(any)
   default     = {}
 }
+
+variable "create_ssm_parameters" {
+  description = "Whether to create SSM parameters for DocumentDB cluster details"
+  type        = bool
+  default     = true
+}
+
+variable "ssm_parameter_prefix" {
+  description = "Prefix for SSM parameter names. If not provided, will use '/{name}'"
+  type        = string
+  default     = ""
+}
+
+variable "create_secret" {
+  description = "Whether to create AWS Secrets Manager secret for DocumentDB credentials"
+  type        = bool
+  default     = true
+}
+
+variable "secret_prefix" {
+  description = "Prefix for secret name. If not provided, will use the cluster name"
+  type        = string
+  default     = ""
+}
