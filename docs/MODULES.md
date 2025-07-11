@@ -64,7 +64,7 @@ module "vpc" {
 
 - **Path**: `modules/aws-rds/`
 - **Description**: Complete wrapper around terraform-aws-modules/rds/aws with strong defaults
-- **Features**: 
+- **Features**:
   - Multi-AZ, automated backups, monitoring
   - Performance Insights, CloudWatch logs
   - Encryption, parameter groups, option groups
@@ -78,14 +78,14 @@ module "vpc" {
 ```hcl
 module "rds" {
   source = "../../modules/aws-rds"
-  
+
   name = "my-app-db"
   tags = { Environment = "production" }
-  
+
   engine          = "postgres"
   engine_version  = "16.3"
   instance_class  = "db.t4g.micro"
-  
+
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = module.vpc.database_subnet_group
 }
@@ -95,10 +95,10 @@ module "rds" {
 ```hcl
 module "rds" {
   source = "../../modules/aws-rds"
-  
+
   name = "my-production-db"
   tags = { Environment = "production" }
-  
+
   # Full customization available
   engine               = "postgres"
   engine_version       = "16.3"
@@ -106,7 +106,7 @@ module "rds" {
   allocated_storage    = 100
   max_allocated_storage = 1000
   multi_az            = true
-  
+
   performance_insights_enabled = true
   monitoring_interval          = 60
   backup_retention_period      = 14
