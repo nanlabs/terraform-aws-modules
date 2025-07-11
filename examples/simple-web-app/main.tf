@@ -11,14 +11,21 @@ locals {
 module "vpc" {
   source = "../../modules/aws-vpc"
 
-  name           = "${var.project_name}-${var.environment}"
-  vpc_cidr_block = "10.0.0.0/16"
-  azs_count      = 3
+  name = "${var.project_name}-${var.environment}"
+  tags = local.common_tags
 
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
-  enable_flow_logs     = true
+  # VPC Configuration
+  cidr     = "10.0.0.0/16"
+  azs_count = 3
 
+  # NAT Gateway Configuration
+  enable_nat_gateway = true
+  single_nat_gateway = true
+
+  # Flow Logs
+  enable_flow_log = true
+
+  # Subnet Tags
   public_subnet_tags = {
     "Type" = "public"
     "kubernetes.io/role/elb" = "1"
@@ -28,8 +35,6 @@ module "vpc" {
     "Type" = "private"
     "kubernetes.io/role/internal-elb" = "1"
   }
-
-  tags = local.common_tags
 }
 
 # Deploy Amplify Application

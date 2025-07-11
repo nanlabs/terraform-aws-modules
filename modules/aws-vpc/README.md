@@ -1,29 +1,79 @@
 # AWS VPC Module
 
-Terraform module that provides an opinionated wrapper around the terraform-aws-modules VPC module with enhanced subnet management, existing VPC support, and integrated parameter storage.
+Complete Terraform wrapper around the official `terraform-aws-modules/vpc/aws` module with opinionated defaults and enhanced functionality.
 
 ## Why This Wrapper Exists
 
 This wrapper adds significant value over using the base terraform-aws-modules VPC directly:
 
-- **🔄 Existing VPC Support**: Ability to use existing VPCs while maintaining consistent interface and outputs
-- **📐 Intelligent Subnet Calculation**: Automatic subnet CIDR calculation based on availability zones with optimized address space utilization
-- **💾 Parameter Store Integration**: Stores VPC information in AWS Systems Manager Parameter Store for easy reference by other modules
+- **� Complete Wrapper**: Exposes ALL variables from the underlying module with sensible defaults
+- **�🔄 Existing VPC Support**: Can work with existing VPCs while maintaining consistent interface
+- **📐 Intelligent Subnet Calculation**: Automatic subnet CIDR calculation based on availability zones 
+- **💾 Parameter Store Integration**: Stores VPC information in AWS Systems Manager Parameter Store
 - **🏷️ Consistent Tagging**: Standardized tag structure across all VPC resources
-- **🔧 Opinionated Defaults**: Pre-configured settings for DNS, NAT Gateway, and subnet configurations optimized for enterprise workloads
-- **📊 Enhanced Outputs**: Additional computed outputs for better integration with other infrastructure components
+- **�️ Security Defaults**: Pre-configured security settings (Flow Logs, DNS, etc.)
+- **📊 Enhanced Outputs**: All outputs from underlying module plus custom additions
 
 ## Usage
+
+### Simple Usage (Recommended)
 
 ```hcl
 module "vpc" {
   source = "../../modules/aws-vpc"
-
-  name = "shared-vpc"
-
-  vpc_cidr_block = "10.0.0.0/16"
+  
+  name = "my-vpc"
+  tags = {
+    Environment = "production"
+    Team        = "platform"
+  }
 }
 ```
+
+### Advanced Usage (Full Customization)
+
+```hcl
+module "vpc" {
+  source = "../../modules/aws-vpc"
+  
+  # Shared variables
+  name = "my-vpc"
+  tags = { Environment = "production" }
+  
+  # VPC Configuration
+  cidr                     = "172.16.0.0/16"
+  enable_nat_gateway       = true
+  single_nat_gateway       = false
+  enable_vpn_gateway       = true
+  enable_flow_log          = true
+  flow_log_destination_type = "s3"
+  
+  # Subnets
+  public_subnets   = ["172.16.1.0/24", "172.16.2.0/24"]
+  private_subnets  = ["172.16.11.0/24", "172.16.12.0/24"]
+  database_subnets = ["172.16.21.0/24", "172.16.22.0/24"]
+  
+  # Custom subnet tags
+  public_subnet_tags = {
+    Type = "public"
+    "kubernetes.io/role/elb" = "1"
+  }
+  private_subnet_tags = {
+    Type = "private" 
+    "kubernetes.io/role/internal-elb" = "1"
+  }
+}
+```
+
+## Module Structure
+
+This module follows our standardized pattern:
+
+- `variables.tf` - Shared variables (name, tags, azs_count)
+- `vpc-variables.tf` - All VPC-specific variables (complete wrapper)
+- `vpc.tf` - VPC module implementation
+- `outputs.tf` - Shared outputs (name, azs, legacy aliases, SSM parameters)
+- `vpc-outputs.tf` - All VPC-specific outputs (complete wrapper)
 
 ## Requirements
 
@@ -42,7 +92,7 @@ module "vpc" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 5.21.0 |
 
 ## Resources
 

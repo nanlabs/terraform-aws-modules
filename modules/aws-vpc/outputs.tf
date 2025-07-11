@@ -1,53 +1,26 @@
-output "vpc_id" {
-  description = "value of the vpc_id output from the vpc module"
-  value       = module.vpc.vpc_id
+# Static values (arguments)
+output "azs" {
+  description = "A list of availability zones specified as argument to this module"
+  value       = local.azs
 }
 
-output "public_subnets" {
-  description = "value of the public_subnets output from the vpc module"
-  value       = module.vpc.public_subnets
+output "name" {
+  description = "The name of the VPC specified as argument to this module"
+  value       = var.name
 }
 
-output "private_subnets" {
-  description = "value of the private_subnets output from the vpc module"
-  value       = module.vpc.private_subnets
-}
-
-output "database_subnets" {
-  description = "value of the database_subnets output from the vpc module"
-  value       = module.vpc.database_subnets
-}
-
-output "database_subnet_group" {
-  description = "value of the database_subnet_group output from the vpc module"
-  value       = module.vpc.database_subnet_group
-}
-
+# Legacy aliases for backwards compatibility
 output "app_subnets" {
-  description = "value of the app_subnets output from the vpc module. It is an alias for the private_subnets output"
+  description = "Legacy alias for private_subnets"
   value       = module.vpc.private_subnets
-}
-
-output "app_security_group" {
-  description = "value of the app_security_group output from the vpc module"
-  value       = module.app_security_group.security_group_id
 }
 
 output "default_security_group_id" {
-  description = "value of the default_security_group_id output from the vpc module"
-  value       = module.vpc.default_security_group_id
+  description = "Legacy alias for vpc_default_security_group_id"
+  value       = module.vpc.vpc_default_security_group_id
 }
 
-output "public_route_table_ids" {
-  description = "List of IDs of public route tables"
-  value       = module.vpc.public_route_table_ids
-}
-
-output "private_route_table_ids" {
-  description = "List of IDs of private route tables"
-  value       = module.vpc.private_route_table_ids
-}
-
+# SSM Parameters
 output "ssm_parameter_vpc_id" {
   description = "name of the ssm parameter for the vpc id"
   value       = aws_ssm_parameter.vpc_id.name

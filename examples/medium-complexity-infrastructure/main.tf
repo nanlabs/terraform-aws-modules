@@ -13,14 +13,21 @@ locals {
 module "vpc" {
   source = "../../modules/aws-vpc"
 
-  name           = local.cluster_name
-  vpc_cidr_block = "10.0.0.0/16"
-  azs_count      = 3
+  name = local.cluster_name
+  tags = local.common_tags
 
-  enable_nat_gateway   = true
-  single_nat_gateway   = false  # Multi-AZ for production-like setup
-  enable_flow_logs     = true
+  # VPC Configuration
+  cidr     = "10.0.0.0/16"
+  azs_count = 3
 
+  # NAT Gateway Configuration (Multi-AZ for production-like setup)
+  enable_nat_gateway = true
+  single_nat_gateway = false
+
+  # Flow Logs
+  enable_flow_log = true
+
+  # Subnet Tags for EKS
   public_subnet_tags = {
     "Type" = "public"
     "kubernetes.io/role/elb" = "1"
@@ -32,8 +39,6 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
-
-  tags = local.common_tags
 }
 
 # EKS Cluster

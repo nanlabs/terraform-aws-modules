@@ -9,10 +9,48 @@ This guide explains how to use and create modules in this repository, along with
 #### 🌐 AWS VPC
 
 - **Path**: `modules/aws-vpc/`
-- **Description**: Virtual Private Cloud with best practices
-- **Features**: Multi-AZ subnets, NAT Gateway, Internet Gateway, Route tables
+- **Description**: Complete wrapper around terraform-aws-modules/vpc/aws with strong defaults
+- **Features**: 
+  - Multi-AZ subnets (public, private, database)
+  - NAT Gateway, Internet Gateway, Route tables
+  - VPC Flow Logs, DNS configuration
+  - SSM parameter storage for outputs
+  - Complete customization support
 - **Use Cases**: Network foundation, multi-AZ setup, isolated environments
 - **Example Cost**: ~$45/month (with NAT Gateway)
+- **Module Version**: terraform-aws-modules/vpc/aws v5.21.0
+
+**Simple Usage:**
+```hcl
+module "vpc" {
+  source = "../../modules/aws-vpc"
+  
+  name = "my-vpc"
+  tags = {
+    Environment = "production"
+  }
+}
+```
+
+**Advanced Usage:**
+```hcl
+module "vpc" {
+  source = "../../modules/aws-vpc"
+  
+  name = "my-vpc"
+  tags = { Environment = "production" }
+  
+  # Full customization available
+  cidr                = "172.16.0.0/16"
+  enable_nat_gateway  = true
+  single_nat_gateway  = false
+  enable_flow_log     = true
+  
+  public_subnets   = ["172.16.1.0/24", "172.16.2.0/24"]
+  private_subnets  = ["172.16.11.0/24", "172.16.12.0/24"]
+  database_subnets = ["172.16.21.0/24", "172.16.22.0/24"]
+}
+```
 
 #### ⚡ AWS EKS
 

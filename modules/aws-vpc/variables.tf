@@ -1,59 +1,19 @@
+# Shared Module Variables
 variable "name" {
   description = "Name to be used on all the resources as identifier"
   type        = string
   default     = ""
 }
 
-variable "vpc_id" {
-  description = "VPC to use. Leave blank to create a new VPC."
-  type        = string
-  default     = ""
-}
-
-variable "vpc_cidr_block" {
-  description = "VPC CIDR Block to use if creating a new VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "enable_nat_gateway" {
-  description = "Enable NAT Gateways for each private subnet"
-  type        = bool
-  default     = true
-}
-
-variable "single_nat_gateway" {
-  description = "Use a single NAT Gateway for all private subnets"
-  type        = bool
-  default     = true
-}
-
 variable "tags" {
-  description = "Any extra tags to assign to objects"
-  type        = map(any)
+  description = "A map of tags to add to all resources"
+  type        = map(string)
   default     = {}
 }
 
+# Helper variables for backwards compatibility and convenience
 variable "azs_count" {
-  description = "Number of Availability Zones to use. This value is used to determine the number of public and private subnets to create."
+  description = "Number of Availability Zones to use. This value is used to determine the number of public and private subnets to create when azs is not specified."
   type        = number
   default     = 3
-}
-
-variable "public_subnet_tags" {
-  description = "Any extra tags to assign to public subnets"
-  type        = map(any)
-  default     = {}
-}
-
-variable "private_subnet_tags" {
-  description = "Any extra tags to assign to private subnets"
-  type        = map(any)
-  default     = {}
-}
-
-variable "enable_flow_logs" {
-  description = "Enable VPC Flow Logs for security monitoring"
-  type        = bool
-  default     = true
 }

@@ -2,6 +2,8 @@
 
 This document outlines the best practices for developing and maintaining Terraform modules in this repository.
 
+> 📋 **New Module Pattern**: For detailed information about our standardized module development pattern, see [Module Development Pattern](MODULE_DEVELOPMENT_PATTERN.md)
+
 ## Module Design
 
 ### General Principles
