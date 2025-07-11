@@ -170,3 +170,21 @@ output "db_instance_role_associations" {
   description = "A map of DB Instance Identifiers and IAM Role ARNs separated by a comma"
   value       = module.db.db_instance_role_associations
 }
+
+# SSM Parameter Outputs
+output "ssm_parameter_names" {
+  description = "Names of the created SSM parameters for RDS instance details"
+  value = var.create_ssm_parameters ? {
+    address                = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/address"
+    endpoint               = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/endpoint"
+    db_name                = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/db_name"
+    port                   = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/port"
+    engine                 = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/engine"
+    engine_version_actual  = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/engine_version_actual"
+    master_username        = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/master_username"
+    master_user_secret_arn = var.manage_master_user_password ? "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/master_user_secret_arn" : null
+    arn                    = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/arn"
+    resource_id            = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/resource_id"
+    availability_zone      = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/availability_zone"
+  } : {}
+}

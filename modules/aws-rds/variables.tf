@@ -10,3 +10,15 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "create_ssm_parameters" {
+  description = "Whether to create SSM parameters for RDS instance details"
+  type        = bool
+  default     = true
+}
+
+variable "ssm_parameter_prefix" {
+  description = "Prefix for SSM parameter names. If not provided, will use '/{name}'"
+  type        = string
+  default     = ""
+}

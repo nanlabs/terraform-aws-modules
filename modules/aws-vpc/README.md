@@ -6,6 +6,14 @@ Complete Terraform wrapper around the official `terraform-aws-modules/vpc/aws` m
 
 This wrapper adds significant value over using the base terraform-aws-modules VPC directly:
 
+- **🎛️ Complete Wrapper**: Exposes ALL variables from the underlying module with sensible defaults
+- **🔄 Existing VPC Support**: Can work with existing VPCs while maintaining consistent interface
+- **📐 Intelligent Subnet Calculation**: Automatic subnet CIDR calculation based on availability zones
+- **📋 Parameter Store Integration**: Stores VPC information in AWS Systems Manager Parameter Store
+- **🏷️ Consistent Tagging**: Standardized tag structure across all VPC resources
+- **🛡️ Security Defaults**: Pre-configured security settings (Flow Logs, DNS, etc.)
+- **📊 Enhanced Outputs**: All outputs from underlying module plus custom additions
+
 - **Complete Wrapper**: Exposes ALL variables from the underlying module with sensible defaults
 - **Existing VPC Support**: Can work with existing VPCs while maintaining consistent interface
 - **📐 Intelligent Subnet Calculation**: Automatic subnet CIDR calculation based on availability zones

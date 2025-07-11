@@ -35,6 +35,9 @@ module "vpc" {
     "Type" = "private"
     "kubernetes.io/role/internal-elb" = "1"
   }
+
+  # SSM Parameters for VPC details
+  create_ssm_parameters = true
 }
 
 # Deploy Amplify Application

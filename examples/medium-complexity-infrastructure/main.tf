@@ -39,6 +39,9 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
+
+  # SSM Parameters for VPC details
+  create_ssm_parameters = true
 }
 
 # EKS Cluster
@@ -133,6 +136,9 @@ module "rds" {
   multi_az            = false  # Set to true for production
   skip_final_snapshot = true   # Set to false for production
   publicly_accessible = false
+
+  # SSM Parameters for database connection details
+  create_ssm_parameters = true
 }
 
 # Security Groups

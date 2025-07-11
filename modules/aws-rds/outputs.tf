@@ -7,15 +7,15 @@ output "name" {
 # SSM Parameters
 output "ssm_parameter_rds_endpoint" {
   description = "Name of the SSM parameter for RDS endpoint"
-  value       = aws_ssm_parameter.address.name
+  value       = var.create_ssm_parameters ? aws_ssm_parameter.address[0].name : null
 }
 
 output "ssm_parameter_rds_port" {
   description = "Name of the SSM parameter for RDS port"
-  value       = aws_ssm_parameter.port.name
+  value       = var.create_ssm_parameters ? aws_ssm_parameter.port[0].name : null
 }
 
 output "ssm_parameter_rds_database_name" {
   description = "Name of the SSM parameter for RDS database name"
-  value       = aws_ssm_parameter.name.name
+  value       = var.create_ssm_parameters ? aws_ssm_parameter.name[0].name : null
 }
