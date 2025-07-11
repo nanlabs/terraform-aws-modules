@@ -114,34 +114,40 @@ module "aurora" {
   name = "${local.cluster_name}-aurora"
 
   # Database configuration
-  db_engine         = "aurora-postgresql"
-  db_engine_version = "15.8"
-  db_instance_class = "db.r5.large"
+  engine         = "aurora-postgresql"
+  engine_version = "15.8"
 
   # Cluster configuration
-  db_instances = {
-    1 = {}
-    2 = {}  # Read replica
+  instances = {
+    one = {
+      instance_class = "db.r5.large"
+    }
+    two = {
+      instance_class = "db.r5.large"
+    }
   }
 
   # Database details
-  db_name            = "enterprise"
-  db_master_username = var.aurora_master_username
-  db_master_password = var.aurora_master_password
-  db_port            = 5432
+  database_name    = "enterprise"
+  master_username  = var.aurora_master_username
+  master_password  = var.aurora_master_password
+  port             = 5432
 
   # Network
-  vpc_id                 = module.vpc.vpc_id
-  db_subnet_group        = module.vpc.database_subnet_group
-  vpc_security_group_ids = [aws_security_group.aurora.id]
+  vpc_id                    = module.vpc.vpc_id
+  db_subnet_group_name      = module.vpc.database_subnet_group
+  vpc_security_group_ids    = [aws_security_group.aurora.id]
 
   # Backup and maintenance
-  db_backup_retention_period = 14
-  db_backup_window          = "03:00-04:00"
-  db_maintenance_window     = "sun:04:00-sun:05:00"
+  backup_retention_period       = 14
+  preferred_backup_window       = "03:00-04:00"
+  preferred_maintenance_window  = "sun:04:00-sun:05:00"
 
-  enable_skip_final_snapshot = false  # Production setting
-  enable_public_access      = false
+  skip_final_snapshot = false  # Production setting
+  publicly_accessible = false
+
+  # SSM Parameters for connection details
+  create_ssm_parameters = true
 
   tags = local.common_tags
 }
