@@ -38,13 +38,13 @@ module "aurora_cluster" {
   # Aurora-specific configuration
   engine          = "aurora-postgresql"
   engine_version  = "15.4"
-  
+
   vpc_id             = "vpc-1234567890"
   db_subnet_group_name = "my-db-subnet-group"
-  
+
   master_username = "postgres"
   database_name   = "myapp"
-  
+
   instances = {
     one = {
       instance_class = "db.serverless"
@@ -53,12 +53,12 @@ module "aurora_cluster" {
       instance_class = "db.serverless"
     }
   }
-  
+
   serverlessv2_scaling_configuration = {
     max_capacity = 2.0
     min_capacity = 0.5
   }
-  
+
   # SSM Parameters (enabled by default)
   create_ssm_parameters = true
 }
@@ -73,7 +73,7 @@ The module automatically creates SSM parameters for easy retrieval of Aurora clu
 When `create_ssm_parameters = true`, the following SSM parameters are created:
 
 - `/{name}/cluster_endpoint` - Writer endpoint for the cluster
-- `/{name}/cluster_reader_endpoint` - Read-only endpoint for the cluster  
+- `/{name}/cluster_reader_endpoint` - Read-only endpoint for the cluster
 - `/{name}/cluster_database_name` - Name of the created database
 - `/{name}/cluster_port` - Port on which the cluster accepts connections
 - `/{name}/cluster_master_username` - Master username (SecureString)
@@ -93,7 +93,7 @@ module "aurora_cluster" {
 
   name = "my-aurora-cluster"
   ssm_parameter_prefix = "/myapp/production/aurora"
-  
+
   # ... other configuration
 }
 ```

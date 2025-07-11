@@ -5,7 +5,7 @@ locals {
 
 resource "aws_ssm_parameter" "address" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/address"
   type  = "String"
   value = module.db.db_instance_address
@@ -15,7 +15,7 @@ resource "aws_ssm_parameter" "address" {
 
 resource "aws_ssm_parameter" "endpoint" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/endpoint"
   type  = "String"
   value = module.db.db_instance_endpoint
@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "endpoint" {
 
 resource "aws_ssm_parameter" "name" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/db_name"
   type  = "String"
   value = module.db.db_instance_name
@@ -35,7 +35,7 @@ resource "aws_ssm_parameter" "name" {
 
 resource "aws_ssm_parameter" "port" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/port"
   type  = "String"
   value = tostring(module.db.db_instance_port)
@@ -45,7 +45,7 @@ resource "aws_ssm_parameter" "port" {
 
 resource "aws_ssm_parameter" "engine" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/engine"
   type  = "String"
   value = module.db.db_instance_engine
@@ -55,7 +55,7 @@ resource "aws_ssm_parameter" "engine" {
 
 resource "aws_ssm_parameter" "engine_version_actual" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/engine_version_actual"
   type  = "String"
   value = module.db.db_instance_engine_version_actual
@@ -65,7 +65,7 @@ resource "aws_ssm_parameter" "engine_version_actual" {
 
 resource "aws_ssm_parameter" "master_username" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/master_username"
   type  = "SecureString"
   value = module.db.db_instance_username
@@ -75,7 +75,7 @@ resource "aws_ssm_parameter" "master_username" {
 
 resource "aws_ssm_parameter" "master_user_secret_arn" {
   count = var.create_ssm_parameters && var.manage_master_user_password ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/master_user_secret_arn"
   type  = "String"
   value = module.db.db_instance_master_user_secret_arn
@@ -85,7 +85,7 @@ resource "aws_ssm_parameter" "master_user_secret_arn" {
 
 resource "aws_ssm_parameter" "arn" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/arn"
   type  = "String"
   value = module.db.db_instance_arn
@@ -95,7 +95,7 @@ resource "aws_ssm_parameter" "arn" {
 
 resource "aws_ssm_parameter" "resource_id" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/resource_id"
   type  = "String"
   value = module.db.db_instance_resource_id
@@ -105,7 +105,7 @@ resource "aws_ssm_parameter" "resource_id" {
 
 resource "aws_ssm_parameter" "availability_zone" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/availability_zone"
   type  = "String"
   value = module.db.db_instance_availability_zone

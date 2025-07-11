@@ -5,7 +5,7 @@ locals {
 
 resource "aws_ssm_parameter" "vpc_id" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/vpc_id"
   type  = "String"
   value = module.vpc.vpc_id
@@ -15,7 +15,7 @@ resource "aws_ssm_parameter" "vpc_id" {
 
 resource "aws_ssm_parameter" "vpc_cidr_block" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/vpc_cidr_block"
   type  = "String"
   value = module.vpc.vpc_cidr_block
@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "vpc_cidr_block" {
 
 resource "aws_ssm_parameter" "database_subnets" {
   count = var.create_ssm_parameters && length(module.vpc.database_subnets) > 0 ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/database_subnets"
   type  = "StringList"
   value = join(",", module.vpc.database_subnets)
@@ -35,7 +35,7 @@ resource "aws_ssm_parameter" "database_subnets" {
 
 resource "aws_ssm_parameter" "database_subnet_group" {
   count = var.create_ssm_parameters && module.vpc.database_subnet_group != null ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/database_subnet_group"
   type  = "String"
   value = module.vpc.database_subnet_group
@@ -45,7 +45,7 @@ resource "aws_ssm_parameter" "database_subnet_group" {
 
 resource "aws_ssm_parameter" "database_subnet_group_name" {
   count = var.create_ssm_parameters && module.vpc.database_subnet_group_name != null ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/database_subnet_group_name"
   type  = "String"
   value = module.vpc.database_subnet_group_name
@@ -55,7 +55,7 @@ resource "aws_ssm_parameter" "database_subnet_group_name" {
 
 resource "aws_ssm_parameter" "public_subnets" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/public_subnets"
   type  = "StringList"
   value = join(",", module.vpc.public_subnets)
@@ -65,7 +65,7 @@ resource "aws_ssm_parameter" "public_subnets" {
 
 resource "aws_ssm_parameter" "private_subnets" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/private_subnets"
   type  = "StringList"
   value = join(",", module.vpc.private_subnets)
@@ -75,7 +75,7 @@ resource "aws_ssm_parameter" "private_subnets" {
 
 resource "aws_ssm_parameter" "app_subnets" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/app_subnets"
   type  = "StringList"
   value = join(",", module.vpc.private_subnets)
@@ -85,7 +85,7 @@ resource "aws_ssm_parameter" "app_subnets" {
 
 resource "aws_ssm_parameter" "app_security_group" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/app_security_group"
   type  = "String"
   value = module.app_security_group.security_group_id
@@ -95,7 +95,7 @@ resource "aws_ssm_parameter" "app_security_group" {
 
 resource "aws_ssm_parameter" "availability_zones" {
   count = var.create_ssm_parameters ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/availability_zones"
   type  = "StringList"
   value = join(",", module.vpc.azs)
@@ -105,7 +105,7 @@ resource "aws_ssm_parameter" "availability_zones" {
 
 resource "aws_ssm_parameter" "internet_gateway_id" {
   count = var.create_ssm_parameters && module.vpc.igw_id != null ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/internet_gateway_id"
   type  = "String"
   value = module.vpc.igw_id
@@ -115,7 +115,7 @@ resource "aws_ssm_parameter" "internet_gateway_id" {
 
 resource "aws_ssm_parameter" "nat_gateway_ids" {
   count = var.create_ssm_parameters && length(module.vpc.natgw_ids) > 0 ? 1 : 0
-  
+
   name  = "${local.ssm_prefix}/nat_gateway_ids"
   type  = "StringList"
   value = join(",", module.vpc.natgw_ids)
