@@ -18,7 +18,7 @@ locals {
     configuration_values = jsonencode({
       env = {
         # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
-        WARM_IP_TARGET    = "1"
+        WARM_IP_TARGET     = "1"
         WARM_PREFIX_TARGET = "1"
         # Enable prefix assignment mode for better IP utilization
         ENABLE_PREFIX_DELEGATION = "true"

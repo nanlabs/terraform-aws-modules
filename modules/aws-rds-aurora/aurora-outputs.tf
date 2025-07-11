@@ -184,15 +184,15 @@ output "db_shard_group_resource_id" {
 output "ssm_parameter_names" {
   description = "Names of the created SSM parameters for Aurora cluster details"
   value = var.create_ssm_parameters ? {
-    cluster_endpoint              = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_endpoint"
-    cluster_reader_endpoint       = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_reader_endpoint"
-    cluster_database_name         = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_database_name"
-    cluster_port                  = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_port"
-    cluster_master_username       = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_master_username"
+    cluster_endpoint               = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_endpoint"
+    cluster_reader_endpoint        = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_reader_endpoint"
+    cluster_database_name          = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_database_name"
+    cluster_port                   = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_port"
+    cluster_master_username        = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_master_username"
     cluster_master_user_secret_arn = var.manage_master_user_password ? "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_master_user_secret_arn" : null
-    cluster_arn                   = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_arn"
-    cluster_resource_id           = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_resource_id"
-    cluster_engine_version_actual = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_engine_version_actual"
-    security_group_id             = var.create_security_group ? "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/security_group_id" : null
+    cluster_arn                    = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_arn"
+    cluster_resource_id            = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_resource_id"
+    cluster_engine_version_actual  = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/cluster_engine_version_actual"
+    security_group_id              = var.create_security_group ? "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/security_group_id" : null
   } : {}
 }

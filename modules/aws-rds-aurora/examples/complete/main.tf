@@ -16,7 +16,7 @@ locals {
 
 # VPC for the example
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.0"
 
   name = "${local.name}-vpc"
@@ -63,8 +63,8 @@ module "aurora" {
   name = local.name
 
   # Engine configuration
-  engine               = "aurora-postgresql"
-  engine_version       = "15.8"
+  engine                     = "aurora-postgresql"
+  engine_version             = "15.8"
   auto_minor_version_upgrade = true
 
   # Cluster instances
@@ -102,14 +102,14 @@ module "aurora" {
   preferred_maintenance_window = "sun:05:00-sun:07:00"
 
   # Monitoring
-  monitoring_interval                 = 60
-  performance_insights_enabled        = true
+  monitoring_interval                   = 60
+  performance_insights_enabled          = true
   performance_insights_retention_period = 7
 
   # Other settings
-  skip_final_snapshot       = true
-  deletion_protection       = false
-  apply_immediately         = true
+  skip_final_snapshot = true
+  deletion_protection = false
+  apply_immediately   = true
 
   # SSM Parameters (enabled by default)
   create_ssm_parameters = true

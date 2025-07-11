@@ -15,7 +15,7 @@ module "vpc" {
   tags = local.common_tags
 
   # VPC Configuration
-  cidr     = "10.0.0.0/16"
+  cidr      = "10.0.0.0/16"
   azs_count = 3
 
   # NAT Gateway Configuration
@@ -27,12 +27,12 @@ module "vpc" {
 
   # Subnet Tags
   public_subnet_tags = {
-    "Type" = "public"
+    "Type"                   = "public"
     "kubernetes.io/role/elb" = "1"
   }
 
   private_subnet_tags = {
-    "Type" = "private"
+    "Type"                            = "private"
     "kubernetes.io/role/internal-elb" = "1"
   }
 
@@ -51,10 +51,10 @@ module "amplify_app" {
 
   platform = "WEB"
 
-  enable_auto_branch_creation   = true
-  enable_branch_auto_build      = true
-  enable_branch_auto_deletion   = true
-  enable_basic_auth             = false
+  enable_auto_branch_creation = true
+  enable_branch_auto_build    = true
+  enable_branch_auto_deletion = true
+  enable_basic_auth           = false
 
   auto_branch_creation_patterns = ["main", "develop", "feature/*"]
 

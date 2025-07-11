@@ -21,7 +21,7 @@ module "bastion" {
   ami                  = var.ami != "" ? var.ami : data.aws_ami.ubuntu.image_id
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.bastion_instance_profile.id
-  user_data_base64         = local.user_data
+  user_data_base64     = local.user_data
 
   # network
   subnet_id              = element(var.private_subnets, 0)

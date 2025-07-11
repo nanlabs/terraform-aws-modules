@@ -17,7 +17,7 @@ module "vpc" {
   tags = local.common_tags
 
   # VPC Configuration
-  cidr     = "10.0.0.0/16"
+  cidr      = "10.0.0.0/16"
   azs_count = 3
 
   # NAT Gateway Configuration (Multi-AZ for production-like setup)
@@ -29,14 +29,14 @@ module "vpc" {
 
   # Subnet Tags for EKS
   public_subnet_tags = {
-    "Type" = "public"
-    "kubernetes.io/role/elb" = "1"
+    "Type"                                        = "public"
+    "kubernetes.io/role/elb"                      = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
   private_subnet_tags = {
-    "Type" = "private"
-    "kubernetes.io/role/internal-elb" = "1"
+    "Type"                                        = "private"
+    "kubernetes.io/role/internal-elb"             = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
@@ -70,10 +70,10 @@ module "eks" {
   # Node groups configuration
   node_groups = [
     {
-      instance_types   = ["t3.medium"]
-      min_size         = 1
-      max_size         = 3
-      desired_size     = 2
+      instance_types = ["t3.medium"]
+      min_size       = 1
+      max_size       = 3
+      desired_size   = 2
       kubernetes_labels = {
         role = "system"
       }
@@ -82,10 +82,10 @@ module "eks" {
       }
     },
     {
-      instance_types   = ["t3.large"]
-      min_size         = 1
-      max_size         = 5
-      desired_size     = 2
+      instance_types = ["t3.large"]
+      min_size       = 1
+      max_size       = 5
+      desired_size   = 2
       kubernetes_labels = {
         role = "application"
       }
@@ -108,9 +108,9 @@ module "rds" {
   # Engine Configuration
   engine               = "postgres"
   engine_version       = "15.8"
-  family              = "postgres15"
+  family               = "postgres15"
   major_engine_version = "15"
-  instance_class      = "db.t3.micro"
+  instance_class       = "db.t3.micro"
 
   # Database Configuration
   db_name  = "application"
@@ -129,12 +129,12 @@ module "rds" {
 
   # Backup and Maintenance
   backup_retention_period = 7
-  backup_window          = "03:00-04:00"
-  maintenance_window     = "sun:04:00-sun:05:00"
+  backup_window           = "03:00-04:00"
+  maintenance_window      = "sun:04:00-sun:05:00"
 
   # Additional Configuration
-  multi_az            = false  # Set to true for production
-  skip_final_snapshot = true   # Set to false for production
+  multi_az            = false # Set to true for production
+  skip_final_snapshot = true  # Set to false for production
   publicly_accessible = false
 
   # SSM Parameters for database connection details

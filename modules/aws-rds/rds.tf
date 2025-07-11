@@ -36,22 +36,22 @@ module "db" {
   port     = var.port
 
   # Password Management
-  manage_master_user_password                           = var.manage_master_user_password
-  master_user_secret_kms_key_id                         = var.master_user_secret_kms_key_id
-  manage_master_user_password_rotation                  = var.manage_master_user_password_rotation
-  master_user_password_rotate_immediately               = var.master_user_password_rotate_immediately
+  manage_master_user_password                            = var.manage_master_user_password
+  master_user_secret_kms_key_id                          = var.master_user_secret_kms_key_id
+  manage_master_user_password_rotation                   = var.manage_master_user_password_rotation
+  master_user_password_rotate_immediately                = var.master_user_password_rotate_immediately
   master_user_password_rotation_automatically_after_days = var.master_user_password_rotation_automatically_after_days
-  master_user_password_rotation_duration               = var.master_user_password_rotation_duration
-  master_user_password_rotation_schedule_expression    = var.master_user_password_rotation_schedule_expression
+  master_user_password_rotation_duration                 = var.master_user_password_rotation_duration
+  master_user_password_rotation_schedule_expression      = var.master_user_password_rotation_schedule_expression
 
   # Network Configuration
-  publicly_accessible     = var.publicly_accessible
-  vpc_security_group_ids  = var.vpc_security_group_ids
-  db_subnet_group_name    = var.db_subnet_group_name
-  availability_zone       = var.availability_zone
-  multi_az                = var.multi_az
-  ca_cert_identifier      = var.ca_cert_identifier
-  network_type            = var.network_type
+  publicly_accessible    = var.publicly_accessible
+  vpc_security_group_ids = var.vpc_security_group_ids
+  db_subnet_group_name   = var.db_subnet_group_name
+  availability_zone      = var.availability_zone
+  multi_az               = var.multi_az
+  ca_cert_identifier     = var.ca_cert_identifier
+  network_type           = var.network_type
 
   # Backup and Maintenance
   backup_retention_period          = var.backup_retention_period
@@ -63,20 +63,20 @@ module "db" {
   delete_automated_backups         = var.delete_automated_backups
 
   # Monitoring
-  monitoring_interval             = var.monitoring_interval
-  monitoring_role_arn             = var.monitoring_role_arn
-  monitoring_role_name            = var.monitoring_role_name
-  monitoring_role_use_name_prefix = var.monitoring_role_use_name_prefix
-  monitoring_role_description     = var.monitoring_role_description
+  monitoring_interval                  = var.monitoring_interval
+  monitoring_role_arn                  = var.monitoring_role_arn
+  monitoring_role_name                 = var.monitoring_role_name
+  monitoring_role_use_name_prefix      = var.monitoring_role_use_name_prefix
+  monitoring_role_description          = var.monitoring_role_description
   monitoring_role_permissions_boundary = var.monitoring_role_permissions_boundary
-  create_monitoring_role          = var.create_monitoring_role
-  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
+  create_monitoring_role               = var.create_monitoring_role
+  enabled_cloudwatch_logs_exports      = var.enabled_cloudwatch_logs_exports
 
   # Performance Insights
   performance_insights_enabled          = var.performance_insights_enabled
   performance_insights_kms_key_id       = var.performance_insights_kms_key_id
   performance_insights_retention_period = var.performance_insights_retention_period
-  database_insights_mode                 = var.database_insights_mode
+  database_insights_mode                = var.database_insights_mode
 
   # Upgrades and Maintenance
   allow_major_version_upgrade = var.allow_major_version_upgrade
@@ -84,7 +84,7 @@ module "db" {
   apply_immediately           = var.apply_immediately
 
   # Security
-  deletion_protection                  = var.deletion_protection
+  deletion_protection                 = var.deletion_protection
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
 
   # Active Directory
@@ -104,18 +104,18 @@ module "db" {
   blue_green_update = var.blue_green_update
 
   # Restore Options
-  replicate_source_db       = var.replicate_source_db
-  replica_mode              = var.replica_mode
-  restore_to_point_in_time  = var.restore_to_point_in_time
-  s3_import                 = var.s3_import
-  snapshot_identifier       = var.snapshot_identifier
-  upgrade_storage_config    = var.upgrade_storage_config
+  replicate_source_db      = var.replicate_source_db
+  replica_mode             = var.replica_mode
+  restore_to_point_in_time = var.restore_to_point_in_time
+  s3_import                = var.s3_import
+  snapshot_identifier      = var.snapshot_identifier
+  upgrade_storage_config   = var.upgrade_storage_config
 
   # Subnet Group
-  create_db_subnet_group           = var.create_db_subnet_group
-  db_subnet_group_use_name_prefix  = var.db_subnet_group_use_name_prefix
-  db_subnet_group_description      = var.db_subnet_group_description
-  subnet_ids                       = var.subnet_ids
+  create_db_subnet_group          = var.create_db_subnet_group
+  db_subnet_group_use_name_prefix = var.db_subnet_group_use_name_prefix
+  db_subnet_group_description     = var.db_subnet_group_description
+  subnet_ids                      = var.subnet_ids
 
   # Parameter Group
   create_db_parameter_group       = var.create_db_parameter_group
@@ -134,12 +134,12 @@ module "db" {
   options                      = var.options
 
   # CloudWatch Log Groups
-  create_cloudwatch_log_group                = var.create_cloudwatch_log_group
-  cloudwatch_log_group_retention_in_days     = var.cloudwatch_log_group_retention_in_days
-  cloudwatch_log_group_kms_key_id            = var.cloudwatch_log_group_kms_key_id
-  cloudwatch_log_group_skip_destroy          = var.cloudwatch_log_group_skip_destroy
-  cloudwatch_log_group_class                 = var.cloudwatch_log_group_class
-  cloudwatch_log_group_tags                  = var.cloudwatch_log_group_tags
+  create_cloudwatch_log_group            = var.create_cloudwatch_log_group
+  cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
+  cloudwatch_log_group_kms_key_id        = var.cloudwatch_log_group_kms_key_id
+  cloudwatch_log_group_skip_destroy      = var.cloudwatch_log_group_skip_destroy
+  cloudwatch_log_group_class             = var.cloudwatch_log_group_class
+  cloudwatch_log_group_tags              = var.cloudwatch_log_group_tags
 
   # DB Instance Role Associations
   db_instance_role_associations = var.db_instance_role_associations
@@ -149,9 +149,9 @@ module "db" {
   option_group_timeouts = var.option_group_timeouts
 
   # Tags
-  tags                     = var.tags
-  db_instance_tags         = var.db_instance_tags
-  db_option_group_tags     = var.db_option_group_tags
-  db_parameter_group_tags  = var.db_parameter_group_tags
-  db_subnet_group_tags     = var.db_subnet_group_tags
+  tags                    = var.tags
+  db_instance_tags        = var.db_instance_tags
+  db_option_group_tags    = var.db_option_group_tags
+  db_parameter_group_tags = var.db_parameter_group_tags
+  db_subnet_group_tags    = var.db_subnet_group_tags
 }

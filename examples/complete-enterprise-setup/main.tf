@@ -17,7 +17,7 @@ module "vpc" {
   tags = local.common_tags
 
   # VPC Configuration
-  cidr     = "10.0.0.0/16"
+  cidr      = "10.0.0.0/16"
   azs_count = 3
 
   # NAT Gateway Configuration (Multi-AZ for high availability)
@@ -29,14 +29,14 @@ module "vpc" {
 
   # Subnet Tags for EKS
   public_subnet_tags = {
-    "Type" = "public"
-    "kubernetes.io/role/elb" = "1"
+    "Type"                                        = "public"
+    "kubernetes.io/role/elb"                      = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
   private_subnet_tags = {
-    "Type" = "private"
-    "kubernetes.io/role/internal-elb" = "1"
+    "Type"                                        = "private"
+    "kubernetes.io/role/internal-elb"             = "1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 }
@@ -67,10 +67,10 @@ module "eks" {
   # Node groups configuration
   node_groups = concat([
     {
-      instance_types   = ["t3.medium"]
-      min_size         = 2
-      max_size         = 4
-      desired_size     = 2
+      instance_types = ["t3.medium"]
+      min_size       = 2
+      max_size       = 4
+      desired_size   = 2
       kubernetes_labels = {
         role = "system"
       }
@@ -79,10 +79,10 @@ module "eks" {
       }
     },
     {
-      instance_types   = ["t3.large", "t3.xlarge"]
-      min_size         = 2
-      max_size         = 10
-      desired_size     = 3
+      instance_types = ["t3.large", "t3.xlarge"]
+      min_size       = 2
+      max_size       = 10
+      desired_size   = 3
       kubernetes_labels = {
         role = "application"
       }
@@ -90,18 +90,18 @@ module "eks" {
         NodeGroup = "application"
       }
     }
-  ], var.enable_gpu_nodes ? [{
-    instance_types   = ["g4dn.xlarge"]
-    min_size         = 0
-    max_size         = 3
-    desired_size     = 1
-    kubernetes_labels = {
-      role = "gpu"
-      "nvidia.com/gpu" = "true"
-    }
-    tags = {
-      NodeGroup = "gpu"
-    }
+    ], var.enable_gpu_nodes ? [{
+      instance_types = ["g4dn.xlarge"]
+      min_size       = 0
+      max_size       = 3
+      desired_size   = 1
+      kubernetes_labels = {
+        role             = "gpu"
+        "nvidia.com/gpu" = "true"
+      }
+      tags = {
+        NodeGroup = "gpu"
+      }
   }] : [])
 
   tags = local.common_tags
@@ -128,22 +128,22 @@ module "aurora" {
   }
 
   # Database details
-  database_name    = "enterprise"
-  master_username  = var.aurora_master_username
-  master_password  = var.aurora_master_password
-  port             = 5432
+  database_name   = "enterprise"
+  master_username = var.aurora_master_username
+  master_password = var.aurora_master_password
+  port            = 5432
 
   # Network
-  vpc_id                    = module.vpc.vpc_id
-  db_subnet_group_name      = module.vpc.database_subnet_group
-  vpc_security_group_ids    = [aws_security_group.aurora.id]
+  vpc_id                 = module.vpc.vpc_id
+  db_subnet_group_name   = module.vpc.database_subnet_group
+  vpc_security_group_ids = [aws_security_group.aurora.id]
 
   # Backup and maintenance
-  backup_retention_period       = 14
-  preferred_backup_window       = "03:00-04:00"
-  preferred_maintenance_window  = "sun:04:00-sun:05:00"
+  backup_retention_period      = 14
+  preferred_backup_window      = "03:00-04:00"
+  preferred_maintenance_window = "sun:04:00-sun:05:00"
 
-  skip_final_snapshot = false  # Production setting
+  skip_final_snapshot = false # Production setting
   publicly_accessible = false
 
   # SSM Parameters for connection details
@@ -177,7 +177,7 @@ module "msk" {
 
   # Logging
   cloudwatch_logs_enabled = true
-  s3_logs_enabled        = false
+  s3_logs_enabled         = false
 
   tags = local.common_tags
 }
@@ -204,7 +204,7 @@ module "documentdb" {
 
   # Security
   storage_encrypted = true
-  tls_enabled      = true
+  tls_enabled       = true
 
   tags = local.common_tags
 }
