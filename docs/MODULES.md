@@ -10,7 +10,7 @@ This guide explains how to use and create modules in this repository, along with
 
 - **Path**: `modules/aws-vpc/`
 - **Description**: Complete wrapper around terraform-aws-modules/vpc/aws with strong defaults
-- **Features**: 
+- **Features**:
   - Multi-AZ subnets (public, private, database)
   - NAT Gateway, Internet Gateway, Route tables
   - VPC Flow Logs, DNS configuration
@@ -24,7 +24,7 @@ This guide explains how to use and create modules in this repository, along with
 ```hcl
 module "vpc" {
   source = "../../modules/aws-vpc"
-  
+
   name = "my-vpc"
   tags = {
     Environment = "production"
@@ -36,16 +36,16 @@ module "vpc" {
 ```hcl
 module "vpc" {
   source = "../../modules/aws-vpc"
-  
+
   name = "my-vpc"
   tags = { Environment = "production" }
-  
+
   # Full customization available
   cidr                = "172.16.0.0/16"
   enable_nat_gateway  = true
   single_nat_gateway  = false
   enable_flow_log     = true
-  
+
   public_subnets   = ["172.16.1.0/24", "172.16.2.0/24"]
   private_subnets  = ["172.16.11.0/24", "172.16.12.0/24"]
   database_subnets = ["172.16.21.0/24", "172.16.22.0/24"]
@@ -63,10 +63,55 @@ module "vpc" {
 #### 🗄️ AWS RDS
 
 - **Path**: `modules/aws-rds/`
-- **Description**: Relational database with monitoring
-- **Features**: Multi-AZ, automated backups, monitoring, parameter groups
+- **Description**: Complete wrapper around terraform-aws-modules/rds/aws with strong defaults
+- **Features**: 
+  - Multi-AZ, automated backups, monitoring
+  - Performance Insights, CloudWatch logs
+  - Encryption, parameter groups, option groups
+  - SSM parameter storage for connection info
+  - Complete customization support
 - **Use Cases**: Application databases, data persistence, OLTP workloads
 - **Example Cost**: ~$15-200/month (depending on instance size)
+- **Module Version**: terraform-aws-modules/rds/aws v6.11.0
+
+**Simple Usage:**
+```hcl
+module "rds" {
+  source = "../../modules/aws-rds"
+  
+  name = "my-app-db"
+  tags = { Environment = "production" }
+  
+  engine          = "postgres"
+  engine_version  = "16.3"
+  instance_class  = "db.t4g.micro"
+  
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  db_subnet_group_name   = module.vpc.database_subnet_group
+}
+```
+
+**Advanced Usage:**
+```hcl
+module "rds" {
+  source = "../../modules/aws-rds"
+  
+  name = "my-production-db"
+  tags = { Environment = "production" }
+  
+  # Full customization available
+  engine               = "postgres"
+  engine_version       = "16.3"
+  instance_class       = "db.r6g.large"
+  allocated_storage    = 100
+  max_allocated_storage = 1000
+  multi_az            = true
+  
+  performance_insights_enabled = true
+  monitoring_interval          = 60
+  backup_retention_period      = 14
+}
+```
 
 #### 🗄️ AWS RDS Aurora
 

@@ -99,41 +99,40 @@ module "eks" {
 module "rds" {
   source = "../../modules/aws-rds"
 
-  name   = "${local.cluster_name}-db"
-  vpc_id = module.vpc.vpc_id
+  name = "${local.cluster_name}-db"
+  tags = local.common_tags
 
-  # Database configuration
-  db_engine         = "postgres"
-  db_engine_version = "15.8"
-  db_family         = "postgres15"
-  db_major_engine_version = "15"
-  db_instance_class = "db.t3.micro"
+  # Engine Configuration
+  engine               = "postgres"
+  engine_version       = "15.8"
+  family              = "postgres15"
+  major_engine_version = "15"
+  instance_class      = "db.t3.micro"
 
-  # Database details
-  db_name            = "application"
-  db_master_username = var.db_master_username
-  db_master_password = var.db_master_password
-  db_port            = 5432
+  # Database Configuration
+  db_name  = "application"
+  username = var.db_master_username
+  password = var.db_master_password
+  port     = "5432"
 
-  # Storage
+  # Storage Configuration
   allocated_storage     = 20
   max_allocated_storage = 100
   storage_encrypted     = true
 
-  # Network
-  db_subnet_group        = module.vpc.database_subnet_group
+  # Network Configuration
+  db_subnet_group_name   = module.vpc.database_subnet_group
   vpc_security_group_ids = [aws_security_group.rds.id]
 
-  # Backup and maintenance
-  db_backup_retention_period = 7
-  db_backup_window          = "03:00-04:00"
-  db_maintenance_window     = "sun:04:00-sun:05:00"
+  # Backup and Maintenance
+  backup_retention_period = 7
+  backup_window          = "03:00-04:00"
+  maintenance_window     = "sun:04:00-sun:05:00"
 
-  enable_multi_az           = false  # Set to true for production
-  enable_skip_final_snapshot = true  # Set to false for production
-  enable_public_access      = false
-
-  tags = local.common_tags
+  # Additional Configuration
+  multi_az            = false  # Set to true for production
+  skip_final_snapshot = true   # Set to false for production
+  publicly_accessible = false
 }
 
 # Security Groups

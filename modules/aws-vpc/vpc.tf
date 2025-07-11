@@ -15,7 +15,7 @@ module "vpc" {
   secondary_cidr_blocks                  = var.secondary_cidr_blocks
   instance_tenancy                       = var.instance_tenancy
   azs                                    = local.azs
-  
+
   # DNS Configuration
   enable_dns_hostnames                   = var.enable_dns_hostnames
   enable_dns_support                     = var.enable_dns_support
