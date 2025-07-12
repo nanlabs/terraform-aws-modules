@@ -5,12 +5,12 @@ output "vpc_id" {
 
 output "cluster_name" {
   description = "Name of the EKS cluster"
-  value       = module.eks.cluster_name
+  value       = module.eks.eks_cluster_id
 }
 
 output "cluster_endpoint" {
   description = "Endpoint for EKS control plane"
-  value       = module.eks.cluster_endpoint
+  value       = module.eks.eks_cluster_endpoint
 }
 
 output "aurora_cluster_endpoint" {
@@ -44,5 +44,5 @@ output "bastion_instance_id" {
 
 output "configure_kubectl" {
   description = "Command to configure kubectl"
-  value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name}"
+  value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.eks_cluster_id}"
 }

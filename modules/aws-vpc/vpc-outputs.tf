@@ -36,17 +36,17 @@ output "vpc_main_route_table_id" {
 
 output "vpc_default_network_acl_id" {
   description = "The ID of the default network ACL"
-  value       = module.vpc.vpc_default_network_acl_id
+  value       = module.vpc.default_network_acl_id
 }
 
 output "vpc_default_security_group_id" {
   description = "The ID of the security group created by default on VPC creation"
-  value       = module.vpc.vpc_default_security_group_id
+  value       = module.vpc.default_security_group_id
 }
 
 output "vpc_default_route_table_id" {
   description = "The ID of the default route table"
-  value       = module.vpc.vpc_default_route_table_id
+  value       = module.vpc.default_route_table_id
 }
 
 output "vpc_ipv6_association_id" {
@@ -534,5 +534,5 @@ output "dhcp_options_id" {
 
 output "vpc_dhcp_options_association_id" {
   description = "The ID of the DHCP Options Set Association"
-  value       = module.vpc.vpc_dhcp_options_association_id
+  value       = module.vpc.dhcp_options_id
 }

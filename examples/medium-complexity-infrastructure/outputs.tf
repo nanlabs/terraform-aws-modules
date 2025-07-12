@@ -26,22 +26,22 @@ output "database_subnets" {
 # EKS Outputs
 output "cluster_name" {
   description = "Name of the EKS cluster"
-  value       = module.eks.cluster_name
+  value       = module.eks.eks_cluster_id
 }
 
 output "cluster_endpoint" {
   description = "Endpoint for EKS control plane"
-  value       = module.eks.cluster_endpoint
+  value       = module.eks.eks_cluster_endpoint
 }
 
 output "cluster_security_group_id" {
   description = "Security group ID attached to the EKS cluster"
-  value       = module.eks.cluster_security_group_id
+  value       = module.eks.eks_cluster_managed_security_group_id
 }
 
 output "cluster_oidc_provider_arn" {
   description = "ARN of the OIDC Provider for the EKS cluster"
-  value       = module.eks.oidc_provider_arn
+  value       = module.eks.eks_cluster_identity_oidc_issuer_arn
 }
 
 # RDS Outputs
@@ -81,5 +81,5 @@ output "app_iam_role_name" {
 # Kubectl configuration command
 output "configure_kubectl" {
   description = "Command to configure kubectl"
-  value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name}"
+  value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.eks_cluster_id}"
 }

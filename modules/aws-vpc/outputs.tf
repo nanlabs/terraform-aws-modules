@@ -17,7 +17,7 @@ output "app_subnets" {
 
 output "default_security_group_id" {
   description = "Legacy alias for vpc_default_security_group_id"
-  value       = module.vpc.vpc_default_security_group_id
+  value       = module.vpc.default_security_group_id
 }
 
 # SSM Parameters

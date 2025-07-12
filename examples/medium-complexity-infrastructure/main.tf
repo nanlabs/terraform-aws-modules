@@ -68,24 +68,26 @@ module "eks" {
   cluster_encryption_config_enabled = true
 
   # Node groups configuration
-  node_groups = [
-    {
-      instance_types = ["t3.medium"]
-      min_size       = 1
-      max_size       = 3
-      desired_size   = 2
+  node_groups = {
+    system = {
+      instance_types    = ["t3.medium"]
+      min_size          = 1
+      max_size          = 3
+      desired_size      = 2
+      health_check_type = "EC2"
       kubernetes_labels = {
         role = "system"
       }
       tags = {
         NodeGroup = "system"
       }
-    },
-    {
-      instance_types = ["t3.large"]
-      min_size       = 1
-      max_size       = 5
-      desired_size   = 2
+    }
+    application = {
+      instance_types    = ["t3.large"]
+      min_size          = 1
+      max_size          = 5
+      desired_size      = 2
+      health_check_type = "EC2"
       kubernetes_labels = {
         role = "application"
       }
@@ -93,7 +95,7 @@ module "eks" {
         NodeGroup = "application"
       }
     }
-  ]
+  }
 
   tags = local.common_tags
 }
@@ -150,7 +152,7 @@ resource "aws_security_group" "rds" {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
-    security_groups = [module.eks.node_group_security_group_id]
+    security_groups = [module.eks.eks_cluster_managed_security_group_id]
   }
 
   # Allow access from bastion if enabled
@@ -199,18 +201,18 @@ module "app_iam_role" {
   role_description = "IAM role for applications running in ${local.cluster_name} EKS cluster"
 
   principals = {
-    "Federated" = [module.eks.oidc_provider_arn]
+    "Federated" = [module.eks.eks_cluster_identity_oidc_issuer_arn]
   }
 
   assume_role_conditions = [
     {
       test     = "StringEquals"
-      variable = "${replace(module.eks.oidc_provider_arn, "/^.*\\/([^/]+)$/", "$1")}:sub"
+      variable = "${replace(module.eks.eks_cluster_identity_oidc_issuer_arn, "/^.*\\/([^/]+)$/", "$1")}:sub"
       values   = ["system:serviceaccount:default:app-service-account"]
     },
     {
       test     = "StringEquals"
-      variable = "${replace(module.eks.oidc_provider_arn, "/^.*\\/([^/]+)$/", "$1")}:aud"
+      variable = "${replace(module.eks.eks_cluster_identity_oidc_issuer_arn, "/^.*\\/([^/]+)$/", "$1")}:aud"
       values   = ["sts.amazonaws.com"]
     }
   ]
