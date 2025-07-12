@@ -8,10 +8,6 @@
 ##     -h, --help                      Display this help message
 ##
 ##         --instance-id=INSTANCE_ID   EC2 instance ID of the Bastion host
-##         --tag=TAG                   Tag to identify the Bastion host.
-##                                     Will be used to retrieve the instance ID.
-##                                     If not provided, instance ID must be provided.
-##                                     Will be ignored if instance ID is provided.
 ##
 ##         --key-name=KEY_NAME         Name of the SSH key file (default: bastion_key)
 ##         --key-dir=KEY_DIR           Directory to store the SSH key (default: ~/.ssh)
@@ -36,12 +32,6 @@ SCRIPTS_DIR="${ROOT}/scripts"
 DEFAULT_SSH_KEY_NAME="bastion_key"
 DEFAULT_SSH_KEY_DIR="$HOME/.ssh"
 DEFAULT_BASTION_USER="ubuntu"
-
-# Validate required arguments
-if [[ -z "$tag" && -z "$instance_id" ]]; then
-    show_error "Either Bastion host tag or instance ID must be provided"
-    exit 1
-fi
 
 # Set default values if not provided
 SSH_KEY_NAME="${key_name:-$DEFAULT_SSH_KEY_NAME}"
@@ -70,9 +60,9 @@ fi
 # Retrieve Bastion instance ID if not provided
 if [[ -z "$instance_id" ]]; then
     echo "Retrieving Bastion instance ID..."
-    instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$tag" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text | head -n 1)
+    instance_id=$(aws ec2 describe-instances --filters "Name=tag:Type,Values=bastion-host" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text | head -n 1)
     if [[ -z "$instance_id" ]]; then
-        echo "No Bastion host found with tag: $tag"
+        echo "No Bastion host found with tag: Type=bastion-host"
         exit 1
     fi
     echo "Bastion Instance ID: $instance_id"

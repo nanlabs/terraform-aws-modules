@@ -21,11 +21,26 @@ A bastion host, sometimes called a `jump box`, is a server that provides a singl
 
 ```hcl
 module "bastion" {
-  source                       = "../../modules/aws-bastion"
+  source = "../../modules/aws-bastion"
 
-  name                         = "example-bastion"
-  vpc_id                       = "vpc-1234567890"
-  subnets                      = ["subnet-1234567890", "subnet-0987654321"]
+  name             = "example-bastion"
+  vpc_id           = "vpc-1234567890"
+  private_subnets  = ["subnet-1234567890", "subnet-0987654321"]
+  
+  # Enable SSM parameter storage
+  create_ssm_parameters = true
+  ssm_parameter_prefix  = "/infrastructure/bastion"
+  
+  # Create VPC endpoints for secure connectivity
+  create_vpc_endpoints = true
+  
+  # Optional: Enable CloudWatch logs
+  enable_cloudwatch_logs = true
+  
+  tags = {
+    Environment = "production"
+    Team        = "platform"
+  }
 }
 ```
 
