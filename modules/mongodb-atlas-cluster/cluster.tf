@@ -11,7 +11,7 @@ resource "mongodbatlas_project" "project" {
     for_each = var.teams
 
     content {
-      team_id    = mongodbatlas_teams.team[teams.key].team_id
+      team_id    = mongodbatlas_team.team[teams.key].team_id
       role_names = [teams.value.role]
     }
   }
@@ -22,7 +22,7 @@ resource "mongodbatlas_project" "project" {
 # CREATE TEAMS FROM **EXISTING USERS**
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "mongodbatlas_teams" "team" {
+resource "mongodbatlas_team" "team" {
   for_each = var.teams
 
   org_id    = var.org_id
@@ -112,4 +112,77 @@ resource "mongodbatlas_database_user" "user" {
     key   = "Name"
     value = "Database User"
   }
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE SSM PARAMETERS FOR MONGODB ATLAS CLUSTER DETAILS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  ssm_prefix  = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.project_name}/mongodb"
+  secret_name = var.secret_prefix != "" ? "${var.secret_prefix}/connection" : "${var.project_name}/mongodb/connection"
+}
+
+resource "aws_ssm_parameter" "mongodb_details" {
+  for_each = var.create_ssm_parameters ? {
+    "cluster_id"       = mongodbatlas_cluster.cluster.cluster_id
+    "cluster_name"     = mongodbatlas_cluster.cluster.name
+    "project_id"       = mongodbatlas_project.project.id
+    "project_name"     = mongodbatlas_project.project.name
+    "mongo_db_version" = mongodbatlas_cluster.cluster.mongo_db_version
+    "state_name"       = mongodbatlas_cluster.cluster.state_name
+    "container_id"     = mongodbatlas_cluster.cluster.container_id
+    "srv_address"      = mongodbatlas_cluster.cluster.srv_address
+  } : {}
+
+  name        = "${local.ssm_prefix}/${each.key}"
+  description = "MongoDB Atlas ${each.key} for ${var.project_name}"
+  type        = "String"
+  value       = each.value
+
+  tags = merge(
+    var.tags,
+    {
+      Name        = "${local.ssm_prefix}/${each.key}"
+      Description = "MongoDB Atlas ${each.key}"
+    }
+  )
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE AWS SECRETS MANAGER SECRET FOR MONGODB CONNECTION DETAILS
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "aws_secretsmanager_secret" "mongodb_connection" {
+  count = var.create_secret ? 1 : 0
+
+  name                    = local.secret_name
+  description             = var.secret_description
+  recovery_window_in_days = var.secret_recovery_window_in_days
+
+  tags = merge(
+    var.tags,
+    {
+      Name        = local.secret_name
+      Description = "MongoDB Atlas connection details"
+    }
+  )
+}
+
+resource "aws_secretsmanager_secret_version" "mongodb_connection" {
+  count = var.create_secret ? 1 : 0
+
+  secret_id = aws_secretsmanager_secret.mongodb_connection[0].id
+  secret_string = jsonencode({
+    cluster_id             = mongodbatlas_cluster.cluster.cluster_id
+    cluster_name           = mongodbatlas_cluster.cluster.name
+    project_id             = mongodbatlas_project.project.id
+    project_name           = mongodbatlas_project.project.name
+    mongo_uri              = mongodbatlas_cluster.cluster.mongo_uri
+    mongo_uri_with_options = mongodbatlas_cluster.cluster.mongo_uri_with_options
+    srv_address            = mongodbatlas_cluster.cluster.srv_address
+    mongo_db_version       = mongodbatlas_cluster.cluster.mongo_db_version
+    state_name             = mongodbatlas_cluster.cluster.state_name
+    connection_strings     = mongodbatlas_cluster.cluster.connection_strings
+  })
 }

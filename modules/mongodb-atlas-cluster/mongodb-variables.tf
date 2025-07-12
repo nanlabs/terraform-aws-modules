@@ -1,14 +1,7 @@
-variable "name" {
-  description = "Name to be used on all the resources as identifier"
-  type        = string
-  default     = ""
-}
-
-variable "tags" {
-  description = "Any extra tags to assign to objects"
-  type        = map(any)
-  default     = {}
-}
+# ---------------------------------------------------------------------------------------------------------------------
+# MONGODB ATLAS CLUSTER VARIABLES
+# These variables are specific to MongoDB Atlas cluster configuration
+# ---------------------------------------------------------------------------------------------------------------------
 
 variable "project_name" {
   description = "The name of the project you want to create"
@@ -81,7 +74,7 @@ variable "pit_enabled" {
 }
 
 variable "disk_size_gb" {
-  description = "Capacity,in gigabytes,of the host’s root volume"
+  description = "Capacity,in gigabytes,of the host's root volume"
   type        = number
   default     = null
 }
@@ -105,7 +98,7 @@ variable "provider_disk_iops" {
 }
 
 variable "provider_encrypt_ebs_volume" {
-  description = "Indicating if the AWS EBS encryption feature encrypts the server’s root volume"
+  description = "Indicating if the AWS EBS encryption feature encrypts the server's root volume"
   type        = bool
   default     = false
 }
@@ -128,15 +121,16 @@ variable "backing_provider_name" {
   default     = null
 }
 
-// "database_users" is a map with the following structure:
-// {
-//   "username" : "",
-//   "password" : "",
-//   "role" : {
-//     "role_name" : "",
-//     "database_name" : ""
-//   }
-// }
+# Database Users Configuration
+# "database_users" is a map with the following structure:
+# {
+#   "username" : "",
+#   "password" : "",
+#   "role" : {
+#     "role_name" : "",
+#     "database_name" : ""
+#   }
+# }
 variable "database_users" {
   description = "An object that contains all the database users that should be created in the project"
   type = map(object({
