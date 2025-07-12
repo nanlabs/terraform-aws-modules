@@ -184,6 +184,7 @@ We **love** contributions! Whether you're:
 | [📦 Modules Guide](docs/MODULES.md) | How to use and create modules |
 | [⭐ Best Practices](docs/BEST_PRACTICES.md) | Module design, security, and guidelines |
 | [🚀 Versioning Strategy](docs/VERSIONING.md) | Release management and versioning |
+| [🔄 GitHub Actions](docs/GITHUB_ACTIONS.md) | CI/CD workflows and automation |
 | [🤝 Contributing](docs/CONTRIBUTING_GUIDELINES.md) | How to contribute to this repository |
 
 </div>
