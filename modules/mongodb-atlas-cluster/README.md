@@ -113,7 +113,7 @@ module "atlas_cluster_with_aws" {
   secret_description         = "MongoDB Atlas connection details for production"
   secret_recovery_window_in_days = 30
 
-  # Enable SSM Parameter Store integration  
+  # Enable SSM Parameter Store integration
   create_ssm_parameters = true
   ssm_parameter_prefix  = "/myapp/mongodb"
 
@@ -142,7 +142,7 @@ locals {
 # Use in other resources
 resource "aws_lambda_function" "app" {
   # ... lambda configuration ...
-  
+
   environment {
     variables = {
       MONGODB_URI = local.mongodb_config.mongo_uri_with_options
@@ -159,7 +159,7 @@ data "aws_ssm_parameter" "cluster_id" {
 ## Benefits
 
 ✅ **One Command Setup**: Deploy complete MongoDB Atlas infrastructure with teams, security, and networking
-✅ **Enterprise-Ready**: Built-in best practices for production workloads  
+✅ **Enterprise-Ready**: Built-in best practices for production workloads
 ✅ **AWS Integration**: Seamless integration with AWS Secrets Manager and SSM Parameter Store
 ✅ **Cost-Optimized**: Intelligent defaults for efficient resource usage
 ✅ **Security-First**: Encryption, access controls, and network isolation by default
