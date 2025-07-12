@@ -26,17 +26,17 @@ module "bastion" {
   name             = "example-bastion"
   vpc_id           = "vpc-1234567890"
   private_subnets  = ["subnet-1234567890", "subnet-0987654321"]
-  
+
   # Enable SSM parameter storage
   create_ssm_parameters = true
   ssm_parameter_prefix  = "/infrastructure/bastion"
-  
+
   # Create VPC endpoints for secure connectivity
   create_vpc_endpoints = true
-  
+
   # Optional: Enable CloudWatch logs
   enable_cloudwatch_logs = true
-  
+
   tags = {
     Environment = "production"
     Team        = "platform"

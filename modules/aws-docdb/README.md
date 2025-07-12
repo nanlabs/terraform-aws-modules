@@ -59,7 +59,7 @@ module "docdb" {
 
   name = "my-docdb-cluster"
   secret_prefix = "myapp/production/docdb"
-  
+
   # ... other configuration
 }
 ```
@@ -100,7 +100,7 @@ module "docdb" {
 
   name = "my-docdb-cluster"
   ssm_parameter_prefix = "/myapp/production/docdb"
-  
+
   # ... other configuration
 }
 ```

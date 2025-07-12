@@ -1,5 +1,5 @@
 # Outputs are now split into separate files:
-# - shared-outputs.tf: Common outputs used across modules  
+# - shared-outputs.tf: Common outputs used across modules
 # - bastion-outputs.tf: Bastion-specific outputs
 
 # Legacy outputs file - outputs have been moved to the new structure
