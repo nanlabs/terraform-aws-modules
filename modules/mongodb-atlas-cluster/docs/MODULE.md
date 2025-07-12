@@ -4,14 +4,15 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | >= 1.12.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | >= 1.30.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | >= 1.12.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.3.0 |
+| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | 1.38.0 |
 
 ## Modules
 
@@ -21,13 +22,16 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_secretsmanager_secret.mongodb_connection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_version.mongodb_connection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [aws_ssm_parameter.mongodb_details](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_vpc_peering_connection_accepter.peer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection_accepter) | resource |
 | [mongodbatlas_cluster.cluster](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/cluster) | resource |
 | [mongodbatlas_database_user.user](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/database_user) | resource |
 | [mongodbatlas_network_peering.mongo_peer](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/network_peering) | resource |
 | [mongodbatlas_project.project](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/project) | resource |
 | [mongodbatlas_project_ip_access_list.access_list](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/project_ip_access_list) | resource |
-| [mongodbatlas_teams.team](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/teams) | resource |
+| [mongodbatlas_team.team](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/team) | resource |
 
 ## Inputs
 
@@ -39,8 +43,10 @@ No modules.
 | <a name="input_backup_enabled"></a> [backup\_enabled](#input\_backup\_enabled) | Indicating if the cluster uses Cloud Backup for backups | `bool` | `true` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The cluster name | `string` | n/a | yes |
 | <a name="input_cluster_type"></a> [cluster\_type](#input\_cluster\_type) | The MongoDB Atlas cluster type - SHARDED/REPLICASET/GEOSHARDED | `string` | n/a | yes |
+| <a name="input_create_secret"></a> [create\_secret](#input\_create\_secret) | Whether to create AWS Secrets Manager secret for MongoDB Atlas connection details | `bool` | `false` | no |
+| <a name="input_create_ssm_parameters"></a> [create\_ssm\_parameters](#input\_create\_ssm\_parameters) | Whether to create SSM parameters for MongoDB Atlas cluster details | `bool` | `false` | no |
 | <a name="input_database_users"></a> [database\_users](#input\_database\_users) | An object that contains all the database users that should be created in the project | <pre>map(object({<br>    username = string<br>    password = string<br>    role = object({<br>      role_name     = string<br>      database_name = string<br>    })<br>  }))</pre> | `{}` | no |
-| <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | Capacity,in gigabytes,of the host’s root volume | `number` | `null` | no |
+| <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | Capacity,in gigabytes,of the host's root volume | `number` | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The Atlas instance-type name | `string` | n/a | yes |
 | <a name="input_mongodb_major_ver"></a> [mongodb\_major\_ver](#input\_mongodb\_major\_ver) | The MongoDB cluster major version | `number` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name to be used on all the resources as identifier | `string` | `""` | no |
@@ -49,10 +55,14 @@ No modules.
 | <a name="input_pit_enabled"></a> [pit\_enabled](#input\_pit\_enabled) | Indicating if the cluster uses Continuous Cloud Backup, if set to true - provider\_backup must also be set to true | `bool` | `false` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | The name of the project you want to create | `string` | n/a | yes |
 | <a name="input_provider_disk_iops"></a> [provider\_disk\_iops](#input\_provider\_disk\_iops) | The maximum IOPS the system can perform | `number` | `null` | no |
-| <a name="input_provider_encrypt_ebs_volume"></a> [provider\_encrypt\_ebs\_volume](#input\_provider\_encrypt\_ebs\_volume) | Indicating if the AWS EBS encryption feature encrypts the server’s root volume | `bool` | `false` | no |
+| <a name="input_provider_encrypt_ebs_volume"></a> [provider\_encrypt\_ebs\_volume](#input\_provider\_encrypt\_ebs\_volume) | Indicating if the AWS EBS encryption feature encrypts the server's root volume | `bool` | `false` | no |
 | <a name="input_provider_name"></a> [provider\_name](#input\_provider\_name) | The cloud provider to use for the cluster | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | The AWS region-name that the cluster will be deployed on | `string` | n/a | yes |
 | <a name="input_replication_factor"></a> [replication\_factor](#input\_replication\_factor) | The Number of replica set members, possible values are 3/5/7 | `number` | `null` | no |
+| <a name="input_secret_description"></a> [secret\_description](#input\_secret\_description) | Description for the AWS Secrets Manager secret | `string` | `"MongoDB Atlas cluster connection details"` | no |
+| <a name="input_secret_prefix"></a> [secret\_prefix](#input\_secret\_prefix) | Prefix for secret names (e.g., 'myapp/mongodb') | `string` | `""` | no |
+| <a name="input_secret_recovery_window_in_days"></a> [secret\_recovery\_window\_in\_days](#input\_secret\_recovery\_window\_in\_days) | Recovery window in days for the secret deletion | `number` | `7` | no |
+| <a name="input_ssm_parameter_prefix"></a> [ssm\_parameter\_prefix](#input\_ssm\_parameter\_prefix) | Prefix for SSM parameter names (e.g., '/myapp/mongodb') | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Any extra tags to assign to objects | `map(any)` | `{}` | no |
 | <a name="input_teams"></a> [teams](#input\_teams) | An object that contains all the groups that should be created in the project | `map(any)` | `{}` | no |
 | <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | STANDARD or PROVISIONED for IOPS higher than the default instance IOPS | `string` | `null` | no |
@@ -63,6 +73,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | The cluster ID |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | The cluster name |
 | <a name="output_connection_strings"></a> [connection\_strings](#output\_connection\_strings) | Set of connection strings that your applications use to connect to this cluster |
 | <a name="output_container_id"></a> [container\_id](#output\_container\_id) | The Network Peering Container ID |
 | <a name="output_mongo_db_version"></a> [mongo\_db\_version](#output\_mongo\_db\_version) | Version of MongoDB the cluster runs, in major-version.minor-version format |
@@ -70,6 +81,11 @@ No modules.
 | <a name="output_mongo_uri_updated"></a> [mongo\_uri\_updated](#output\_mongo\_uri\_updated) | Lists when the connection string was last updated |
 | <a name="output_mongo_uri_with_options"></a> [mongo\_uri\_with\_options](#output\_mongo\_uri\_with\_options) | connection string for connecting to the Atlas cluster. Includes the replicaSet, ssl, and authSource query parameters in the connection string with values appropriate for the cluster |
 | <a name="output_paused"></a> [paused](#output\_paused) | Flag that indicates whether the cluster is paused or not |
+| <a name="output_project_id"></a> [project\_id](#output\_project\_id) | The MongoDB Atlas project ID |
+| <a name="output_project_name"></a> [project\_name](#output\_project\_name) | The MongoDB Atlas project name |
+| <a name="output_secret_arn"></a> [secret\_arn](#output\_secret\_arn) | ARN of the created secret |
+| <a name="output_secret_name"></a> [secret\_name](#output\_secret\_name) | Name of the created secret |
 | <a name="output_srv_address"></a> [srv\_address](#output\_srv\_address) | Connection string for connecting to the Atlas cluster. The +srv modifier forces the connection to use TLS/SSL |
+| <a name="output_ssm_parameter_names"></a> [ssm\_parameter\_names](#output\_ssm\_parameter\_names) | Names of the created SSM parameters |
 | <a name="output_state_name"></a> [state\_name](#output\_state\_name) | Current state of the cluster |
 <!-- END_TF_DOCS -->
