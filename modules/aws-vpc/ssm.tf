@@ -1,8 +1,8 @@
 locals {
-  ssm_prefix = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
-  database_subnet_group_value = try(module.vpc.database_subnet_group, null)
-  database_subnet_group_name_value = try(module.vpc.database_subnet_group_name, null)
-  create_database_subnet_group_ssm = var.create_ssm_parameters && local.database_subnet_group_value != null && local.database_subnet_group_value != ""
+  ssm_prefix                            = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
+  database_subnet_group_value           = try(module.vpc.database_subnet_group, null)
+  database_subnet_group_name_value      = try(module.vpc.database_subnet_group_name, null)
+  create_database_subnet_group_ssm      = var.create_ssm_parameters && local.database_subnet_group_value != null && local.database_subnet_group_value != ""
   create_database_subnet_group_name_ssm = var.create_ssm_parameters && local.database_subnet_group_name_value != null && local.database_subnet_group_name_value != ""
 }
 # SSM Parameters for VPC details and network configuration
