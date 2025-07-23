@@ -1,6 +1,9 @@
 # SSM Parameters for bastion host details
 locals {
   ssm_prefix = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
+  
+  # Conditions to avoid creating SSM parameters with empty or null values
+  create_subnet_id_ssm = var.create_ssm_parameters && length(var.private_subnets) > 0
 }
 
 # Store the private SSH key in SSM Parameter Store (only if we generated it)
@@ -62,7 +65,7 @@ resource "aws_ssm_parameter" "security_group_id" {
 }
 
 resource "aws_ssm_parameter" "subnet_id" {
-  count = var.create_ssm_parameters ? 1 : 0
+  count = local.create_subnet_id_ssm ? 1 : 0
 
   name        = "${local.ssm_prefix}/subnet_id"
   type        = "String"

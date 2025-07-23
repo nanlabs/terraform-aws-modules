@@ -1,6 +1,9 @@
 # SSM Parameters for Aurora cluster endpoints and connection details
 locals {
   ssm_prefix = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
+  
+  # Conditions to avoid creating SSM parameters with empty or null values
+  create_database_name_ssm = var.create_ssm_parameters && var.database_name != null && var.database_name != ""
 }
 
 resource "aws_ssm_parameter" "cluster_endpoint" {
@@ -24,7 +27,7 @@ resource "aws_ssm_parameter" "cluster_reader_endpoint" {
 }
 
 resource "aws_ssm_parameter" "cluster_database_name" {
-  count = var.create_ssm_parameters ? 1 : 0
+  count = local.create_database_name_ssm ? 1 : 0
 
   name  = "${local.ssm_prefix}/cluster_database_name"
   type  = "String"

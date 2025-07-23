@@ -1,5 +1,5 @@
 # Create a random initial password for the DocumentDB cluster
-resource "random_password" "rds_password" {
+resource "random_password" "db_password" {
   length           = 16
   special          = true
   override_special = "_%@"
@@ -7,7 +7,7 @@ resource "random_password" "rds_password" {
 
 locals {
   # if var.master_password is not set, use the random password
-  password      = var.master_password != "" ? var.master_password : random_password.rds_password.result
+  password      = var.master_password != "" ? var.master_password : random_password.db_password.result
   username      = var.master_username
   secret_prefix = var.secret_prefix != "" ? var.secret_prefix : "${var.name}/docdb"
 }
