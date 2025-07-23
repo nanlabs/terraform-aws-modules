@@ -1,7 +1,7 @@
 # SSM Parameters for RDS instance details and connection information
 locals {
   ssm_prefix = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
-  
+
   # Conditions to avoid creating SSM parameters with empty or null values
   create_db_name_ssm = var.create_ssm_parameters && var.db_name != null && var.db_name != ""
 }

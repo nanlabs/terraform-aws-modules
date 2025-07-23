@@ -1,7 +1,7 @@
 # SSM Parameters for bastion host details
 locals {
   ssm_prefix = var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"
-  
+
   # Conditions to avoid creating SSM parameters with empty or null values
   create_subnet_id_ssm = var.create_ssm_parameters && length(var.private_subnets) > 0
 }
