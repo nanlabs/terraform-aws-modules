@@ -157,7 +157,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.0"
+      version = ">= 6.0"
     }
   }
 }
@@ -181,7 +181,7 @@ module "vpc" {
 ```hcl
 module "vpc" {
   source = "github.com/nanlabs/terraform-modules//modules/aws-vpc?ref=v1.2.3"
-  
+
   name = "my-production-vpc"
   tags = {
     Environment = "production"
@@ -195,7 +195,7 @@ module "vpc" {
 ```hcl
 module "vpc" {
   source = "../../modules/aws-vpc"
-  
+
   name = "dev-vpc"
   tags = { Environment = "development" }
 }
