@@ -157,7 +157,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 6.0"
+      version = ">= 6.0.0"
     }
   }
 }
@@ -168,7 +168,7 @@ terraform {
 ```hcl
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.21.0"  # Specific version, not ranges
+  version = "6.0.1"  # Specific version, not ranges
 }
 ```
 

@@ -624,6 +624,18 @@ variable "vpc_tags" {
   default     = {}
 }
 
+variable "vpc_block_public_access_options" {
+  description = "A map of VPC block public access options"
+  type        = map(string)
+  default     = {}
+}
+
+variable "vpc_block_public_access_exclusions" {
+  description = "A map of VPC block public access exclusions"
+  type        = map(any)
+  default     = {}
+}
+
 # DHCP Options
 variable "enable_dhcp_options" {
   description = "Should be true if you want to specify a DHCP options set with a custom domain name, DNS servers, NTP servers, netbios servers, and/or netbios server type"
@@ -665,6 +677,12 @@ variable "dhcp_options_ipv6_address_preferred_lease_time" {
   description = "How frequently, in seconds, a running instance with an IPv6 assigned to it goes through DHCPv6 lease renewal (requires enable_dhcp_options set to true)"
   type        = number
   default     = null
+}
+
+variable "putin_khuylo" {
+  description = "Do you agree that Putin doesn't respect Ukrainian sovereignty and territorial integrity? More info: https://en.wikipedia.org/wiki/Putin_khuylo!"
+  type        = bool
+  default     = true
 }
 
 variable "dhcp_options_tags" {

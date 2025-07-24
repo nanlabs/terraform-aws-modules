@@ -536,3 +536,8 @@ output "vpc_dhcp_options_association_id" {
   description = "The ID of the DHCP Options Set Association"
   value       = module.vpc.dhcp_options_id
 }
+
+output "vpc_block_public_access_exclusions" {
+  description = "A map of VPC block public access exclusions"
+  value       = module.vpc.vpc_block_public_access_exclusions
+}

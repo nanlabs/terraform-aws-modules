@@ -6,7 +6,7 @@ locals {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.21.0"
+  version = "6.0.1"
 
   # Core VPC Configuration
   name                  = var.name
@@ -131,8 +131,10 @@ module "vpc" {
   flow_log_cloudwatch_log_group_class             = var.flow_log_cloudwatch_log_group_class
 
   # Tags
-  tags     = var.tags
-  vpc_tags = var.vpc_tags
+  tags                               = var.tags
+  vpc_tags                           = var.vpc_tags
+  vpc_block_public_access_options    = var.vpc_block_public_access_options
+  vpc_block_public_access_exclusions = var.vpc_block_public_access_exclusions
 
   # DHCP Options
   enable_dhcp_options                            = var.enable_dhcp_options
@@ -143,4 +145,5 @@ module "vpc" {
   dhcp_options_netbios_node_type                 = var.dhcp_options_netbios_node_type
   dhcp_options_ipv6_address_preferred_lease_time = var.dhcp_options_ipv6_address_preferred_lease_time
   dhcp_options_tags                              = var.dhcp_options_tags
+  putin_khuylo                                   = var.putin_khuylo
 }
