@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.7.0] - 2025-08-20
+
+
+
 ## [1.6.0] - 2025-07-23
 
 
@@ -141,7 +145,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.7.0
 [1.6.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.6.0
 [1.5.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.5.0
 [1.4.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.4.0
