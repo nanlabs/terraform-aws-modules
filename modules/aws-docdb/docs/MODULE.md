@@ -83,7 +83,9 @@
 | <a name="output_connection_secret_name"></a> [connection\_secret\_name](#output\_connection\_secret\_name) | The name of the AWS Secrets Manager secret created |
 | <a name="output_master_password"></a> [master\_password](#output\_master\_password) | password for the master DB user. |
 | <a name="output_master_username"></a> [master\_username](#output\_master\_username) | Username for the master DB user. |
+| <a name="output_port"></a> [port](#output\_port) | DocumentDB port |
 | <a name="output_reader_endpoint"></a> [reader\_endpoint](#output\_reader\_endpoint) | A read-only endpoint of the DocumentDB cluster, automatically load-balanced across replicas. |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | ID of the security group associated with the DocumentDB cluster |
 | <a name="output_ssm_parameter_names"></a> [ssm\_parameter\_names](#output\_ssm\_parameter\_names) | Names of the created SSM parameters for DocumentDB cluster details |
 | <a name="output_writer_endpoint"></a> [writer\_endpoint](#output\_writer\_endpoint) | Endpoint of the DocumentDB cluster. |
 <!-- END_TF_DOCS -->
