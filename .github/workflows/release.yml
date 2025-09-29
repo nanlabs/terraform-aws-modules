@@ -216,12 +216,12 @@ jobs:
           # Add version links at the bottom if they don't exist
           if ! grep -q "\[Unreleased\]:" CHANGELOG.md; then
             echo "" >> CHANGELOG.md
-            echo "[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/${new_version}...HEAD" >> CHANGELOG.md
-            echo "[${new_version#v}]: https://github.com/nanlabs/terraform-modules/releases/tag/${new_version}" >> CHANGELOG.md
+            echo "[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/${new_version}...HEAD" >> CHANGELOG.md
+            echo "[${new_version#v}]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/${new_version}" >> CHANGELOG.md
           else
             # Update existing links
-            sed -i "s|\[Unreleased\]:.*|[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/${new_version}...HEAD|" CHANGELOG.md
-            sed -i "/\[Unreleased\]:/a [${new_version#v}]: https://github.com/nanlabs/terraform-modules/releases/tag/${new_version}" CHANGELOG.md
+            sed -i "s|\[Unreleased\]:.*|[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/${new_version}...HEAD|" CHANGELOG.md
+            sed -i "/\[Unreleased\]:/a [${new_version#v}]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/${new_version}" CHANGELOG.md
           fi
 
       - name: Generate Release Notes
@@ -265,9 +265,9 @@ jobs:
             echo "## 📊 Comparison"
             echo ""
             if [[ "$previous_version" != "v0.0.0" ]]; then
-              echo "**Full Changelog**: https://github.com/nanlabs/terraform-modules/compare/${previous_version}...${new_version}"
+              echo "**Full Changelog**: https://github.com/nanlabs/terraform-aws-modules/compare/${previous_version}...${new_version}"
             else
-              echo "**Initial Release**: This is the first tagged release of the terraform-modules repository."
+              echo "**Initial Release**: This is the first tagged release of the terraform-aws-modules repository."
             fi
 
             echo ""
@@ -277,7 +277,7 @@ jobs:
             echo ""
             echo "\`\`\`hcl"
             echo "module \"example\" {"
-            echo "  source = \"git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=${new_version}\""
+            echo "  source = \"git::https://github.com/nanlabs/terraform-aws-modules.git//modules/MODULE_NAME?ref=${new_version}\""
             echo "  # ... module configuration"
             echo "}"
             echo "\`\`\`"

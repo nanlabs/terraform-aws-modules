@@ -145,20 +145,20 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-modules/compare/v1.7.0...HEAD
-[1.7.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.7.0
-[1.6.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.6.0
-[1.5.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.5.0
-[1.4.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.4.0
-[1.3.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.3.0
-[1.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.2.0
-[1.1.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.1.0
-[1.0.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v1.0.0
-[0.5.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.5.0
-[0.4.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.4.0
-[0.3.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.3.0
-[0.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.2.0
-[0.3.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.3.0
-[0.2.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.2.0
-[0.1.0]: https://github.com/nanlabs/terraform-modules/releases/tag/v0.1.0
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.7.0
+[1.6.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.6.0
+[1.5.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.5.0
+[1.4.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.4.0
+[1.3.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.3.0
+[1.2.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.2.0
+[1.1.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.1.0
+[1.0.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.0.0
+[0.5.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.5.0
+[0.4.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.4.0
+[0.3.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.3.0
+[0.2.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.2.0
+[0.3.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.3.0
+[0.2.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.2.0
+[0.1.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v0.1.0
 -->

@@ -69,7 +69,7 @@ You can also view the latest version of the module documentation [here](./docs/M
 
 ## Notes
 
-- This template follows the [Best Practices](https://github.com/nanlabs/terraform-modules/blob/main/docs/BEST_PRACTICES.md) for Terraform modules.
+- This template follows the [Best Practices](https://github.com/nanlabs/terraform-aws-modules/blob/main/docs/BEST_PRACTICES.md) for Terraform modules.
 - All resources are tagged with the provided tags plus default tags.
 - The module uses KMS encryption by default if a KMS key is provided.
 - Access logging is optional and requires a separate logging bucket.

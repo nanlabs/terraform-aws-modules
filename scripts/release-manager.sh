@@ -4,7 +4,7 @@
 ##     Terraform Modules Release Script v1.0
 ##     Copyright (c) 2025 NaNLABS
 ##
-## This script helps manage releases for the terraform-modules repository.
+## This script helps manage releases for the terraform-aws-modules repository.
 ## It can create releases, update changelogs, and validate module changes.
 ##
 ## Usage:

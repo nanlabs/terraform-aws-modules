@@ -284,7 +284,7 @@ To use a module from this repository, add it to your Terraform configuration:
 
 ```hcl
 module "vpc" {
-  source = "github.com/nanlabs/terraform-modules//modules/aws-vpc"
+  source = "github.com/nanlabs/terraform-aws-modules//modules/aws-vpc"
 
   vpc_cidr = "10.0.0.0/16"
   # ... other variables
@@ -297,7 +297,7 @@ Always specify a version when using modules:
 
 ```hcl
 module "vpc" {
-  source  = "github.com/nanlabs/terraform-modules//modules/aws-vpc"
+  source  = "github.com/nanlabs/terraform-aws-modules//modules/aws-vpc"
   version = "1.0.0"  # Use semantic versioning
 
   # ... variables

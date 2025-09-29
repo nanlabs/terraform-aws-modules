@@ -17,7 +17,7 @@ Each module is designed to be **plug-and-play** with sensible defaults, yet high
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.0.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.0.0"
 
   vpc_cidr = "10.0.0.0/16"
   # That's it! VPC with best practices is ready 🎉
@@ -62,17 +62,17 @@ When consuming modules, always pin to a specific version:
 ```hcl
 # ✅ Good - Pin to specific version
 module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/MODULE_NAME?ref=v1.2.3"
 }
 
 # ⚠️ Acceptable - Pin to minor version (receives patches)
 module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=v1.2"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/MODULE_NAME?ref=v1.2"
 }
 
 # ❌ Avoid - Using latest or main branch
 module "example" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/MODULE_NAME?ref=main"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/MODULE_NAME?ref=main"
 }
 ```
 
@@ -134,14 +134,14 @@ If you prefer to set up your environment locally, see [Development Setup](docs/D
 ```hcl
 # Compose multiple modules for complex infrastructure
 module "network" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.2.3"
 
   vpc_cidr = "10.0.0.0/16"
   name     = "my-app"
 }
 
 module "database" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-rds?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-rds?ref=v1.2.3"
 
   vpc_id         = module.network.vpc_id
   subnet_ids     = module.network.private_subnet_ids
@@ -149,7 +149,7 @@ module "database" {
 }
 
 module "kubernetes" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-eks?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-eks?ref=v1.2.3"
 
   vpc_id     = module.network.vpc_id
   subnet_ids = module.network.private_subnet_ids
@@ -161,7 +161,7 @@ module "kubernetes" {
 ```hcl
 # environments/staging/main.tf
 module "staging_infra" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.2.3"
 
   vpc_cidr = "10.1.0.0/16"
   name     = "staging"
@@ -173,7 +173,7 @@ module "staging_infra" {
 
 # environments/production/main.tf
 module "production_infra" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.2.3"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.2.3"
 
   vpc_cidr = "10.0.0.0/16"
   name     = "production"

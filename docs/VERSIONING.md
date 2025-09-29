@@ -1,6 +1,6 @@
 # Versioning & Release Strategy
 
-This document describes the versioning and release strategy for the terraform-modules repository.
+This document describes the versioning and release strategy for the terraform-aws-modules repository.
 
 ## 📋 Table of Contents
 
@@ -178,13 +178,13 @@ Separate workflows validate:
 1. **Pin to specific versions** in production:
 
    ```hcl
-   source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.2.3"
+   source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.2.3"
    ```
 
 2. **Use minor version pinning** for automatic patch updates:
 
    ```hcl
-   source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v1.2"
+   source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.2"
    ```
 
 3. **Never use `main` branch** in production

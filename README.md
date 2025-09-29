@@ -9,7 +9,7 @@
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![GitHub Stars](https://img.shields.io/github/stars/nanlabs/terraform-modules?style=for-the-badge)](https://github.com/nanlabs/terraform-modules/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/nanlabs/terraform-aws-modules?style=for-the-badge)](https://github.com/nanlabs/terraform-aws-modules/stargazers)
 
 🔥 **Battle-tested** • 🔒 **Security-first** • 💰 **Cost-optimized** • 🚀 **Developer-friendly**
 
@@ -25,7 +25,7 @@
 
 | 📚 **As Reference** | 🏗️ **As Template** | 🧩 **Direct Usage** |
 |:---:|:---:|:---:|
-| Study our best practices and patterns for your IaC projects | Fork and customize as starting point for your terraform-modules repository | Import modules directly into your Terraform projects |
+| Study our best practices and patterns for your IaC projects | Fork and customize as starting point for your terraform-aws-modules repository | Import modules directly into your Terraform projects |
 | Perfect for learning and inspiration | Ideal for teams building their own module library | Ready-to-use modules for immediate deployment |
 
 </div>
@@ -130,7 +130,7 @@ Each module is designed to be **plug-and-play** with sensible defaults, yet high
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-modules.git//modules/aws-vpc?ref=v0.2.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v0.2.0"
 
   vpc_cidr = "10.0.0.0/16"
   # That's it! VPC with best practices is ready 🎉
@@ -147,7 +147,7 @@ module "vpc" {
 
 | 🚀 **Quick Start** | 📚 **Learn More** | 🤝 **Get Help** |
 |:---:|:---:|:---:|
-| [Browse Examples](examples/) | [Read Documentation](docs/) | [Join Discussions](https://github.com/nanlabs/terraform-modules/discussions) |
+| [Browse Examples](examples/) | [Read Documentation](docs/) | [Join Discussions](https://github.com/nanlabs/terraform-aws-modules/discussions) |
 | Pick an example that fits your needs | Understand best practices | Ask questions, share ideas |
 
 ⭐ **If this project helps you, please consider giving it a star!** ⭐
@@ -204,7 +204,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=nanlabs/terraform-modules)](https://github.com/nanlabs/terraform-modules/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=nanlabs/terraform-aws-modules)](https://github.com/nanlabs/terraform-aws-modules/graphs/contributors)
 
 Made with [contributors-img](https://contrib.rocks).
 

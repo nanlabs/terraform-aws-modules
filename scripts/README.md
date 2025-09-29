@@ -1,12 +1,12 @@
 # Scripts 🛠️
 
-This directory contains utility scripts for managing the terraform-modules repository.
+This directory contains utility scripts for managing the terraform-aws-modules repository.
 
 ## Available Scripts
 
 ### `maintenance.sh`
 
-A comprehensive script for maintaining the terraform-modules repository with common development tasks.
+A comprehensive script for maintaining the terraform-aws-modules repository with common development tasks.
 
 **Features:**
 

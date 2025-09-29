@@ -180,7 +180,7 @@ module "vpc" {
 
 ```hcl
 module "vpc" {
-  source = "github.com/nanlabs/terraform-modules//modules/aws-vpc?ref=v1.2.3"
+  source = "github.com/nanlabs/terraform-aws-modules//modules/aws-vpc?ref=v1.2.3"
 
   name = "my-production-vpc"
   tags = {
