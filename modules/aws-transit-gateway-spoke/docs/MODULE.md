@@ -1,5 +1,3 @@
-# aws-transit-gateway-spoke
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

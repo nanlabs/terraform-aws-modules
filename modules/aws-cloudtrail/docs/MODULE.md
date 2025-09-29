@@ -1,5 +1,3 @@
-# AWS CloudTrail Module Documentation
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -48,9 +46,9 @@ No modules.
 | <a name="input_enable_log_file_validation"></a> [enable\_log\_file\_validation](#input\_enable\_log\_file\_validation) | Enable CloudTrail log file validation to detect tampering | `bool` | `true` | no |
 | <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | Enables logging for the trail | `bool` | `true` | no |
 | <a name="input_enforce_tls"></a> [enforce\_tls](#input\_enforce\_tls) | Deny S3 access to the bucket over insecure (non-SSL) transport | `bool` | `true` | no |
-| <a name="input_event_selector"></a> [event\_selector](#input\_event\_selector) | Event selector configuration | <pre>list(object({<br/>    read_write_type                  = optional(string, "All")<br/>    include_management_events        = optional(bool, true)<br/>    exclude_management_event_sources = optional(list(string), [])<br/>    data_resource = optional(list(object({<br/>      type   = string<br/>      values = list(string)<br/>    })), [])<br/>  }))</pre> | `[]` | no |
+| <a name="input_event_selector"></a> [event\_selector](#input\_event\_selector) | Event selector configuration | <pre>list(object({<br>    read_write_type                  = optional(string, "All")<br>    include_management_events        = optional(bool, true)<br>    exclude_management_event_sources = optional(list(string), [])<br>    data_resource = optional(list(object({<br>      type   = string<br>      values = list(string)<br>    })), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_include_global_service_events"></a> [include\_global\_service\_events](#input\_include\_global\_service\_events) | Specifies whether the trail is publishing events from global services | `bool` | `true` | no |
-| <a name="input_insight_selector"></a> [insight\_selector](#input\_insight\_selector) | Insight selector configuration for CloudTrail Insights | <pre>list(object({<br/>    insight_type = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_insight_selector"></a> [insight\_selector](#input\_insight\_selector) | Insight selector configuration for CloudTrail Insights | <pre>list(object({<br>    insight_type = string<br>  }))</pre> | `[]` | no |
 | <a name="input_is_multi_region_trail"></a> [is\_multi\_region\_trail](#input\_is\_multi\_region\_trail) | Specifies whether the trail is created in all regions | `bool` | `true` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The KMS key ID to use for encryption | `string` | `null` | no |
 | <a name="input_lifecycle_days_glacier"></a> [lifecycle\_days\_glacier](#input\_lifecycle\_days\_glacier) | Days after which to transition CloudTrail objects to GLACIER (optional) | `number` | `null` | no |
