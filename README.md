@@ -32,8 +32,6 @@ terraform init && terraform apply
 
 Need something bigger? Jump to the example catalog or full module list below.
 
----
-
 ## ✨ Why These Modules?
 
 Secure by default, production-proven, cost-aware, and fully overridable. Built to scale from MVP to multi-account enterprise without rewriting your Terraform.
@@ -41,18 +39,20 @@ Secure by default, production-proven, cost-aware, and fully overridable. Built t
 <details>
 <summary><strong>Show feature matrix</strong></summary>
 
-| Area | Included Highlights |
-|------|---------------------|
-| Reliability | Multi-AZ patterns, zero-downtime-friendly components |
-| Security | Encryption everywhere (KMS), least-privilege IAM, OIDC integration |
-| Cost | Right-sized defaults, optional NAT/TGW, lifecycle policies |
-| Observability | Flow logs, integration points for logging/metrics tooling |
-| DX | Consistent variable naming, full wrapper philosophy, rich examples |
-| Extensibility | Exposes all underlying module variables & outputs |
+<div align="left">
+
+<ul>
+  <li><b>🛡️ Reliability:</b> Multi‑AZ patterns, zero‑downtime friendly changes, safe defaults that avoid accidental data loss.</li>
+  <li><b>🔐 Security:</b> KMS encryption everywhere, least‑privilege IAM surfaces, GitHub OIDC (keyless CI), optional CloudTrail + Config integration.</li>
+  <li><b>💰 Cost Awareness:</b> Right‑sized defaults, opt‑in NAT / Transit Gateway, lifecycle policies for cold data, no hidden always‑on extras.</li>
+  <li><b>📊 Observability:</b> VPC Flow Logs ready, log/metrics hooks, consistent naming for tracing & tagging, surfaces for future dashboards.</li>
+  <li><b>🧪 Developer Experience:</b> Consistent variable names, “complete wrapper” philosophy, rich runnable examples, auto‑generated docs.</li>
+  <li><b>🧩 Extensibility:</b> All upstream module variables & outputs exposed, composable building blocks, feature flags instead of forks.</li>
+</ul>
+
+</div>
 
 </details>
-
----
 
 ## 🎪 Examples
 
@@ -84,7 +84,8 @@ Need data / security / networking patterns? See the expanded catalog.
 
 </details>
 
-> [!TIP] New here? Jump to the [Usage Guide](docs/USAGE.md) or scan the modules below.
+> [!TIP]
+> New here? Jump to the [Usage Guide](docs/USAGE.md) or scan the modules below.
 
 ## 🎯 Motivation
 
@@ -155,8 +156,6 @@ module "vpc" {
 
 > 📖 See the [Usage Guide](docs/USAGE.md) for advanced patterns (version pinning, multi-account, remote state, KMS sharing).
 
----
-
 ## 🎯 Ready to Get Started?
 
 <div align="center">
@@ -169,8 +168,6 @@ module "vpc" {
 ⭐ **If this project helps you, please consider giving it a star!** ⭐
 
 </div>
-
----
 
 ## 🤝 Contributing
 
