@@ -1,7 +1,7 @@
 <!-- Banner -->
 <div align="center">
 
-# 🚀 NaN Labs Terraform Modules
+# 🚀 NaN Labs' Terraform AWS Modules
 
 ## Deploy Production Infrastructure in Minutes, Not Months
 
@@ -19,100 +19,116 @@
 
 ---
 
-## 🎯 How to Use This Repository
+## 🧭 TL;DR
 
-<div align="center">
+Deploy production-grade AWS building blocks fast with battle-tested Terraform modules (secure defaults, full customization, clear docs).
 
-| 📚 **As Reference** | 🏗️ **As Template** | 🧩 **Direct Usage** |
-|:---:|:---:|:---:|
-| Study our best practices and patterns for your IaC projects | Fork and customize as starting point for your terraform-aws-modules repository | Import modules directly into your Terraform projects |
-| Perfect for learning and inspiration | Ideal for teams building their own module library | Ready-to-use modules for immediate deployment |
+```bash
+# Try the smallest stack (~$46/mo)
+git clone https://github.com/nanlabs/terraform-aws-modules.git
+cd terraform-aws-modules/examples/simple-web-app
+terraform init && terraform apply
+```
 
-</div>
-
----
-
-## ✨ What Makes Our Modules Special?
-
-<div align="center">
-
-| 🏆 **Enterprise-Ready** | 🔒 **Security First** | 💰 **Cost Optimized** | 📊 **Observability** | 🚀 **Developer Experience** |
-|:---:|:---:|:---:|:---:|:---:|
-| Zero-downtime deployments | Encryption by default | Intelligent scaling | Comprehensive logging | One-command deploy |
-| Production-tested patterns | Zero-trust networking | Resource optimization | Monitoring dashboards | Extensive examples |
-| High availability design | Compliance ready | Budget-friendly defaults | Alerting ready | Clear documentation |
-
-</div>
-
-### 🎯 Why Choose These Modules?
-
-- **⚡ Faster Time-to-Market**: Deploy in minutes what used to take weeks
-- **🛡️ Battle-Tested Reliability**: Used in production by dozens of companies
-- **💡 Best Practices Built-In**: Security, performance, and cost optimization from day one
-- **🔧 Highly Configurable**: From simple setups to complex enterprise requirements
-- **📚 Comprehensive Documentation**: Every module includes examples and detailed guides
-- **🤝 Community Driven**: Open source with active maintenance and support
+Need something bigger? Jump to the example catalog or full module list below.
 
 ---
 
-## 🎪 Quick Start Examples
+## ✨ Why These Modules?
 
-Choose your adventure:
+Secure by default, production-proven, cost-aware, and fully overridable. Built to scale from MVP to multi-account enterprise without rewriting your Terraform.
 
-### 📘 Example Index & Estimated Monthly Cost
+<details>
+<summary><strong>Show feature matrix</strong></summary>
 
-| Example | Path | Core Services | Est. Monthly Cost* | When to Use |
-|---------|------|---------------|--------------------|-------------|
-| 🌐 Simple Web App | `examples/simple-web-app` | VPC, EC2/ALB (or minimal compute), basic networking | ~$46 | MVPs, prototypes, hackathons |
-| ⚙️ Medium Complexity | `examples/medium-complexity-infrastructure` | VPC, EKS, RDS, Bastion, basic logging | ~$300 | Growing microservices, staging clusters |
-| 🏢 Complete Enterprise | `examples/complete-enterprise-setup` | Multi-AZ VPC, EKS, RDS (HA), MSK, Bastion, Transit GW, logging, encryption | ~$940 | Production-grade platforms |
-| 🔐 Secure Multi-Environment Data Platform | `examples/secure-multi-environment-data-platform` | VPC, CloudTrail, Config, Data Lake, KMS, Glue | ~$420 | Regulated / compliance-focused data workloads |
-| 🛰️ Hub & Spoke Networking Architecture | `examples/hub-and-spoke-networking-architecture` | Central VPC + spoke VPCs, Transit Gateway | ~$160 | Multi-team / multi-VPC segmentation |
-| 📊 Analytics Platform w/ Document Store | `examples/analytics-platform-with-document-store` | Data Lake, DocumentDB, MSK, Glue, Bastion | ~$780 | Mixed structured + semi-structured analytics |
-| 🔄 Data Processing Pipeline | `examples/data-processing-pipeline` | Data Lake, Glue Jobs/Workflow, KMS | ~$180 | Scheduled ETL / batch processing |
-| 🧩 Multi-Account Data Platform (Simulated) | `examples/multi-account-data-platform` | Central KMS, Transit GW, Data Lake, Glue, Bastion (aliased providers) | ~$210 | Learning multi-account patterns |
+| Area | Included Highlights |
+|------|---------------------|
+| Reliability | Multi-AZ patterns, zero-downtime-friendly components |
+| Security | Encryption everywhere (KMS), least-privilege IAM, OIDC integration |
+| Cost | Right-sized defaults, optional NAT/TGW, lifecycle policies |
+| Observability | Flow logs, integration points for logging/metrics tooling |
+| DX | Consistent variable naming, full wrapper philosophy, rich examples |
+| Extensibility | Exposes all underlying module variables & outputs |
 
-*These cost estimates were calculated at the time each example was authored using on-demand pricing in a common AWS region (e.g., us-east-1) and assume minimal throughput. Actual costs vary by region, usage, data transfer, storage growth, and instance sizing. Always run your own cost validation (AWS Pricing Calculator / Infracost) before production use.
+</details>
 
-> [!TIP]
-> **New here?** Check our [📚 Usage Guide](docs/USAGE.md) or jump to [🎪 Examples](examples/) • [📦 All Modules](#-available-modules)
+---
+
+## 🎪 Examples
+
+Pick a starting point:
+
+| Tier | Example | What You Get | Est. Cost* |
+|------|---------|--------------|-----------|
+| Starter | [🌐 Simple Web App](./examples/simple-web-app) | Minimal VPC + one compute entrypoint (low cost) | ~$46 |
+| Growth | [⚙️ Medium Complexity](./examples/medium-complexity-infrastructure) | EKS + RDS + Bastion (microservices base) | ~$300 |
+| Enterprise | [🏢 Complete Enterprise](./examples/complete-enterprise-setup) | Full platform: multi-AZ network, EKS, RDS (HA), MSK, TGW | ~$940 |
+
+Need data / security / networking patterns? See the expanded catalog.
+
+<details>
+<summary><strong>Full example catalog (with costs & focus areas)</strong></summary>
+
+| Example | Core Services | Focus | Est. Cost* |
+|---------|---------------|-------|-----------|
+| [🌐 Simple Web App](./examples/simple-web-app) | VPC + minimal compute | MVP / quick start | ~$46 |
+| [⚙️ Medium Complexity](./examples/medium-complexity-infrastructure) | VPC, EKS, RDS, Bastion | Microservices staging | ~$300 |
+| [🏢 Complete Enterprise](./examples/complete-enterprise-setup) | VPC (multi-AZ), EKS, RDS (HA), MSK, TGW, encryption | Production foundation | ~$940 |
+| [🔐 Secure Multi-Environment Data Platform](./examples/secure-multi-environment-data-platform) | CloudTrail, Config, Data Lake, Glue, KMS | Compliance & governance | ~$420 |
+| [🛰️ Hub & Spoke Networking](./examples/hub-and-spoke-networking-architecture) | Transit Gateway + multi-VPC | Segmentation / org networking | ~$160 |
+| [📊 Analytics + Document Store](./examples/analytics-platform-with-document-store) | Data Lake, DocumentDB, MSK, Glue | Hybrid analytics (structured + doc) | ~$780 |
+| [🔄 Data Processing Pipeline](./examples/data-processing-pipeline) | Data Lake, Glue Jobs + Workflow | Batch ETL / curation | ~$180 |
+| [🧩 Multi-Account Data Platform (Simulated)](./examples/multi-account-data-platform) | Central KMS, TGW, Data Lake, Glue, Bastion | Multi-account pattern | ~$210 |
+
+*Estimates at authoring time, us-east-1 on-demand, minimal throughput. Validate with AWS Pricing Calculator / Infracost before production.
+
+</details>
+
+> [!TIP] New here? Jump to the [Usage Guide](docs/USAGE.md) or scan the modules below.
 
 ## 🎯 Motivation
 
 Building and maintaining infrastructure across cloud providers can become repetitive and error-prone. This repository consolidates reusable Terraform modules following best practices, allowing your team to provision infrastructure efficiently, securely, and consistently—whether it's an AWS VPC, a Kubernetes cluster, or a MongoDB Atlas database.
 
-## 📦 Available Modules
+## 📦 Modules Overview
 
-<div align="center">
+Highly opinionated wrappers around official modules—simple defaults, full override capability.
 
-### AWS Infrastructure Modules
+**Categories:**
 
-</div>
+- Network & Access: VPC, Bastion, Transit Gateway (+ Spokes), Shared Networking
+- Compute & Orchestration: EKS, Amplify
+- Data & Analytics: RDS / Aurora, MSK, DocumentDB, Data Lake infra & encryption, Glue suite
+- Security & Governance: CloudTrail, Config, GitHub OIDC, TF State Backend
+- Multi-Cloud: MongoDB Atlas
+
+<details>
+<summary><strong>Show full module catalog</strong></summary>
 
 | Module | Description | Use Cases |
 |--------|-------------|-----------|
-| 🌐 [AWS VPC](modules/aws-vpc/) | Virtual Private Cloud with best practices | Network foundation, multi-AZ setup |
-| ⚡ [AWS EKS](modules/aws-eks/) | Managed Kubernetes with essential addons | Microservices, container orchestration |
-| 🗄️ [AWS RDS](modules/aws-rds/) | Relational database with monitoring | Application databases, data persistence |
-| 🗄️ [AWS RDS Aurora](modules/aws-rds-aurora/) | High-performance Aurora cluster | High-availability databases, read replicas |
-| 📨 [AWS MSK](modules/aws-msk/) | Managed Apache Kafka streaming | Event streaming, data pipelines |
-| 🏰 [AWS Bastion](modules/aws-bastion/) | Secure jump host with SSM | Secure access, troubleshooting |
-| 📊 [AWS DocumentDB](modules/aws-docdb/) | MongoDB-compatible database | Document storage, NoSQL applications |
-| 👤 [AWS IAM Role](modules/aws-iam-role/) | IAM roles with best practices | Service permissions, access control |
-| 🌍 [AWS Amplify App](modules/aws-amplify-app/) | Frontend hosting and CI/CD | Static sites, SPAs, JAMstack |
-| 🔐 [AWS CloudTrail](modules/aws-cloudtrail/) | Organization / account activity logging | Audit, compliance, security monitoring |
-| 🛡️ [AWS Config](modules/aws-config/) | Resource configuration tracking & rules | Governance, drift detection |
-| 🧱 [AWS Data Lake Encryption](modules/aws-data-lake-encryption/) | Central KMS keys for S3 / Glue | Centralized encryption, key rotation |
-| 🗃️ [AWS Data Lake Infrastructure](modules/aws-data-lake-infrastructure/) | Medallion S3 buckets + structure | Bronze/Silver/Gold data zones |
-| 🧬 [AWS Glue Code Registry](modules/aws-glue-code-registry/) | Schema / code artifacts registry | ETL governance, versioning |
-| 📚 [AWS Glue Data Lake Catalog](modules/aws-glue-data-lake-catalog/) | Database + tables scaffolding | Metadata management |
-| 🛠️ [AWS Glue Jobs](modules/aws-glue-jobs/) | Batch / Spark ETL jobs wrapper | Data transformation pipelines |
-| 🔄 [AWS Glue Workflow](modules/aws-glue-workflow/) | Orchestrated job scheduling | Dependency / time-based ETL |
-| ✈️ [AWS Transit Gateway](modules/aws-transit-gateway/) | Central routing hub | Multi-VPC / multi-account networking |
-| 🛰️ [AWS Transit Gateway Spoke](modules/aws-transit-gateway-spoke/) | Attach VPCs to TGW | Hub & spoke expansion |
-| 🕸️ [AWS Shared Networking](modules/aws-shared-networking/) | Shared services / DNS / endpoints | Centralized networking services |
-| 📦 [AWS TF State Backend](modules/aws-tfstate-backend/) | S3 + DynamoDB backend provisioning | Remote state storage |
-| 🔐 [AWS GitHub OIDC Provider](modules/aws-github-oidc-provider/) | Federated CI access (no long-lived keys) | Secure GitHub Actions deployments |
+| 🌐 [AWS VPC](./modules/aws-vpc) | VPC with subnets, flow logs, sane defaults | Network foundation, multi-AZ setup |
+| ⚡ [AWS EKS](./modules/aws-eks) | Managed Kubernetes + addons wrapper | Microservices, container orchestration |
+| 🗄️ [AWS RDS](./modules/aws-rds) | Relational DB (backups, monitoring) | Application persistence |
+| 🗄️ [AWS RDS Aurora](./modules/aws-rds-aurora) | High-performance Aurora cluster | HA & read scaling |
+| 📨 [AWS MSK](./modules/aws-msk) | Managed Kafka (secure & multi-AZ) | Event streaming, pipelines |
+| 🏰 [AWS Bastion](./modules/aws-bastion) | SSM-based secure jump host | Admin access, troubleshooting |
+| 📊 [AWS DocumentDB](./modules/aws-docdb) | MongoDB-compatible document store | Flexible JSON workloads |
+| 👤 [AWS IAM Role](./modules/aws-iam-role) | Opinionated IAM role creation | Least-privilege access |
+| 🌍 [AWS Amplify App](./modules/aws-amplify-app) | Frontend hosting & CI/CD | Static & SPA delivery |
+| 🔐 [AWS CloudTrail](./modules/aws-cloudtrail) | Central activity logging | Audit & compliance |
+| 🛡️ [AWS Config](./modules/aws-config) | Resource config tracking & rules | Governance & drift detection |
+| 🧱 [AWS Data Lake Encryption](./modules/aws-data-lake-encryption) | Central KMS (S3 + Glue keys) | Unified encryption & rotation |
+| 🗃️ [AWS Data Lake Infrastructure](./modules/aws-data-lake-infrastructure) | Medallion S3 layout scaffold | Bronze/Silver/Gold zoning |
+| 🧬 [AWS Glue Code Registry](./modules/aws-glue-code-registry) | Schema/code registry | ETL governance |
+| 📚 [AWS Glue Data Lake Catalog](./modules/aws-glue-data-lake-catalog) | Catalog databases / tables | Metadata discovery |
+| 🛠️ [AWS Glue Jobs](./modules/aws-glue-jobs) | Map-based multi Glue jobs | Batch / Spark ETL |
+| 🔄 [AWS Glue Workflow](./modules/aws-glue-workflow) | Workflow & trigger orchestration | Chained ETL processes |
+| ✈️ [AWS Transit Gateway](./modules/aws-transit-gateway) | Central routing hub | Multi-VPC topology |
+| 🛰️ [AWS Transit Gateway Spoke](./modules/aws-transit-gateway-spoke) | VPC attachment wrapper | Hub & spoke expansion |
+| 🕸️ [AWS Shared Networking](./modules/aws-shared-networking) | Shared services networking layer | Central endpoints & DNS |
+| 📦 [AWS TF State Backend](./modules/aws-tfstate-backend) | S3 + DynamoDB state backend | Remote state & locking |
+| 🔐 [AWS GitHub OIDC Provider](./modules/aws-github-oidc-provider) | OIDC federation for CI | Keyless deployments |
 
 <div align="center">
 
@@ -122,7 +138,7 @@ Building and maintaining infrastructure across cloud providers can become repeti
 
 | Module | Description | Use Cases |
 |--------|-------------|-----------|
-| 🍃 [MongoDB Atlas Cluster](modules/mongodb-atlas-cluster/) | Managed MongoDB in the cloud | Global databases, serverless apps |
+| 🍃 [MongoDB Atlas Cluster](./modules/mongodb-atlas-cluster) | Managed multi-cloud MongoDB | Global & serverless data |
 
 ## 🚀 Quick Module Usage
 
@@ -137,7 +153,7 @@ module "vpc" {
 }
 ```
 
-> 📖 **Need more details?** Check our [complete usage guide](docs/USAGE.md) with advanced patterns and best practices.
+> 📖 See the [Usage Guide](docs/USAGE.md) for advanced patterns (version pinning, multi-account, remote state, KMS sharing).
 
 ---
 
@@ -180,7 +196,7 @@ We **love** contributions! Whether you're:
 <div align="center">
 
 | 📖 **Guide** | 🎯 **Purpose** |
-|:---:|:---:|
+|:---|:---|
 | [📚 Usage Guide](docs/USAGE.md) | Complete module usage, versioning, and advanced patterns |
 | [🛠️ Development Setup](docs/DEV_SETUP.md) | Set up your development environment |
 | [📦 Modules Guide](docs/MODULES.md) | How to use and create modules |
