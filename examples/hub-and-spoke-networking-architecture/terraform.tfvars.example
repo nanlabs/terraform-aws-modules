@@ -1,0 +1,45 @@
+# ==============================================================================
+# TERRAFORM VARIABLES EXAMPLE - Hub-and-Spoke Networking Architecture
+# Copy this file to terraform.tfvars and customize the values
+# ==============================================================================
+
+# Basic configuration
+project_name = "my-hub-spoke-network"
+environment  = "shared"
+aws_region   = "us-east-1"
+
+# VPC CIDR blocks - ensure no overlap between VPCs
+hub_vpc_cidr     = "10.0.0.0/16"   # Hub VPC for shared services
+egress_vpc_cidr  = "10.1.0.0/16"   # Egress VPC for centralized internet access
+dev_vpc_cidr     = "10.10.0.0/16"  # Development workloads
+staging_vpc_cidr = "10.20.0.0/16"  # Staging workloads
+prod_vpc_cidr    = "10.30.0.0/16"  # Production workloads
+
+# Bastion host configuration
+bastion_instance_type = "t3.nano"    # Cost-effective for management access
+
+# Security configuration (restrict this in production)
+bastion_allowed_cidrs = [
+  "203.0.113.0/24",  # Replace with your office IP range
+  "198.51.100.0/24"  # Replace with your VPN IP range
+]
+
+# Optional: Create dedicated bastions for each environment
+# Increases cost but provides better isolation
+create_environment_bastions = false
+
+# Networking features
+enable_vpc_endpoints = true    # Recommended for security
+enable_flow_logs     = true    # Recommended for monitoring
+flow_log_retention_days = 30   # Adjust based on compliance needs
+
+# Additional tags for resource management
+additional_tags = {
+  Owner        = "NetworkingTeam"
+  CostCenter   = "Infrastructure"
+  Environment  = "shared"
+  Backup       = "NotRequired"
+  Monitoring   = "Required"
+  Compliance   = "SOX"  # Adjust based on your compliance requirements
+}
+

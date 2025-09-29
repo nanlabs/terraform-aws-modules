@@ -59,34 +59,23 @@
 
 Choose your adventure:
 
-### 🌐 Simple Web App (~$46/month)
+### 📘 Example Index & Estimated Monthly Cost
 
-Perfect for MVPs and small applications
+| Example | Path | Core Services | Est. Monthly Cost* | When to Use |
+|---------|------|---------------|--------------------|-------------|
+| 🌐 Simple Web App | `examples/simple-web-app` | VPC, EC2/ALB (or minimal compute), basic networking | ~$46 | MVPs, prototypes, hackathons |
+| ⚙️ Medium Complexity | `examples/medium-complexity-infrastructure` | VPC, EKS, RDS, Bastion, basic logging | ~$300 | Growing microservices, staging clusters |
+| 🏢 Complete Enterprise | `examples/complete-enterprise-setup` | Multi-AZ VPC, EKS, RDS (HA), MSK, Bastion, Transit GW, logging, encryption | ~$940 | Production-grade platforms |
+| 🔐 Secure Multi-Environment Data Platform | `examples/secure-multi-environment-data-platform` | VPC, CloudTrail, Config, Data Lake, KMS, Glue | ~$420 | Regulated / compliance-focused data workloads |
+| 🛰️ Hub & Spoke Networking Architecture | `examples/hub-and-spoke-networking-architecture` | Central VPC + spoke VPCs, Transit Gateway | ~$160 | Multi-team / multi-VPC segmentation |
+| 📊 Analytics Platform w/ Document Store | `examples/analytics-platform-with-document-store` | Data Lake, DocumentDB, MSK, Glue, Bastion | ~$780 | Mixed structured + semi-structured analytics |
+| 🔄 Data Processing Pipeline | `examples/data-processing-pipeline` | Data Lake, Glue Jobs/Workflow, KMS | ~$180 | Scheduled ETL / batch processing |
+| 🧩 Multi-Account Data Platform (Simulated) | `examples/multi-account-data-platform` | Central KMS, Transit GW, Data Lake, Glue, Bastion (aliased providers) | ~$210 | Learning multi-account patterns |
 
-```bash
-cd examples/simple-web-app
-terraform init && terraform apply
-```
+*These cost estimates were calculated at the time each example was authored using on-demand pricing in a common AWS region (e.g., us-east-1) and assume minimal throughput. Actual costs vary by region, usage, data transfer, storage growth, and instance sizing. Always run your own cost validation (AWS Pricing Calculator / Infracost) before production use.
 
-### ⚙️ Medium Complexity (~$300/month)
-
-Microservices with EKS + RDS + Monitoring
-
-```bash
-cd examples/medium-complexity-infrastructure
-terraform init && terraform apply
-```
-
-### 🏢 Complete Enterprise (~$940/month)
-
-Full-scale infrastructure with everything included
-
-```bash
-cd examples/complete-enterprise-setup
-terraform init && terraform apply
-```
-
-> 💡 **New here?** Check our [📚 Usage Guide](docs/USAGE.md) or jump to [🎪 Examples](examples/) • [📦 All Modules](#-available-modules)
+> [!TIP]
+> **New here?** Check our [📚 Usage Guide](docs/USAGE.md) or jump to [🎪 Examples](examples/) • [📦 All Modules](#-available-modules)
 
 ## 🎯 Motivation
 
@@ -111,6 +100,19 @@ Building and maintaining infrastructure across cloud providers can become repeti
 | 📊 [AWS DocumentDB](modules/aws-docdb/) | MongoDB-compatible database | Document storage, NoSQL applications |
 | 👤 [AWS IAM Role](modules/aws-iam-role/) | IAM roles with best practices | Service permissions, access control |
 | 🌍 [AWS Amplify App](modules/aws-amplify-app/) | Frontend hosting and CI/CD | Static sites, SPAs, JAMstack |
+| 🔐 [AWS CloudTrail](modules/aws-cloudtrail/) | Organization / account activity logging | Audit, compliance, security monitoring |
+| 🛡️ [AWS Config](modules/aws-config/) | Resource configuration tracking & rules | Governance, drift detection |
+| 🧱 [AWS Data Lake Encryption](modules/aws-data-lake-encryption/) | Central KMS keys for S3 / Glue | Centralized encryption, key rotation |
+| 🗃️ [AWS Data Lake Infrastructure](modules/aws-data-lake-infrastructure/) | Medallion S3 buckets + structure | Bronze/Silver/Gold data zones |
+| 🧬 [AWS Glue Code Registry](modules/aws-glue-code-registry/) | Schema / code artifacts registry | ETL governance, versioning |
+| 📚 [AWS Glue Data Lake Catalog](modules/aws-glue-data-lake-catalog/) | Database + tables scaffolding | Metadata management |
+| 🛠️ [AWS Glue Jobs](modules/aws-glue-jobs/) | Batch / Spark ETL jobs wrapper | Data transformation pipelines |
+| 🔄 [AWS Glue Workflow](modules/aws-glue-workflow/) | Orchestrated job scheduling | Dependency / time-based ETL |
+| ✈️ [AWS Transit Gateway](modules/aws-transit-gateway/) | Central routing hub | Multi-VPC / multi-account networking |
+| 🛰️ [AWS Transit Gateway Spoke](modules/aws-transit-gateway-spoke/) | Attach VPCs to TGW | Hub & spoke expansion |
+| 🕸️ [AWS Shared Networking](modules/aws-shared-networking/) | Shared services / DNS / endpoints | Centralized networking services |
+| 📦 [AWS TF State Backend](modules/aws-tfstate-backend/) | S3 + DynamoDB backend provisioning | Remote state storage |
+| 🔐 [AWS GitHub OIDC Provider](modules/aws-github-oidc-provider/) | Federated CI access (no long-lived keys) | Secure GitHub Actions deployments |
 
 <div align="center">
 

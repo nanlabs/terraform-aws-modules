@@ -171,6 +171,111 @@ module "rds" {
 - **Use Cases**: Global databases, serverless apps, MongoDB-as-a-Service
 - **Example Cost**: ~$57/month (M10 cluster)
 
+### 🔐 Security, Encryption & Governance Modules (Additional)
+
+#### 🔐 AWS CloudTrail
+
+- **Path**: `modules/aws-cloudtrail/`
+- **Description**: Configures account / organization-wide logging.
+- **Use Cases**: Audit trails, compliance evidence, security incident investigation.
+
+#### 🛡️ AWS Config
+
+- **Path**: `modules/aws-config/`
+- **Description**: Tracks resource configuration history and evaluates rules.
+- **Use Cases**: Governance, drift detection, compliance frameworks (CIS, HIPAA).
+
+#### 🔐 AWS GitHub OIDC Provider
+
+- **Path**: `modules/aws-github-oidc-provider/`
+- **Description**: Federated identity provider for GitHub Actions (no static keys).
+- **Use Cases**: Secure CI/CD deployments, least-privilege ephemeral credentials.
+
+### 🧱 Data Lake & Analytics Modules
+
+#### 🧱 AWS Data Lake Infrastructure
+
+- **Path**: `modules/aws-data-lake-infrastructure/`
+- **Description**: Creates medallion-zone S3 bucket structure (raw/bronze, processed/silver, curated/gold, temp) with optional lifecycle policies.
+- **Use Cases**: Analytics landing zones, ETL staging, governed storage layout.
+
+#### 🔐 AWS Data Lake Encryption
+
+- **Path**: `modules/aws-data-lake-encryption/`
+- **Description**: Centralized KMS keys (S3 + Glue) for secure data operations.
+- **Use Cases**: Multi-account encryption, central key rotation, compliance.
+
+#### 🧬 AWS Glue Code Registry
+
+- **Path**: `modules/aws-glue-code-registry/`
+- **Description**: Manages Glue Schema / code registries for versioned serialization.
+- **Use Cases**: Schema governance, event-driven ETL, compatibility tracking.
+
+#### 📚 AWS Glue Data Lake Catalog
+
+- **Path**: `modules/aws-glue-data-lake-catalog/`
+- **Description**: Scaffolds Glue databases and tables for structured zones.
+- **Use Cases**: Metadata discovery, unified data cataloging.
+
+#### 🛠️ AWS Glue Jobs
+
+- **Path**: `modules/aws-glue-jobs/`
+- **Description**: Wrapper for defining multiple Glue Spark jobs via a map (complete wrapper + command enforcement).
+- **Use Cases**: Batch ETL, transformations, enrichment pipelines.
+
+#### 🔄 AWS Glue Workflow
+
+- **Path**: `modules/aws-glue-workflow/`
+- **Description**: Orchestrates Glue jobs with triggers (scheduled / dependency).
+- **Use Cases**: Chained ETL pipelines, periodic processing, SLA alignment.
+
+### 🛰️ Networking & Shared Services
+
+#### ✈️ AWS Transit Gateway
+
+- **Path**: `modules/aws-transit-gateway/`
+- **Description**: Central routing hub for multi-VPC / multi-account architectures.
+- **Use Cases**: Hub-and-spoke networking, segmentation, centralized egress.
+
+#### 🛰️ AWS Transit Gateway Spoke
+
+- **Path**: `modules/aws-transit-gateway-spoke/`
+- **Description**: Attaches workload VPCs to a Transit Gateway.
+- **Use Cases**: Network expansion, environment isolation.
+
+#### 🕸️ AWS Shared Networking
+
+- **Path**: `modules/aws-shared-networking/`
+- **Description**: Shared services networking baseline (e.g., endpoints, DNS - depending on implementation).
+- **Use Cases**: Centralized networking services account.
+
+#### 📦 AWS TF State Backend
+
+- **Path**: `modules/aws-tfstate-backend/`
+- **Description**: Provisions S3 bucket + DynamoDB table for remote Terraform state locking.
+- **Use Cases**: Team collaboration, drift prevention, CI automation.
+
+## 🧩 Multi-Account Pattern Reference
+
+The repository includes a simulated multi-account example: `examples/multi-account-data-platform`.
+
+Key concepts demonstrated:
+
+1. Provider aliases standing in for account boundaries (`aws.infrastructure`, `aws.workloads_dev`, future staging/prod commented)
+2. Centralized encryption using `aws-data-lake-encryption` with downstream sharing of key ARNs
+3. Hub-and-spoke networking with `aws-transit-gateway` + `aws-transit-gateway-spoke`
+4. Data lake provisioning + Glue jobs + scheduled workflow orchestration
+5. Progressive environment expansion pattern (commented blocks for staging/prod)
+
+For production evolution:
+
+- Replace aliases with real `assume_role` provider blocks per account
+- Add explicit KMS grants referencing workload account principals
+- Externalize state (one backend per account; pass TGW + key ARNs via remote state or SSM)
+- Harden networking (CIDR isolation, DNS resolver endpoints, security account logging aggregation)
+
+Refer to the example README for full architecture notes.
+
 ## Using Modules
 
 ### Basic Usage

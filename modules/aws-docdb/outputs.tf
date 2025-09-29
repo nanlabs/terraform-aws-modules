@@ -58,3 +58,15 @@ output "ssm_parameter_names" {
     connection_secret_name = "${var.ssm_parameter_prefix != "" ? var.ssm_parameter_prefix : "/${var.name}"}/connection_secret_name"
   } : {}) : {}
 }
+
+# Direct security group output for easier access
+output "security_group_id" {
+  description = "ID of the security group associated with the DocumentDB cluster"
+  value       = module.security_group.security_group_id
+}
+
+# Direct port output for easier access
+output "port" {
+  description = "DocumentDB port"
+  value       = 27017
+}

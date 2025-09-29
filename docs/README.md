@@ -10,11 +10,13 @@ Welcome to the Terraform Modules documentation. This repository contains reusabl
 - [GitHub Actions](GITHUB_ACTIONS.md) - CI/CD workflows and automation documentation
 - [Contributing Guidelines](CONTRIBUTING_GUIDELINES.md) - How to contribute to this repository
 - [Versioning Strategy](VERSIONING.md) - Release management and versioning guidelines
+- [Multi-Account Pattern](../examples/multi-account-data-platform/README.md) - Simulated multi-account data platform (central KMS + TGW)
 
 ## Getting Started
 
 1. Review the [Development Setup](DEV_SETUP.md) guide to configure your environment
 2. Check the [Modules Guide](MODULES.md) to understand how to use and create modules
+3. Browse the example scenarios in `examples/` (web app, medium, enterprise, multi-account data platform)
 3. Follow the [Best Practices](BEST_PRACTICES.md) when working with modules
 4. Understand the [GitHub Actions](GITHUB_ACTIONS.md) workflows for CI/CD automation
 5. Read the [Contributing Guidelines](CONTRIBUTING_GUIDELINES.md) if you want to contribute

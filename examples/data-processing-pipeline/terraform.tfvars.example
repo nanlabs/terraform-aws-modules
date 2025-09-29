@@ -1,0 +1,91 @@
+# Data Processing Pipeline Configuration Example
+# Copy this file to terraform.tfvars and customize the values
+
+# Project Configuration
+project_name = "data-pipeline"
+environment  = "prod"
+region      = "us-east-1"
+
+# Common Tags
+tags = {
+  Project     = "DataProcessingPipeline"
+  Environment = "production"
+  Team        = "DataEngineering"
+  Owner       = "data-team@company.com"
+  CostCenter  = "engineering"
+  Terraform   = "true"
+}
+
+# VPC Configuration
+vpc_cidr            = "10.20.0.0/16"
+availability_zones  = ["us-east-1a", "us-east-1b", "us-east-1c"]
+private_subnets     = ["10.20.1.0/24", "10.20.2.0/24", "10.20.3.0/24"]
+public_subnets      = ["10.20.101.0/24", "10.20.102.0/24", "10.20.103.0/24"]
+database_subnets    = ["10.20.201.0/24", "10.20.202.0/24", "10.20.203.0/24"]
+
+# Cost Optimization - Set to true for development, false for production
+single_nat_gateway = false
+
+# S3 Storage Lifecycle
+s3_transition_standard_ia_days = 30  # Move to IA after 30 days
+s3_transition_glacier_days     = 90  # Move to Glacier after 90 days
+s3_expiration_days            = 365  # Delete after 1 year
+
+# Glue Configuration
+glue_version               = "4.0"
+glue_max_capacity         = 10
+glue_max_retries          = 1
+glue_timeout_minutes      = 2880  # 48 hours
+glue_notification_delay   = 10
+glue_job_schedule        = "cron(0 2 * * ? *)"  # Daily at 2 AM UTC
+crawler_schedule         = "cron(0 1 * * ? *)"  # Daily at 1 AM UTC
+start_workflow_on_creation = false
+
+# Kafka/MSK Configuration
+enable_streaming      = true
+kafka_version        = "2.8.1"
+kafka_broker_count   = 2
+kafka_instance_type  = "kafka.m5.large"
+kafka_ebs_volume_size = 100
+
+# Bastion Host Configuration
+bastion_instance_type      = "t3.micro"
+bastion_key_name          = null  # Set to your key pair name if needed
+bastion_allowed_cidr_blocks = [
+  "10.0.0.0/8",      # Private networks
+  "172.16.0.0/12",   # Private networks
+  "192.168.0.0/16"   # Private networks
+  # Add your office/home IP ranges here
+  # "203.0.113.0/24"  # Example office network
+]
+
+# Lambda Configuration (optional)
+enable_lambda_processing = false
+
+# Monitoring Configuration
+enable_detailed_monitoring = true
+log_retention_days        = 14
+
+# Cost Optimization Settings
+enable_cost_optimization = true
+enable_spot_instances    = false  # Set to true for development environments
+
+# Advanced Configuration (uncomment and modify as needed)
+
+# Custom Glue Job Schedule (for specific use cases)
+# glue_job_schedule = "cron(0 */6 * * ? *)"  # Every 6 hours
+# glue_job_schedule = "cron(0 8 * * MON *)"  # Weekly on Monday at 8 AM
+
+# Custom Kafka Configuration (for high-throughput scenarios)
+# kafka_instance_type = "kafka.m5.xlarge"
+# kafka_broker_count = 3
+# kafka_ebs_volume_size = 200
+
+# Development Environment Overrides
+# (Uncomment for development/staging environments to reduce costs)
+# single_nat_gateway = true
+# kafka_instance_type = "kafka.t3.small"
+# kafka_broker_count = 1
+# glue_max_capacity = 5
+# enable_streaming = false
+# enable_detailed_monitoring = false

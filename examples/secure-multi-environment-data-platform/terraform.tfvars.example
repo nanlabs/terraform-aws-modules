@@ -1,0 +1,197 @@
+# Secure Multi-Environment Data Platform Configuration Example
+# Copy this file to terraform.tfvars and customize the values
+
+# Core Configuration
+project_name = "secure-data-platform"
+organization = "company"
+region      = "us-east-1"
+
+# Common Tags
+tags = {
+  Project       = "SecureDataPlatform"
+  Organization  = "Company"
+  Team          = "DataEngineering"
+  Owner         = "data-platform-team@company.com"
+  CostCenter    = "engineering"
+  Compliance    = "required"
+  Environment   = "multi"
+  Terraform     = "true"
+}
+
+# Network Configuration
+availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+
+# Shared Services VPC Configuration
+shared_services_vpc_cidr = "10.0.0.0/16"
+shared_services_private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+shared_services_public_subnets = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+shared_services_single_nat_gateway = false
+
+# Environment-Specific Configurations
+environments = {
+  # Development Environment - Cost-optimized for development and testing
+  dev = {
+    vpc_cidr = "10.10.0.0/16"
+    private_subnets = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
+    public_subnets = ["10.10.101.0/24", "10.10.102.0/24", "10.10.103.0/24"]
+    database_subnets = ["10.10.201.0/24", "10.10.202.0/24", "10.10.203.0/24"]
+
+    # Instance sizes (cost-optimized)
+    bastion_instance_type = "t3.nano"
+    kafka_instance_type = "kafka.t3.small"
+
+    # Feature flags
+    enable_streaming = false  # Disabled for cost savings
+    enable_detailed_monitoring = false
+
+    # Data retention (short for dev)
+    data_retention_days = 30
+    log_retention_days = 7
+
+    # Cost optimization
+    single_nat_gateway = true  # Single NAT for cost savings
+
+    # Processing configuration
+    glue_max_capacity = 5
+
+    # Kafka configuration (minimal)
+    kafka_broker_count = 1
+    kafka_ebs_volume_size = 50
+  }
+
+  # Staging Environment - Production-like but smaller scale
+  staging = {
+    vpc_cidr = "10.20.0.0/16"
+    private_subnets = ["10.20.1.0/24", "10.20.2.0/24", "10.20.3.0/24"]
+    public_subnets = ["10.20.101.0/24", "10.20.102.0/24", "10.20.103.0/24"]
+    database_subnets = ["10.20.201.0/24", "10.20.202.0/24", "10.20.203.0/24"]
+
+    # Instance sizes (moderate)
+    bastion_instance_type = "t3.small"
+    kafka_instance_type = "kafka.m5.large"
+
+    # Feature flags
+    enable_streaming = true
+    enable_detailed_monitoring = true
+
+    # Data retention (medium-term)
+    data_retention_days = 90
+    log_retention_days = 14
+
+    # High availability
+    single_nat_gateway = false
+
+    # Processing configuration
+    glue_max_capacity = 10
+
+    # Kafka configuration (HA)
+    kafka_broker_count = 2
+    kafka_ebs_volume_size = 100
+  }
+
+  # Production Environment - Full scale and high availability
+  prod = {
+    vpc_cidr = "10.30.0.0/16"
+    private_subnets = ["10.30.1.0/24", "10.30.2.0/24", "10.30.3.0/24"]
+    public_subnets = ["10.30.101.0/24", "10.30.102.0/24", "10.30.103.0/24"]
+    database_subnets = ["10.30.201.0/24", "10.30.202.0/24", "10.30.203.0/24"]
+
+    # Instance sizes (production-grade)
+    bastion_instance_type = "t3.medium"
+    kafka_instance_type = "kafka.m5.xlarge"
+
+    # Feature flags (all enabled)
+    enable_streaming = true
+    enable_detailed_monitoring = true
+
+    # Data retention (long-term/compliance)
+    data_retention_days = 2555  # 7 years for compliance
+    log_retention_days = 365    # 1 year
+
+    # High availability
+    single_nat_gateway = false
+
+    # Processing configuration (high capacity)
+    glue_max_capacity = 20
+
+    # Kafka configuration (production HA)
+    kafka_broker_count = 3
+    kafka_ebs_volume_size = 200
+  }
+}
+
+# Security Configuration
+enable_cross_region_backup = true
+kms_deletion_window_days = 30
+
+# Compliance Configuration
+enable_security_hub = true
+enable_config = true
+enable_guardduty = true
+
+# Logging and Monitoring
+log_retention_days = 90
+cloudtrail_log_retention_days = 2555  # 7 years for compliance
+
+# Bastion Configuration
+bastion_key_name = null  # Set to your key pair name if needed
+bastion_allowed_cidr_blocks = [
+  "10.0.0.0/8",      # Private networks only
+  "172.16.0.0/12",   # Private networks only
+  "192.168.0.0/16"   # Private networks only
+  # Add your specific office/VPN CIDR blocks here for external access
+  # "203.0.113.0/24"  # Example office network
+]
+
+# Data Processing Configuration
+glue_version = "4.0"
+kafka_version = "2.8.1"
+
+# Cost Optimization
+enable_cost_optimization = true
+enable_spot_instances = false  # Set to true for non-production environments
+
+# Environment Management
+environment_promotion_enabled = false  # Enable for automated promotion pipelines
+enable_blue_green_deployment = false   # Enable for zero-downtime deployments
+
+# Advanced Configuration (uncomment and modify as needed)
+
+# Custom Environment Configuration Example
+# environments = {
+#   dev = {
+#     # ... existing dev config ...
+#     # Custom overrides for specific use cases
+#     enable_streaming = true  # Enable streaming in dev if needed
+#     glue_max_capacity = 2    # Reduce for minimal cost
+#   }
+#
+#   staging = {
+#     # ... existing staging config ...
+#     # Production-like testing
+#     kafka_instance_type = "kafka.m5.xlarge"  # Match production
+#   }
+#
+#   prod = {
+#     # ... existing prod config ...
+#     # High-performance production
+#     kafka_broker_count = 5              # Scale up for high throughput
+#     kafka_ebs_volume_size = 500         # Large storage for retention
+#     data_retention_days = 3653          # 10 years for extended compliance
+#   }
+# }
+
+# Regional Configuration (for multi-region deployment)
+# backup_region = "us-west-2"
+# enable_cross_region_replication = true
+
+# Compliance-Specific Settings
+# gdpr_compliance_mode = true
+# hipaa_compliance_mode = true
+# sox_compliance_mode = true
+
+# Advanced Security Settings
+# enable_waf = true
+# enable_inspector = true
+# enable_macie = true
+# enable_detective = true
