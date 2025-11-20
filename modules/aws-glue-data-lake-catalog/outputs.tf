@@ -65,7 +65,7 @@ output "export_database" {
 }
 
 # Legacy outputs for backward compatibility (pick the first database for each layer)
-output "raw_zone_database_name" {
+output "raw_database_name" {
   description = "Name of the first raw_zone database (for backward compatibility)"
   value = length([
     for key, db in aws_glue_catalog_database.databases : db.name

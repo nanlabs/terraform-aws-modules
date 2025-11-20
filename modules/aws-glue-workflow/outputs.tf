@@ -13,7 +13,7 @@ output "workflows_summary" {
   value = {
     for wf_key, wf in aws_glue_workflow.this : wf_key => {
       name     = wf.name
-      triggers = [for k, t in aws_glue_trigger.this : t.name if regex("^${wf.name}-t-", t.name) != null]
+      triggers = [for k, t in aws_glue_trigger.this : t.name if can(regex("^${wf.name}-t-", t.name))]
     }
   }
 }

@@ -8,10 +8,11 @@ locals {
 
 # Iterate workflows
 resource "aws_glue_workflow" "this" {
-  for_each    = var.workflows
-  name        = "${local.resource_prefix}-wf-${each.key}"
-  description = coalesce(try(each.value.description, null), "Glue workflow ${each.key}")
-  tags        = merge(local.tags, { Workflow = each.key })
+  for_each               = var.workflows
+  name                   = "${local.resource_prefix}-wf-${each.key}"
+  description            = coalesce(try(each.value.description, null), "Glue workflow ${each.key}")
+  default_run_properties = length(each.value.default_run_properties) > 0 ? each.value.default_run_properties : null
+  tags                   = merge(local.tags, { Workflow = each.key })
 }
 
 # Flatten triggers into a single collection with composite key
@@ -37,7 +38,7 @@ resource "aws_glue_trigger" "this" {
   name              = "${local.resource_prefix}-wf-${each.value.workflow_key}-t-${each.value.trigger.name}"
   type              = each.value.trigger.type
   workflow_name     = aws_glue_workflow.this[each.value.workflow_key].name
-  start_on_creation = try(each.value.trigger.start_on_creation, true)
+  start_on_creation = each.value.trigger.type == "ON_DEMAND" ? false : try(each.value.trigger.start_on_creation, true)
 
   # Scheduled trigger
   schedule = each.value.trigger.type == "SCHEDULED" ? each.value.trigger.schedule : null

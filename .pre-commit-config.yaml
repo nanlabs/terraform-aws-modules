@@ -1,0 +1,124 @@
+# Pre-commit configuration for Terraform Infrastructure
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+default_stages: [pre-commit]
+default_language_version:
+  python: python3
+
+repos:
+  # Core pre-commit hooks for general file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # File formatting and structure
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+        exclude: \.ya?ml\.j2$
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+
+      # Git and file system checks
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+
+      # Content validation
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+
+  # Terraform-specific hooks using the most popular pre-commit-terraform
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.99.5  # Latest as of Jan 2025
+    hooks:
+      # Core Terraform formatting and validation
+      - id: terraform_fmt
+        args:
+          - --args=-recursive
+          - --args=-diff
+
+      - id: terraform_validate
+        args:
+          - --hook-config=--retry-once-with-cleanup=true
+
+      # Security scanning with Trivy (modern replacement for tfsec)
+      - id: terraform_trivy
+        args:
+          - --args=--format=compact
+          - --args=--exit-code=1
+          - --args=--severity=HIGH,CRITICAL
+          - --args=--skip-dirs="**/.terraform"
+
+      # Documentation generation
+      - id: terraform_docs
+        args:
+          - --hook-config=--path-to-file=docs/MODULE.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--create-file-if-not-exist=true
+
+      # Provider lock file management
+      - id: terraform_providers_lock
+        args:
+          - --hook-config=--mode=only-check-is-current-lockfile-cross-platform
+          - --args=-platform=linux_amd64
+          - --args=-platform=linux_arm64
+          - --args=-platform=darwin_amd64
+          - --args=-platform=darwin_arm64
+
+  # Markdown linting for better documentation
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.15.0
+    hooks:
+      - id: markdownlint-cli2
+        args:
+          - --config=.markdownlint.json
+
+  # YAML formatting and linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.0
+    hooks:
+      - id: yamllint
+        args: [-c=.yamllint]
+
+  # Shell script linting
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args: [--severity=warning]
+
+  # Secret scanning for security
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  # Typo and spelling checks
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.28.3
+    hooks:
+      - id: typos
+        args: [--config=.typos.toml]
+        exclude: |
+          (?x)^(
+            .*\.lock.*|
+            .*\.tfstate.*|
+            .git/.*
+          )$
+
+# Configuration for excluding files/directories
+exclude: |
+  (?x)^(
+    \.terraform/.*|
+    \.terraform\.lock\.hcl$|
+    .*\.tfstate.*|
+    .*\.terraform\.lock\.hcl$|
+    node_modules/.*|
+    \.venv/.*|
+    __pycache__/.*
+  )$

@@ -21,6 +21,7 @@ Map of Glue workflows to create. Structure:
 {
   workflow_key = {
     description = optional(string)
+    default_run_properties = optional(map(string), {})  # Default properties passed to all jobs in this workflow
     triggers = [
       {
         name              = string                      # unique within workflow
@@ -49,7 +50,8 @@ Map of Glue workflows to create. Structure:
 }
 EOT
   type = map(object({
-    description = optional(string)
+    description            = optional(string)
+    default_run_properties = optional(map(string), {})
     triggers = list(object({
       name              = string
       type              = string

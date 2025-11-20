@@ -226,7 +226,7 @@ resource "aws_cloudwatch_log_group" "glue_jobs" {
   kms_key_id        = var.cloudwatch_kms_key_id
 
   tags = merge(var.tags, {
-    JobName = each.key
+    JobName = "${local.resource_prefix}-${each.key}"
   })
 }
 
@@ -244,9 +244,9 @@ resource "aws_glue_job" "this" {
   # For Python Shell jobs AWS Glue does not allow worker_type/number_of_workers.
   # Those jobs must specify max_capacity instead. For Spark (glueetl / gluestreaming)
   # we keep worker_type/number_of_workers and ignore max_capacity to avoid conflicts.
-  worker_type               = each.value.command.name == "pythonshell" ? null : each.value.worker_type
-  number_of_workers         = each.value.command.name == "pythonshell" ? null : each.value.number_of_workers
-  max_capacity              = each.value.command.name == "pythonshell" ? coalesce(each.value.max_capacity, 1) : null
+  worker_type               = each.value.worker_type
+  number_of_workers         = each.value.number_of_workers
+  max_capacity              = each.value.max_capacity
   max_retries               = each.value.max_retries
   timeout                   = each.value.timeout
   security_configuration    = each.value.security_configuration
@@ -299,7 +299,7 @@ resource "aws_glue_job" "this" {
   connections = [aws_glue_connection.vpc_connection.name]
 
   tags = merge(var.tags, {
-    JobName     = each.key
+    JobName     = "${local.resource_prefix}-${each.key}"
     JobType     = each.value.command.name
     GlueVersion = each.value.glue_version
   })
