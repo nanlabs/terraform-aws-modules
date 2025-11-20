@@ -1,5 +1,3 @@
-# aws-glue-data-lake-catalog
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -28,14 +26,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | Map of additional databases to create outside of the standard data lake layers | <pre>map(object({<br/>    description = string<br/>    location    = optional(string, null)<br/>    parameters  = optional(map(string), {})<br/>  }))</pre> | `{}` | no |
+| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | Map of additional databases to create outside of the standard data lake layers | <pre>map(object({<br>    description = string<br>    location    = optional(string, null)<br>    parameters  = optional(map(string), {})<br>  }))</pre> | `{}` | no |
 | <a name="input_catalog_id"></a> [catalog\_id](#input\_catalog\_id) | The ID of the Glue Catalog. If not provided, the AWS account ID will be used | `string` | `null` | no |
 | <a name="input_create_export_database"></a> [create\_export\_database](#input\_create\_export\_database) | Whether to create an export database for final outputs | `bool` | `true` | no |
 | <a name="input_create_shared_databases"></a> [create\_shared\_databases](#input\_create\_shared\_databases) | Whether to create shared databases (shared, export) | `bool` | `true` | no |
-| <a name="input_data_lake_paths"></a> [data\_lake\_paths](#input\_data\_lake\_paths) | Map of layer names to their S3 path prefixes | `map(string)` | <pre>{<br/>  "bronze": "iceberg-warehouse/bronze",<br/>  "gold": "iceberg-warehouse/gold",<br/>  "silver": "iceberg-warehouse/silver"<br/>}</pre> | no |
+| <a name="input_data_lake_paths"></a> [data\_lake\_paths](#input\_data\_lake\_paths) | Map of layer names to their S3 path prefixes | `map(string)` | <pre>{<br>  "bronze": "iceberg-warehouse/bronze",<br>  "gold": "iceberg-warehouse/gold",<br>  "silver": "iceberg-warehouse/silver"<br>}</pre> | no |
 | <a name="input_data_lake_sublayers"></a> [data\_lake\_sublayers](#input\_data\_lake\_sublayers) | Configuration for sublayers within each data lake layer. Each layer can have multiple sublayers (e.g., source systems, processing stages) | `map(list(string))` | `{}` | no |
 | <a name="input_database_prefix"></a> [database\_prefix](#input\_database\_prefix) | Prefix for all Glue database names. Should follow the pattern: namespace-short\_domain-account\_name (e.g., dwh-wl-workloads-data-lake-develop) | `string` | n/a | yes |
-| <a name="input_layers"></a> [layers](#input\_layers) | List of data lake layers to create databases for | `list(string)` | <pre>[<br/>  "bronze",<br/>  "silver",<br/>  "gold"<br/>]</pre> | no |
+| <a name="input_layers"></a> [layers](#input\_layers) | List of data lake layers to create databases for | `list(string)` | <pre>[<br>  "bronze",<br>  "silver",<br>  "gold"<br>]</pre> | no |
 | <a name="input_s3_bucket_uri"></a> [s3\_bucket\_uri](#input\_s3\_bucket\_uri) | The S3 bucket URI where data lake data is stored (e.g., s3://bucket-name) | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to all resources created by this module | `map(string)` | `{}` | no |
 
