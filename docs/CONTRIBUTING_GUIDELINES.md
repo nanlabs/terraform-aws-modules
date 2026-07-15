@@ -16,26 +16,26 @@ Please follow the project's code of conduct when contributing.
 ## Development Workflow
 
 1. **Branch Naming**
-   - Use descriptive branch names
-   - Follow the pattern: `type/description`
-   - Examples:
+    - Use descriptive branch names
+    - Follow the pattern: `type/description`
+    - Examples:
      - `feature/new-module`
      - `fix/vpc-security`
      - `docs/readme-update`
 
 2. **Commit Messages**
-   - Use clear, descriptive messages
-   - Follow conventional commits format
-   - Reference issues when applicable
-   - Include release type for version bumps (e.g., `release-type: minor`)
+    - Use clear, descriptive messages
+    - Follow conventional commits format
+    - Reference issues when applicable
+    - Include release type for version bumps (e.g., `release-type: minor`)
 
 3. **Pull Requests**
-   - Create PRs early for discussion
-   - Keep PRs focused and small
-   - Update documentation
-   - **Update CHANGELOG.md** under `[Unreleased]` section
-   - **Specify release type** if changes should trigger a new version
-   - Include tests and examples
+    - Create PRs early for discussion
+    - Keep PRs focused and small
+    - Update documentation
+    - **Update CHANGELOG.md** under `[Unreleased]` section
+    - **Specify release type** if changes should trigger a new version
+    - Include tests and examples
 
 ## Module Development
 
@@ -59,19 +59,19 @@ Please follow the project's code of conduct when contributing.
 ### Required Tests
 
 1. **Unit Tests**
-   - Variable validation
-   - Output values
-   - Error conditions
+    - Variable validation
+    - Output values
+    - Error conditions
 
 2. **Integration Tests**
-   - Real provider testing
-   - Module composition
-   - Error handling
+    - Real provider testing
+    - Module composition
+    - Error handling
 
 3. **Security Tests**
-   - Terraform security checks
-   - IAM validation
-   - Encryption verification
+    - Terraform security checks
+    - IAM validation
+    - Encryption verification
 
 ### Running Tests
 
@@ -88,15 +88,15 @@ sure the GitHub Actions checks pass:
 ### Required Documentation
 
 1. **Module Documentation**
-   - README.md
-   - Input/output documentation
-   - Usage examples
-   - Requirements
+    - README.md
+    - Input/output documentation
+    - Usage examples
+    - Requirements
 
 2. **Code Documentation**
-   - Comments for complex logic
-   - Design decisions
-   - External references
+    - Comments for complex logic
+    - Design decisions
+    - External references
 
 ### Generating Documentation
 
@@ -111,19 +111,19 @@ terraform-docs markdown . > README.md
 ## Review Process
 
 1. **Code Review**
-   - All PRs require review
-   - Address review comments
-   - Keep PRs up to date
+    - All PRs require review
+    - Address review comments
+    - Keep PRs up to date
 
 2. **CI/CD Checks**
-   - All checks must pass
-   - Fix any failures
-   - Update if needed
+    - All checks must pass
+    - Fix any failures
+    - Update if needed
 
 3. **Final Steps**
-   - Squash commits if requested
-   - Update PR description
-   - Request final review
+    - Squash commits if requested
+    - Update PR description
+    - Request final review
 
 ## Release Process
 
@@ -143,12 +143,12 @@ We use **Semantic Versioning (SemVer)** with the format `vMAJOR.MINOR.PATCH`:
 
 1. **Update CHANGELOG.md** under the `[Unreleased]` section
 2. **Categorize your changes:**
-   - `Added` - New features or modules
-   - `Changed` - Changes in existing functionality
-   - `Fixed` - Bug fixes
-   - `Security` - Vulnerability fixes
-   - `Deprecated` - Soon-to-be removed features
-   - `Removed` - Removed features
+    - `Added` - New features or modules
+    - `Changed` - Changes in existing functionality
+    - `Fixed` - Bug fixes
+    - `Security` - Vulnerability fixes
+    - `Deprecated` - Soon-to-be removed features
+    - `Removed` - Removed features
 
 **Example:**
 
