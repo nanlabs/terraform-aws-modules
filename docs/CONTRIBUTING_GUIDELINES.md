@@ -75,15 +75,13 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contribu
 
 ### Running Tests
 
-```bash
-# Run all tests
-make test
+This repository does not currently provide a root `Makefile`. Before opening a
+pull request, run the relevant local tools for the module you changed and make
+sure the GitHub Actions checks pass:
 
-# Run specific tests
-make test-unit
-make test-integration
-make test-security
-```
+- Terraform formatting and validation for changed modules.
+- Terraform documentation generation when module inputs or outputs change.
+- MegaLinter checks for documentation, security, and repository hygiene.
 
 ## Documentation
 
