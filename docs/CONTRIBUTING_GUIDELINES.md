@@ -4,7 +4,7 @@ Thank you for your interest in contributing to our Terraform modules repository!
 
 ## Code of Conduct
 
-Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+Please follow the project's code of conduct when contributing.
 
 ## Getting Started
 
@@ -69,7 +69,7 @@ Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) before contribu
    - Error handling
 
 3. **Security Tests**
-   - tfsec checks
+   - Terraform security checks
    - IAM validation
    - Encryption verification
 
