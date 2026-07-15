@@ -19,9 +19,9 @@ Please follow the project's code of conduct when contributing.
     - Use descriptive branch names
     - Follow the pattern: `type/description`
     - Examples:
-     - `feature/new-module`
-     - `fix/vpc-security`
-     - `docs/readme-update`
+    - `feature/new-module`
+    - `fix/vpc-security`
+    - `docs/readme-update`
 
 2. **Commit Messages**
     - Use clear, descriptive messages
