@@ -62,15 +62,12 @@ The hooks will run automatically on commit and include:
 
 ## Environment Variables
 
-Copy the example environment file and update it with your values:
+If your development workflow requires environment variables, create a local
+`.envrc` file with the required values and load it using `direnv`:
 
 ```bash
-cp .envrc.example .envrc
+direnv allow
 ```
-
-Then, either:
-- Use [direnv](https://direnv.net/) to automatically load the environment variables
-- Source the file manually: `source .envrc`
 
 ## Testing
 
