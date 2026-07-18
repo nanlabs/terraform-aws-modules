@@ -17,6 +17,7 @@ APPLY_FIXES: all
 DISABLE_ERRORS_LINTERS:
   # Keep these checks visible in PR comments without blocking dependency bumps on
   # repository-wide legacy findings unrelated to the changed files.
+  - ACTION_ZIZMOR
   - COPYPASTE_JSCPD
   - REPOSITORY_CHECKOV
   - REPOSITORY_GITLEAKS
