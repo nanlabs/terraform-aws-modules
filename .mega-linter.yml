@@ -18,6 +18,7 @@ DISABLE_ERRORS_LINTERS:
   # Keep these checks visible in PR comments without blocking dependency bumps on
   # repository-wide legacy findings unrelated to the changed files.
   - ACTION_ACTIONLINT
+  - ACTION_ZIZMOR
   - COPYPASTE_JSCPD
   - REPOSITORY_CHECKOV
   - REPOSITORY_GITLEAKS
@@ -25,6 +26,9 @@ DISABLE_ERRORS_LINTERS:
   - REPOSITORY_KICS
   - REPOSITORY_TRIVY
   - SPELL_CSPELL
+
+ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
+  - GITHUB_TOKEN
 
 SHOW_ELAPSED_TIME: true
 
