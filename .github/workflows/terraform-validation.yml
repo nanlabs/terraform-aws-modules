@@ -121,7 +121,11 @@ jobs:
     if: needs.detect-changes.outputs.modules-changed == 'true'
     strategy:
       matrix:
-        module: ${{ fromJson(format('["{0}"]', join(fromJson(format('["{0}"]', needs.detect-changes.outputs.modules-list)), '","'))) }}
+        module: ${{
+          fromJson(format('["{0}"]',
+          join(fromJson(format('["{0}"]',
+          needs.detect-changes.outputs.modules-list)), '","')))
+          }}
       fail-fast: false
     steps:
       - name: Checkout
