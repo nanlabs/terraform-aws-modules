@@ -20,6 +20,10 @@ DISABLE_ERRORS_LINTERS:
   - ACTION_ACTIONLINT
   - ACTION_ZIZMOR
   - COPYPASTE_JSCPD
+  # EDITORCONFIG flags repository-wide legacy formatting findings (missing final
+  # newline on generated docs/MODULE.md, trailing whitespace) that are unrelated
+  # to dependency bumps and are rewritten by terraform-docs on every run.
+  - EDITORCONFIG_EDITORCONFIG_CHECKER
   - REPOSITORY_CHECKOV
   - REPOSITORY_GITLEAKS
   - REPOSITORY_GRYPE
