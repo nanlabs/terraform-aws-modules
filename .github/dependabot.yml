@@ -1,8 +1,11 @@
 version: 2
 updates:
-  # Terraform
+  # Terraform modules and examples
   - package-ecosystem: "terraform"
-    directory: "/"
+    directories:
+      - "/modules/*"
+      - "/modules/*/examples/*"
+      - "/examples/*"
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 10
@@ -19,13 +22,3 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
-
-  # Docker
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    open-pull-requests-limit: 10
-    labels:
-      - "dependencies"
-      - "docker"
