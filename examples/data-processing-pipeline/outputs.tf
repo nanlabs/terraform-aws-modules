@@ -136,10 +136,10 @@ output "pipeline_summary" {
     vpc_id = module.vpc.vpc_id
 
     # Storage
-  main_bucket = module.data_lake_bucket.storage_bucket_id
+    main_bucket = module.data_lake_bucket.storage_bucket_id
 
     # Processing
-  glue_database = module.glue_catalog.bronze_database_name
+    glue_database = module.glue_catalog.bronze_database_name
     job_count     = length(local.glue_jobs)
 
     # Streaming
@@ -147,7 +147,7 @@ output "pipeline_summary" {
     kafka_cluster     = var.enable_streaming ? module.msk_cluster[0].cluster_name : "disabled"
 
     # Access
-  bastion_private_ip = module.bastion.instance_private_ip
+    bastion_private_ip = module.bastion.instance_private_ip
 
     # Monitoring
     log_retention_days = var.log_retention_days
@@ -162,11 +162,11 @@ output "pipeline_summary" {
 output "useful_commands" {
   description = "Useful AWS CLI commands for managing the pipeline"
   value = {
-  upload_data = "aws s3 cp your-file.json s3://${module.data_lake_bucket.storage_bucket_id}/raw/"
+    upload_data = "aws s3 cp your-file.json s3://${module.data_lake_bucket.storage_bucket_id}/raw/"
 
     list_glue_jobs = "aws glue list-jobs --region ${var.region}"
 
-  start_workflow = "aws glue start-workflow-run --name ${module.glue_workflow.workflow_names["data_processing"]} --region ${var.region}"
+    start_workflow = "aws glue start-workflow-run --name ${module.glue_workflow.workflow_names["data_processing"]} --region ${var.region}"
 
     list_kafka_clusters = var.enable_streaming ? "aws kafka list-clusters --region ${var.region}" : "Kafka not enabled"
 

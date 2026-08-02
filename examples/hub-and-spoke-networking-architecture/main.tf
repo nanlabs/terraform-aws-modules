@@ -54,12 +54,12 @@ locals {
 module "transit_gateway" {
   source = "../../modules/aws-transit-gateway"
 
-  name        = "${local.resource_prefix}-tgw"
-  description = "Central Transit Gateway for hub-and-spoke networking"
-  enable_auto_accept_shared_attachments   = true
-  enable_default_route_table_association  = true
-  enable_default_route_table_propagation  = true
-  enable_cross_account_sharing            = false
+  name                                   = "${local.resource_prefix}-tgw"
+  description                            = "Central Transit Gateway for hub-and-spoke networking"
+  enable_auto_accept_shared_attachments  = true
+  enable_default_route_table_association = true
+  enable_default_route_table_propagation = true
+  enable_cross_account_sharing           = false
 
   tags = local.common_tags
 }
@@ -80,9 +80,9 @@ module "hub_vpc" {
 
   # Subnet configuration
   public_subnets = [
-    cidrsubnet(local.vpc_configs.hub.cidr, 8, 1),   # 10.0.1.0/24
-    cidrsubnet(local.vpc_configs.hub.cidr, 8, 2),   # 10.0.2.0/24
-    cidrsubnet(local.vpc_configs.hub.cidr, 8, 3)    # 10.0.3.0/24
+    cidrsubnet(local.vpc_configs.hub.cidr, 8, 1), # 10.0.1.0/24
+    cidrsubnet(local.vpc_configs.hub.cidr, 8, 2), # 10.0.2.0/24
+    cidrsubnet(local.vpc_configs.hub.cidr, 8, 3)  # 10.0.3.0/24
   ]
 
   private_subnets = [
@@ -98,8 +98,8 @@ module "hub_vpc" {
   ]
 
   # NAT Gateway configuration - single NAT for hub VPC
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway     = true
+  single_nat_gateway     = true
   one_nat_gateway_per_az = false
 
   # DNS configuration
@@ -157,9 +157,9 @@ module "egress_vpc" {
 
   # Subnet configuration - optimized for egress
   public_subnets = [
-    cidrsubnet(local.vpc_configs.egress.cidr, 8, 1),   # 10.1.1.0/24
-    cidrsubnet(local.vpc_configs.egress.cidr, 8, 2),   # 10.1.2.0/24
-    cidrsubnet(local.vpc_configs.egress.cidr, 8, 3)    # 10.1.3.0/24
+    cidrsubnet(local.vpc_configs.egress.cidr, 8, 1), # 10.1.1.0/24
+    cidrsubnet(local.vpc_configs.egress.cidr, 8, 2), # 10.1.2.0/24
+    cidrsubnet(local.vpc_configs.egress.cidr, 8, 3)  # 10.1.3.0/24
   ]
 
   # No private subnets needed for egress-only VPC
@@ -173,8 +173,8 @@ module "egress_vpc" {
   database_subnets = []
 
   # NAT Gateways in each AZ for high availability
-  enable_nat_gateway = true
-  single_nat_gateway = false
+  enable_nat_gateway     = true
+  single_nat_gateway     = false
   one_nat_gateway_per_az = true
 
   # DNS configuration
@@ -226,9 +226,9 @@ module "dev_spoke_vpc" {
 
   # Subnet configuration
   public_subnets = [
-    cidrsubnet(local.vpc_configs.dev.cidr, 8, 1),   # 10.10.1.0/24
-    cidrsubnet(local.vpc_configs.dev.cidr, 8, 2),   # 10.10.2.0/24
-    cidrsubnet(local.vpc_configs.dev.cidr, 8, 3)    # 10.10.3.0/24
+    cidrsubnet(local.vpc_configs.dev.cidr, 8, 1), # 10.10.1.0/24
+    cidrsubnet(local.vpc_configs.dev.cidr, 8, 2), # 10.10.2.0/24
+    cidrsubnet(local.vpc_configs.dev.cidr, 8, 3)  # 10.10.3.0/24
   ]
 
   private_subnets = [
@@ -244,8 +244,8 @@ module "dev_spoke_vpc" {
   ]
 
   # No NAT Gateway - internet access via Transit Gateway to Egress VPC
-  enable_nat_gateway = false
-  single_nat_gateway = false
+  enable_nat_gateway     = false
+  single_nat_gateway     = false
   one_nat_gateway_per_az = false
 
   # DNS configuration
@@ -303,9 +303,9 @@ module "staging_spoke_vpc" {
 
   # Subnet configuration
   public_subnets = [
-    cidrsubnet(local.vpc_configs.staging.cidr, 8, 1),   # 10.20.1.0/24
-    cidrsubnet(local.vpc_configs.staging.cidr, 8, 2),   # 10.20.2.0/24
-    cidrsubnet(local.vpc_configs.staging.cidr, 8, 3)    # 10.20.3.0/24
+    cidrsubnet(local.vpc_configs.staging.cidr, 8, 1), # 10.20.1.0/24
+    cidrsubnet(local.vpc_configs.staging.cidr, 8, 2), # 10.20.2.0/24
+    cidrsubnet(local.vpc_configs.staging.cidr, 8, 3)  # 10.20.3.0/24
   ]
 
   private_subnets = [
@@ -321,8 +321,8 @@ module "staging_spoke_vpc" {
   ]
 
   # No NAT Gateway - internet access via Transit Gateway
-  enable_nat_gateway = false
-  single_nat_gateway = false
+  enable_nat_gateway     = false
+  single_nat_gateway     = false
   one_nat_gateway_per_az = false
 
   # DNS configuration
@@ -380,9 +380,9 @@ module "prod_spoke_vpc" {
 
   # Subnet configuration
   public_subnets = [
-    cidrsubnet(local.vpc_configs.prod.cidr, 8, 1),   # 10.30.1.0/24
-    cidrsubnet(local.vpc_configs.prod.cidr, 8, 2),   # 10.30.2.0/24
-    cidrsubnet(local.vpc_configs.prod.cidr, 8, 3)    # 10.30.3.0/24
+    cidrsubnet(local.vpc_configs.prod.cidr, 8, 1), # 10.30.1.0/24
+    cidrsubnet(local.vpc_configs.prod.cidr, 8, 2), # 10.30.2.0/24
+    cidrsubnet(local.vpc_configs.prod.cidr, 8, 3)  # 10.30.3.0/24
   ]
 
   private_subnets = [
@@ -398,8 +398,8 @@ module "prod_spoke_vpc" {
   ]
 
   # No NAT Gateway - internet access via Transit Gateway
-  enable_nat_gateway = false
-  single_nat_gateway = false
+  enable_nat_gateway     = false
+  single_nat_gateway     = false
   one_nat_gateway_per_az = false
 
   # DNS configuration

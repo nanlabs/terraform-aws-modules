@@ -146,8 +146,8 @@ output "platform_summary" {
     vpc_id = module.vpc.vpc_id
 
     # Data Storage
-  data_lake_bucket = module.data_lake.storage_bucket_id
-  documents_bucket = module.data_lake.storage_bucket_id
+    data_lake_bucket = module.data_lake.storage_bucket_id
+    documents_bucket = module.data_lake.storage_bucket_id
 
     # Document Database
     documentdb_endpoint  = module.docdb.writer_endpoint
@@ -187,9 +187,9 @@ output "connection_info" {
     }
 
     data_lake = {
-  main_bucket        = module.data_lake.storage_bucket_id
-  documents_bucket   = module.data_lake.storage_bucket_id
-  ml_features_bucket = module.data_lake.storage_bucket_id
+      main_bucket        = module.data_lake.storage_bucket_id
+      documents_bucket   = module.data_lake.storage_bucket_id
+      ml_features_bucket = module.data_lake.storage_bucket_id
     }
 
     kafka = var.enable_streaming ? {
@@ -207,9 +207,9 @@ output "useful_commands" {
     connect_to_documentdb = "mongo --host ${module.docdb.writer_endpoint} --port ${module.docdb.port} --ssl --sslCAFile rds-ca-2019-root.pem"
 
     # S3 commands
-  list_documents         = "aws s3 ls s3://${module.data_lake.storage_bucket_id}/ --recursive"
-  list_data_lake         = "aws s3 ls s3://${module.data_lake.storage_bucket_id}/ --recursive"
-  upload_sample_document = "aws s3 cp sample-doc.json s3://${module.data_lake.storage_bucket_id}/"
+    list_documents         = "aws s3 ls s3://${module.data_lake.storage_bucket_id}/ --recursive"
+    list_data_lake         = "aws s3 ls s3://${module.data_lake.storage_bucket_id}/ --recursive"
+    upload_sample_document = "aws s3 cp sample-doc.json s3://${module.data_lake.storage_bucket_id}/"
 
     # Glue commands
     list_glue_jobs      = "aws glue list-jobs --region ${var.region}"

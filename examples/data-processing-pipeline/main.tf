@@ -17,36 +17,36 @@ locals {
   # Glue job configurations
   glue_jobs = {
     raw_data_processor = {
-      name        = "${local.name}-raw-data-processor"
-      description = "Processes raw data files from S3 and validates schema"
-      script_name = "raw_data_processor.py"
+      name         = "${local.name}-raw-data-processor"
+      description  = "Processes raw data files from S3 and validates schema"
+      script_name  = "raw_data_processor.py"
       max_capacity = var.glue_max_capacity
     }
     data_transformer = {
-      name        = "${local.name}-data-transformer"
-      description = "Applies business logic transformations to validated data"
-      script_name = "data_transformer.py"
+      name         = "${local.name}-data-transformer"
+      description  = "Applies business logic transformations to validated data"
+      script_name  = "data_transformer.py"
       max_capacity = var.glue_max_capacity
     }
     data_aggregator = {
-      name        = "${local.name}-data-aggregator"
-      description = "Creates aggregated reports and summary statistics"
-      script_name = "data_aggregator.py"
+      name         = "${local.name}-data-aggregator"
+      description  = "Creates aggregated reports and summary statistics"
+      script_name  = "data_aggregator.py"
       max_capacity = var.glue_max_capacity
     }
     schema_validator = {
-      name        = "${local.name}-schema-validator"
-      description = "Validates data schema and quality checks"
-      script_name = "schema_validator.py"
+      name         = "${local.name}-schema-validator"
+      description  = "Validates data schema and quality checks"
+      script_name  = "schema_validator.py"
       max_capacity = var.glue_max_capacity
     }
   }
 
   # Kafka topic configurations
   kafka_topics = {
-    raw_events       = { partitions = 8, replication_factor = 2 }
-    processed_events = { partitions = 4, replication_factor = 2 }
-    failed_events    = { partitions = 2, replication_factor = 2 }
+    raw_events        = { partitions = 8, replication_factor = 2 }
+    processed_events  = { partitions = 4, replication_factor = 2 }
+    failed_events     = { partitions = 2, replication_factor = 2 }
     monitoring_events = { partitions = 2, replication_factor = 2 }
   }
 }
@@ -99,22 +99,22 @@ module "data_lake_bucket" {
   # Align custom layer naming with legacy example semantics
   data_lake_layers = {
     raw_zone = "raw"
-    bronze   = "processed/bronze"    # processed intermediate
-    silver   = "processed/silver"    # further refined
-    gold     = "analytics"           # analytics-ready data
-    export   = "export"              # export layer
+    bronze   = "processed/bronze" # processed intermediate
+    silver   = "processed/silver" # further refined
+    gold     = "analytics"        # analytics-ready data
+    export   = "export"           # export layer
   }
 
   # Enable optional temp bucket for Glue scratch / Spark events
   create_temp_bucket = true
 
   # Retention tuning (reuse existing variables where meaningful)
-  export_retention_days      = var.s3_expiration_days
-  spark_logs_retention_days  = var.log_retention_days
+  export_retention_days     = var.s3_expiration_days
+  spark_logs_retention_days = var.log_retention_days
 
   # Security / governance
-  enable_versioning       = true
-  enable_lifecycle_rules  = true
+  enable_versioning      = true
+  enable_lifecycle_rules = true
 }
 
 # Glue Data Catalog and jobs
@@ -235,10 +235,10 @@ module "msk_cluster" {
 
   source = "../../modules/aws-msk"
 
-  name    = "${local.name}-kafka"
-  region  = var.region
-  tags    = local.common_tags
-  vpc_id  = module.vpc.vpc_id
+  name   = "${local.name}-kafka"
+  region = var.region
+  tags   = local.common_tags
+  vpc_id = module.vpc.vpc_id
 
   private_subnets      = module.vpc.private_subnets
   kafka_version        = var.kafka_version
@@ -247,21 +247,21 @@ module "msk_cluster" {
   broker_volume_size   = var.kafka_ebs_volume_size
 
   # Auth & encryption defaults (reuse module defaults) – enable TLS only
-  client_broker           = "TLS"
-  encryption_in_cluster   = true
-  enhanced_monitoring     = "DEFAULT"
-  jmx_exporter_enabled    = true
-  node_exporter_enabled   = true
-  cloudwatch_logs_enabled = true
+  client_broker             = "TLS"
+  encryption_in_cluster     = true
+  enhanced_monitoring       = "DEFAULT"
+  jmx_exporter_enabled      = true
+  node_exporter_enabled     = true
+  cloudwatch_logs_enabled   = true
   cloudwatch_logs_log_group = "/aws/msk/${local.name}"
 
   properties = {
     "auto.create.topics.enable"  = "true"
     "default.replication.factor" = "2"
     "min.insync.replicas"        = "2"
-    "num.partitions"            = "8"
-    "log.retention.hours"       = "168"
-    "compression.type"          = "gzip"
+    "num.partitions"             = "8"
+    "log.retention.hours"        = "168"
+    "compression.type"           = "gzip"
   }
 }
 

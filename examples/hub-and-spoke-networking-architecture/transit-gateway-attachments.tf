@@ -7,9 +7,9 @@
 module "hub_tgw_spoke" {
   source = "../../modules/aws-transit-gateway-spoke"
 
-  name           = "${local.resource_prefix}-hub-tgw-spoke"
-  vpc_id         = module.hub_vpc.vpc_id
-  vpc_cidr       = module.hub_vpc.vpc_cidr_block
+  name     = "${local.resource_prefix}-hub-tgw-spoke"
+  vpc_id   = module.hub_vpc.vpc_id
+  vpc_cidr = module.hub_vpc.vpc_cidr_block
 
   # Transit Gateway configuration
   transit_gateway_id = module.transit_gateway.transit_gateway_id
@@ -28,9 +28,9 @@ module "hub_tgw_spoke" {
 module "egress_tgw_spoke" {
   source = "../../modules/aws-transit-gateway-spoke"
 
-  name           = "${local.resource_prefix}-egress-tgw-spoke"
-  vpc_id         = module.egress_vpc.vpc_id
-  vpc_cidr       = module.egress_vpc.vpc_cidr_block
+  name     = "${local.resource_prefix}-egress-tgw-spoke"
+  vpc_id   = module.egress_vpc.vpc_id
+  vpc_cidr = module.egress_vpc.vpc_cidr_block
 
   # Transit Gateway configuration
   transit_gateway_id = module.transit_gateway.transit_gateway_id
@@ -49,9 +49,9 @@ module "egress_tgw_spoke" {
 module "dev_tgw_spoke" {
   source = "../../modules/aws-transit-gateway-spoke"
 
-  name           = "${local.resource_prefix}-dev-tgw-spoke"
-  vpc_id         = module.dev_spoke_vpc.vpc_id
-  vpc_cidr       = module.dev_spoke_vpc.vpc_cidr_block
+  name     = "${local.resource_prefix}-dev-tgw-spoke"
+  vpc_id   = module.dev_spoke_vpc.vpc_id
+  vpc_cidr = module.dev_spoke_vpc.vpc_cidr_block
 
   # Transit Gateway configuration
   transit_gateway_id = module.transit_gateway.transit_gateway_id
@@ -71,9 +71,9 @@ module "dev_tgw_spoke" {
 module "staging_tgw_spoke" {
   source = "../../modules/aws-transit-gateway-spoke"
 
-  name           = "${local.resource_prefix}-staging-tgw-spoke"
-  vpc_id         = module.staging_spoke_vpc.vpc_id
-  vpc_cidr       = module.staging_spoke_vpc.vpc_cidr_block
+  name     = "${local.resource_prefix}-staging-tgw-spoke"
+  vpc_id   = module.staging_spoke_vpc.vpc_id
+  vpc_cidr = module.staging_spoke_vpc.vpc_cidr_block
 
   # Transit Gateway configuration
   transit_gateway_id = module.transit_gateway.transit_gateway_id
@@ -93,9 +93,9 @@ module "staging_tgw_spoke" {
 module "prod_tgw_spoke" {
   source = "../../modules/aws-transit-gateway-spoke"
 
-  name           = "${local.resource_prefix}-prod-tgw-spoke"
-  vpc_id         = module.prod_spoke_vpc.vpc_id
-  vpc_cidr       = module.prod_spoke_vpc.vpc_cidr_block
+  name     = "${local.resource_prefix}-prod-tgw-spoke"
+  vpc_id   = module.prod_spoke_vpc.vpc_id
+  vpc_cidr = module.prod_spoke_vpc.vpc_cidr_block
 
   # Transit Gateway configuration
   transit_gateway_id = module.transit_gateway.transit_gateway_id

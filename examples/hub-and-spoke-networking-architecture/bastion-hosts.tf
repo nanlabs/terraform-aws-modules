@@ -139,9 +139,9 @@ resource "aws_security_group" "bastion_database_access" {
   dynamic "ingress" {
     for_each = var.create_environment_bastions ? [1] : []
     content {
-      from_port       = 5432
-      to_port         = 5432
-      protocol        = "tcp"
+      from_port = 5432
+      to_port   = 5432
+      protocol  = "tcp"
       security_groups = concat(
         var.create_environment_bastions && length(module.dev_bastion) > 0 ? [module.dev_bastion[0].security_group_id] : [],
         var.create_environment_bastions && length(module.staging_bastion) > 0 ? [module.staging_bastion[0].security_group_id] : [],

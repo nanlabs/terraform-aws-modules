@@ -38,9 +38,9 @@ module "infra_vpc" {
   name = "${local.name_prefixes.infrastructure}-networking"
   cidr = var.vpc_cidr
 
-  azs              = ["${var.region}a", "${var.region}b"]
-  private_subnets  = var.private_subnet_cidrs
-  public_subnets   = var.public_subnet_cidrs
+  azs                = ["${var.region}a", "${var.region}b"]
+  private_subnets    = var.private_subnet_cidrs
+  public_subnets     = var.public_subnet_cidrs
   enable_nat_gateway = false
 
   tags = local.account_tags.infrastructure
@@ -72,7 +72,7 @@ module "encryption" {
   name = "${local.name_prefixes.infrastructure}-encryption"
   tags = local.account_tags.infrastructure
 
-  enable_kms_logging        = true
+  enable_kms_logging         = true
   create_permission_boundary = true
 }
 
@@ -85,11 +85,11 @@ module "dev_vpc" {
 
   providers = { aws = aws.workloads_dev }
 
-  name             = "${local.name_prefixes.dev}-networking"
-  cidr             = var.dev_vpc_cidr
-  azs              = ["${var.region}a", "${var.region}b"]
-  private_subnets  = var.dev_private_subnet_cidrs
-  public_subnets   = var.dev_public_subnet_cidrs
+  name               = "${local.name_prefixes.dev}-networking"
+  cidr               = var.dev_vpc_cidr
+  azs                = ["${var.region}a", "${var.region}b"]
+  private_subnets    = var.dev_private_subnet_cidrs
+  public_subnets     = var.dev_public_subnet_cidrs
   enable_nat_gateway = false
 
   tags = local.account_tags.dev
@@ -124,8 +124,8 @@ module "dev_data_lake" {
 
   providers = { aws = aws.workloads_dev }
 
-  name       = "${local.name_prefixes.dev}-data-lake"
-  tags       = local.account_tags.dev
+  name = "${local.name_prefixes.dev}-data-lake"
+  tags = local.account_tags.dev
 
   kms_key_arn        = module.encryption.s3_kms_key_arn
   create_temp_bucket = true
@@ -140,13 +140,13 @@ module "dev_bastion" {
 
   providers = { aws = aws.workloads_dev }
 
-  name               = "${local.name_prefixes.dev}-bastion"
-  vpc_id             = module.dev_vpc.vpc_id
-  private_subnets    = module.dev_vpc.private_subnets
-  public_subnets     = module.dev_vpc.public_subnets
-  allowed_cidrs      = var.allowed_admin_cidrs
-  instance_type      = "t3.micro"
-  create_ssh_key     = false
+  name            = "${local.name_prefixes.dev}-bastion"
+  vpc_id          = module.dev_vpc.vpc_id
+  private_subnets = module.dev_vpc.private_subnets
+  public_subnets  = module.dev_vpc.public_subnets
+  allowed_cidrs   = var.allowed_admin_cidrs
+  instance_type   = "t3.micro"
+  create_ssh_key  = false
 
   tags = local.account_tags.dev
 }
@@ -165,18 +165,18 @@ module "dev_glue_jobs" {
 
   glue_jobs = {
     sample_job = {
-      description          = "Example Spark ETL job (dev)"
-      worker_type          = "G.1X"
-      number_of_workers    = 2
-      timeout              = 10
-      max_retries          = 0
-      glue_version         = "4.0"
-      python_version       = "3"
+      description       = "Example Spark ETL job (dev)"
+      worker_type       = "G.1X"
+      number_of_workers = 2
+      timeout           = 10
+      max_retries       = 0
+      glue_version      = "4.0"
+      python_version    = "3"
       command = {
         script_location = "s3://${module.dev_data_lake.storage_bucket_id}/scripts/sample_job.py"
       }
-      temp_s3_path      = module.dev_data_lake.temp_bucket_id != null ? "s3://${module.dev_data_lake.temp_bucket_id}/tmp/" : null
-      default_arguments    = {
+      temp_s3_path = module.dev_data_lake.temp_bucket_id != null ? "s3://${module.dev_data_lake.temp_bucket_id}/tmp/" : null
+      default_arguments = {
         "--enable-metrics" = "true"
       }
     }
@@ -196,12 +196,12 @@ module "dev_glue_workflows" {
       description = "Nightly ingestion + transformation workflow"
       triggers = [
         {
-          name        = "nightly-schedule"
-          type        = "SCHEDULED"
-          schedule    = "cron(0 2 * * ? *)" # 2 AM UTC
-          enabled     = true
+          name              = "nightly-schedule"
+          type              = "SCHEDULED"
+          schedule          = "cron(0 2 * * ? *)" # 2 AM UTC
+          enabled           = true
           start_on_creation = true
-          actions = [{ job_name = module.dev_glue_jobs.glue_job_names["sample_job"] }]
+          actions           = [{ job_name = module.dev_glue_jobs.glue_job_names["sample_job"] }]
         }
       ]
     }

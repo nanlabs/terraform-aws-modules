@@ -24,9 +24,9 @@ variable "tags" {
   description = "Base tags applied to all resources"
   type        = map(string)
   default = {
-    Project     = "multi-account-data-platform"
-    Terraform   = "true"
-    CostCenter  = "analytics"
+    Project    = "multi-account-data-platform"
+    Terraform  = "true"
+    CostCenter = "analytics"
   }
 }
 

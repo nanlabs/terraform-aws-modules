@@ -10,7 +10,7 @@ locals {
     for env_name, env_config in var.environments : env_name => merge(
       env_config,
       {
-        name = "${local.base_name}-${env_name}"
+        name      = "${local.base_name}-${env_name}"
         full_name = "${var.project_name}-${var.organization}-${env_name}"
       }
     )
@@ -25,7 +25,7 @@ locals {
   })
 
   # Security configuration
-  kms_key_rotation_enabled = true
+  kms_key_rotation_enabled   = true
   enable_cross_region_backup = var.enable_cross_region_backup
 
   # Generate unique suffix for S3 buckets
@@ -91,7 +91,7 @@ module "dev_environment" {
 
   # VPC endpoints removed (simplified example)
 
-  enable_flow_log = true
+  enable_flow_log                      = true
   create_flow_log_cloudwatch_log_group = true
   create_flow_log_cloudwatch_iam_role  = true
 
@@ -118,7 +118,7 @@ module "staging_environment" {
 
   # VPC endpoints removed (simplified example)
 
-  enable_flow_log = true
+  enable_flow_log                      = true
   create_flow_log_cloudwatch_log_group = true
   create_flow_log_cloudwatch_iam_role  = true
 
@@ -145,7 +145,7 @@ module "prod_environment" {
 
   # VPC endpoints removed (simplified example)
 
-  enable_flow_log = true
+  enable_flow_log                      = true
   create_flow_log_cloudwatch_log_group = true
   create_flow_log_cloudwatch_iam_role  = true
 
@@ -349,7 +349,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_logs_policy" {
         Resource = "${aws_s3_bucket.cloudtrail_logs.arn}/*"
         Condition = {
           StringEquals = {
-            "s3:x-amz-acl" = "bucket-owner-full-control"
+            "s3:x-amz-acl"  = "bucket-owner-full-control"
             "AWS:SourceArn" = "arn:aws:cloudtrail:${var.region}:${data.aws_caller_identity.current.account_id}:trail/${local.base_name}-cloudtrail"
           }
         }
@@ -380,9 +380,9 @@ resource "aws_config_delivery_channel" "main" {
   name           = "${local.base_name}-config-delivery-channel"
   s3_bucket_name = aws_s3_bucket.config_logs.bucket
 
-  s3_key_prefix                = "config"
+  s3_key_prefix = "config"
   snapshot_delivery_properties {
-  delivery_frequency = "TwentyFour_Hours"
+    delivery_frequency = "TwentyFour_Hours"
   }
 }
 

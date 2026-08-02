@@ -156,7 +156,7 @@ output "network_architecture_summary" {
   description = "Summary of the network architecture"
   value = {
     transit_gateway_id = module.transit_gateway.transit_gateway_id
-    vpc_count         = 5
+    vpc_count          = 5
     vpcs = {
       hub = {
         id   = module.hub_vpc.vpc_id
@@ -185,7 +185,7 @@ output "network_architecture_summary" {
       }
     }
     bastion_hosts = {
-      hub_bastion_private_ip      = module.hub_bastion.instance_private_ip
+      hub_bastion_private_ip       = module.hub_bastion.instance_private_ip
       environment_bastions_created = var.create_environment_bastions
     }
   }
@@ -194,10 +194,10 @@ output "network_architecture_summary" {
 output "connection_endpoints" {
   description = "Connection endpoints for management access"
   value = {
-    "hub_bastion_ssh"     = "aws ssm start-session --target ${module.hub_bastion.instance_id}"
-    "hub_bastion_ssm"     = "aws ssm start-session --target ${module.hub_bastion.instance_id}"
-    "transit_gateway"     = "https://${var.aws_region}.console.aws.amazon.com/vpc/home?region=${var.aws_region}#TransitGateways:transitGatewayId=${module.transit_gateway.transit_gateway_id}"
-    "vpc_flow_logs"       = "https://${var.aws_region}.console.aws.amazon.com/cloudwatch/home?region=${var.aws_region}#logsV2:log-groups"
+    "hub_bastion_ssh" = "aws ssm start-session --target ${module.hub_bastion.instance_id}"
+    "hub_bastion_ssm" = "aws ssm start-session --target ${module.hub_bastion.instance_id}"
+    "transit_gateway" = "https://${var.aws_region}.console.aws.amazon.com/vpc/home?region=${var.aws_region}#TransitGateways:transitGatewayId=${module.transit_gateway.transit_gateway_id}"
+    "vpc_flow_logs"   = "https://${var.aws_region}.console.aws.amazon.com/cloudwatch/home?region=${var.aws_region}#logsV2:log-groups"
   }
 }
 

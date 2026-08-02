@@ -134,31 +134,31 @@ output "environment_summary" {
 
     environments = {
       dev = {
-        vpc_id = module.dev_environment.vpc_id
-        vpc_cidr = module.dev_environment.vpc_cidr_block
+        vpc_id          = module.dev_environment.vpc_id
+        vpc_cidr        = module.dev_environment.vpc_cidr_block
         private_subnets = module.dev_environment.private_subnets
-        public_subnets = module.dev_environment.public_subnets
-        config = local.environments.dev
+        public_subnets  = module.dev_environment.public_subnets
+        config          = local.environments.dev
       }
       staging = {
-        vpc_id = module.staging_environment.vpc_id
-        vpc_cidr = module.staging_environment.vpc_cidr_block
+        vpc_id          = module.staging_environment.vpc_id
+        vpc_cidr        = module.staging_environment.vpc_cidr_block
         private_subnets = module.staging_environment.private_subnets
-        public_subnets = module.staging_environment.public_subnets
-        config = local.environments.staging
+        public_subnets  = module.staging_environment.public_subnets
+        config          = local.environments.staging
       }
       prod = {
-        vpc_id = module.prod_environment.vpc_id
-        vpc_cidr = module.prod_environment.vpc_cidr_block
+        vpc_id          = module.prod_environment.vpc_id
+        vpc_cidr        = module.prod_environment.vpc_cidr_block
         private_subnets = module.prod_environment.private_subnets
-        public_subnets = module.prod_environment.public_subnets
-        config = local.environments.prod
+        public_subnets  = module.prod_environment.public_subnets
+        config          = local.environments.prod
       }
     }
 
     shared_services = {
-      vpc_id = module.shared_services_vpc.vpc_id
-      kms_key_id = aws_kms_key.shared_key.key_id
+      vpc_id          = module.shared_services_vpc.vpc_id
+      kms_key_id      = aws_kms_key.shared_key.key_id
       cloudtrail_name = aws_cloudtrail.main.name
     }
   }
@@ -169,26 +169,26 @@ output "security_summary" {
   description = "Summary of security and compliance features"
   value = {
     encryption = {
-      kms_key_id = aws_kms_key.shared_key.key_id
+      kms_key_id           = aws_kms_key.shared_key.key_id
       key_rotation_enabled = local.kms_key_rotation_enabled
     }
 
     audit_logging = {
       cloudtrail_enabled = true
-      cloudtrail_bucket = aws_s3_bucket.cloudtrail_logs.bucket
+      cloudtrail_bucket  = aws_s3_bucket.cloudtrail_logs.bucket
       log_retention_days = var.cloudtrail_log_retention_days
     }
 
     compliance = {
       security_hub_enabled = true
-      config_enabled = true
-      cross_region_backup = local.enable_cross_region_backup
+      config_enabled       = true
+      cross_region_backup  = local.enable_cross_region_backup
     }
 
     network_security = {
       vpc_flow_logs_enabled = true
       vpc_endpoints_enabled = true
-      network_isolation = "complete"
+      network_isolation     = "complete"
     }
   }
 }
@@ -202,28 +202,28 @@ output "cost_optimization_summary" {
         single_nat_gateway = local.environments.dev.single_nat_gateway
         instance_types = {
           bastion = local.environments.dev.bastion_instance_type
-          kafka = local.environments.dev.kafka_instance_type
+          kafka   = local.environments.dev.kafka_instance_type
         }
       }
       staging = {
         single_nat_gateway = local.environments.staging.single_nat_gateway
         instance_types = {
           bastion = local.environments.staging.bastion_instance_type
-          kafka = local.environments.staging.kafka_instance_type
+          kafka   = local.environments.staging.kafka_instance_type
         }
       }
       prod = {
         single_nat_gateway = local.environments.prod.single_nat_gateway
         instance_types = {
           bastion = local.environments.prod.bastion_instance_type
-          kafka = local.environments.prod.kafka_instance_type
+          kafka   = local.environments.prod.kafka_instance_type
         }
       }
     }
 
     storage_lifecycle = {
       cloudtrail_logs = "30d IA, 90d Glacier, 365d Deep Archive"
-      data_retention = "environment-specific"
+      data_retention  = "environment-specific"
     }
   }
 }
@@ -249,8 +249,8 @@ output "useful_commands" {
     view_platform_logs = "aws logs describe-log-streams --log-group-name ${aws_cloudwatch_log_group.platform_logs.name} --region ${var.region}"
 
     # Environment-specific commands
-    dev_vpc_info = "aws ec2 describe-vpcs --vpc-ids ${module.dev_environment.vpc_id} --region ${var.region}"
+    dev_vpc_info     = "aws ec2 describe-vpcs --vpc-ids ${module.dev_environment.vpc_id} --region ${var.region}"
     staging_vpc_info = "aws ec2 describe-vpcs --vpc-ids ${module.staging_environment.vpc_id} --region ${var.region}"
-    prod_vpc_info = "aws ec2 describe-vpcs --vpc-ids ${module.prod_environment.vpc_id} --region ${var.region}"
+    prod_vpc_info    = "aws ec2 describe-vpcs --vpc-ids ${module.prod_environment.vpc_id} --region ${var.region}"
   }
 }
