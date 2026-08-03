@@ -16,20 +16,20 @@ variable "github_repository" {
 variable "repositories" {
   description = "Map of repositories with their configurations. Use this for multi-repository mode."
   type = map(object({
-    github_repository             = string
+    github_repository = string
     # Extra repos that share this role trust (e.g. rename cutover dual OIDC)
     additional_github_repositories = optional(list(string), [])
-    github_branches               = optional(list(string), ["main"])
-    github_environments           = optional(list(string), null)
-    role_name                     = string
-    max_session_duration          = optional(number, 3600)
-    attach_power_user_policy      = optional(bool, false)
-    attach_iam_full_access_policy = optional(bool, false)
-    attach_additional_permissions = optional(bool, false)
-    terraform_state_bucket        = optional(string, "")
-    terraform_state_account_id    = optional(string, "")
-    terraform_state_region        = optional(string, "")
-    custom_policy_arns            = optional(list(string), [])
+    github_branches                = optional(list(string), ["main"])
+    github_environments            = optional(list(string), null)
+    role_name                      = string
+    max_session_duration           = optional(number, 3600)
+    attach_power_user_policy       = optional(bool, false)
+    attach_iam_full_access_policy  = optional(bool, false)
+    attach_additional_permissions  = optional(bool, false)
+    terraform_state_bucket         = optional(string, "")
+    terraform_state_account_id     = optional(string, "")
+    terraform_state_region         = optional(string, "")
+    custom_policy_arns             = optional(list(string), [])
   }))
   default = {}
 
