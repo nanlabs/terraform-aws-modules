@@ -79,20 +79,24 @@ resource "aws_iam_role" "github_actions" {
           StringLike = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
             "token.actions.githubusercontent.com:sub" = concat(
-              # Include environments if defined
-              each.value.github_environments != null ? [
-                for env in each.value.github_environments :
-                "repo:${each.value.github_repository}:environment:${env}"
-              ] : [],
-              # Include branches if defined
-              each.value.github_branches != null ? [
-                for branch in each.value.github_branches :
-                "repo:${each.value.github_repository}:ref:refs/heads/${branch}"
-              ] : [],
-              # Always allow pull requests
-              [
-                "repo:${each.value.github_repository}:pull_request"
-              ]
+              flatten([
+                for repo in concat([each.value.github_repository], try(each.value.additional_github_repositories, [])) : concat(
+                  # Include environments if defined
+                  each.value.github_environments != null ? [
+                    for env in each.value.github_environments :
+                    "repo:${repo}:environment:${env}"
+                  ] : [],
+                  # Include branches if defined
+                  each.value.github_branches != null ? [
+                    for branch in each.value.github_branches :
+                    "repo:${repo}:ref:refs/heads/${branch}"
+                  ] : [],
+                  # Always allow pull requests
+                  [
+                    "repo:${repo}:pull_request"
+                  ]
+                )
+              ])
             )
           }
         }
