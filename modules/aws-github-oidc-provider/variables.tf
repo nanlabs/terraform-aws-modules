@@ -17,6 +17,8 @@ variable "repositories" {
   description = "Map of repositories with their configurations. Use this for multi-repository mode."
   type = map(object({
     github_repository             = string
+    # Extra repos that share this role trust (e.g. rename cutover dual OIDC)
+    additional_github_repositories = optional(list(string), [])
     github_branches               = optional(list(string), ["main"])
     github_environments           = optional(list(string), null)
     role_name                     = string
