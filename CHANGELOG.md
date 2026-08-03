@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- `aws-github-oidc-provider`: avoid inconsistent conditional types when using multi-repository mode with `additional_github_repositories`
+
 
 
 ## [1.9.0] - 2025-11-20

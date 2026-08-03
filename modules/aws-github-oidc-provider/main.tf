@@ -13,23 +13,57 @@ locals {
   single_mode = var.github_repository != null
   multi_mode  = length(var.repositories) > 0
 
-  # Convert single mode to multi mode format for unified processing
-  repositories_normalized = local.single_mode ? {
-    single = {
-      github_repository             = var.github_repository
-      github_branches               = var.github_branches
-      github_environments           = var.github_environments
-      role_name                     = var.role_name
-      max_session_duration          = var.max_session_duration
-      attach_power_user_policy      = var.attach_power_user_policy
-      attach_iam_full_access_policy = var.attach_iam_full_access_policy
-      attach_additional_permissions = var.attach_additional_permissions
-      terraform_state_bucket        = var.terraform_state_bucket
-      terraform_state_account_id    = var.terraform_state_account_id
-      terraform_state_region        = var.terraform_state_region
-      custom_policy_arns            = var.custom_policy_arns
+  # Normalize both modes to the same list(object) shape first.
+  # A direct object/map ternary fails Terraform type checking once
+  # `repositories` gains optional attrs (e.g. additional_github_repositories):
+  # true branch becomes object({ single = ... }) while false is map(object).
+  _single_entries = local.single_mode ? [
+    {
+      key = "single"
+      config = {
+        github_repository              = var.github_repository
+        additional_github_repositories = []
+        github_branches                = var.github_branches
+        github_environments            = var.github_environments
+        role_name                      = var.role_name
+        max_session_duration           = var.max_session_duration
+        attach_power_user_policy       = var.attach_power_user_policy
+        attach_iam_full_access_policy  = var.attach_iam_full_access_policy
+        attach_additional_permissions  = var.attach_additional_permissions
+        terraform_state_bucket         = var.terraform_state_bucket
+        terraform_state_account_id     = var.terraform_state_account_id
+        terraform_state_region         = var.terraform_state_region
+        custom_policy_arns             = var.custom_policy_arns
+      }
     }
-  } : var.repositories
+  ] : []
+
+  _multi_entries = [
+    for k, v in var.repositories : {
+      key = k
+      config = {
+        github_repository              = v.github_repository
+        additional_github_repositories = v.additional_github_repositories
+        github_branches                = v.github_branches
+        github_environments            = v.github_environments
+        role_name                      = v.role_name
+        max_session_duration           = v.max_session_duration
+        attach_power_user_policy       = v.attach_power_user_policy
+        attach_iam_full_access_policy  = v.attach_iam_full_access_policy
+        attach_additional_permissions  = v.attach_additional_permissions
+        terraform_state_bucket         = v.terraform_state_bucket
+        terraform_state_account_id     = v.terraform_state_account_id
+        terraform_state_region         = v.terraform_state_region
+        custom_policy_arns             = v.custom_policy_arns
+      }
+    }
+  ]
+
+  # Single-mode wins when both are set (same precedence as before).
+  repositories_normalized = {
+    for item in (length(local._single_entries) > 0 ? local._single_entries : local._multi_entries) :
+    item.key => item.config
+  }
 
   # Extract all unique repositories for OIDC provider name
   all_repositories   = [for k, config in local.repositories_normalized : config.github_repository]
