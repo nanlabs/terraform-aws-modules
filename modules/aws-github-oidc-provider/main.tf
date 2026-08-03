@@ -61,7 +61,7 @@ locals {
 
   # Single-mode wins when both are set (same precedence as before).
   repositories_normalized = {
-    for item in (length(local._single_entries) > 0 ? local._single_entries : local._multi_entries) :
+    for item in(length(local._single_entries) > 0 ? local._single_entries : local._multi_entries) :
     item.key => item.config
   }
 
