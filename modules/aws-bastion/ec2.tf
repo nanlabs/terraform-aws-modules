@@ -25,7 +25,7 @@ resource "aws_cloudwatch_log_group" "bastion" {
 # EC2 instance for the bastion host
 module "bastion" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "6.0.2"
+  version = "6.4.0"
 
   name = var.name
 
