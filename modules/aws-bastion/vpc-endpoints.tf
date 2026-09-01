@@ -34,7 +34,7 @@ module "vpc_endpoint_security_group" {
 # SSM VPC Endpoint
 module "ssm_vpc_endpoint" {
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "5.21.0"
+  version = "6.7.2"
 
   count = var.create_vpc_endpoints ? 1 : 0
 
@@ -61,7 +61,7 @@ module "ssm_vpc_endpoint" {
 # EC2 Messages VPC Endpoint
 module "ec2messages_vpc_endpoint" {
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "5.21.0"
+  version = "6.7.2"
 
   count = var.create_vpc_endpoints ? 1 : 0
 
@@ -88,7 +88,7 @@ module "ec2messages_vpc_endpoint" {
 # SSM Messages VPC Endpoint
 module "ssmmessages_vpc_endpoint" {
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "5.21.0"
+  version = "6.7.2"
 
   count = var.create_vpc_endpoints ? 1 : 0
 
