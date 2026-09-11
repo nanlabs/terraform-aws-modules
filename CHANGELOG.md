@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.11.0] - 2026-09-11
+
+
+
 ## [1.10.0] - 2026-08-03
 ### Fixed
 - `aws-github-oidc-provider`: avoid inconsistent conditional types when using multi-repository mode with `additional_github_repositories`
@@ -160,7 +164,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.11.0
 [1.10.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.10.0
 [1.9.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.9.0
 [1.8.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.8.0
