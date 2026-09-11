@@ -1,4 +1,7 @@
 #!/bin/bash
+# shellcheck disable=SC2016 # Single quotes are intentional: $PATH must expand
+# at login time in /etc/bashrc, and ${var} tokens are operator-substituted
+# placeholders, not shell variables.
 # Analytics Platform with DocumentDB Bastion Host Setup Script
 # Environment: ${environment}
 
@@ -75,13 +78,15 @@ pip3 install \
     seaborn
 
 # Configure environment
-echo 'export ENVIRONMENT="${environment}"' >> /etc/bashrc
-echo 'export PROJECT_NAME="${project_name}"' >> /etc/bashrc
-echo 'export DOCDB_ENDPOINT="${docdb_endpoint}"' >> /etc/bashrc
-echo 'export KAFKA_BOOTSTRAP="${kafka_bootstrap}"' >> /etc/bashrc
-echo 'export DATA_LAKE_BUCKET="${data_lake_bucket}"' >> /etc/bashrc
-echo 'export DOCUMENTS_BUCKET="${documents_bucket}"' >> /etc/bashrc
-echo 'export PS1="[\u@\h-analytics \\W]\\$ "' >> /etc/bashrc
+{
+  echo 'export ENVIRONMENT="${environment}"'
+  echo 'export PROJECT_NAME="${project_name}"'
+  echo 'export DOCDB_ENDPOINT="${docdb_endpoint}"'
+  echo 'export KAFKA_BOOTSTRAP="${kafka_bootstrap}"'
+  echo 'export DATA_LAKE_BUCKET="${data_lake_bucket}"'
+  echo 'export DOCUMENTS_BUCKET="${documents_bucket}"'
+  printf '%s\n' 'export PS1="[\u@\h-analytics \\W]\\$ "'
+} >> /etc/bashrc
 
 # Create analytics platform environment information
 cat > /etc/analytics-platform-info.json << EOF

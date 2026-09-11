@@ -1,4 +1,6 @@
 #!/bin/bash
+# shellcheck disable=SC2016 # Single quotes are intentional: ${var} tokens are
+# operator-substituted placeholders, not shell variables.
 # Production Bastion Host Setup Script
 # Environment: ${environment}
 # SECURITY: This is a production bastion - minimal tools only
@@ -25,9 +27,11 @@ rm -rf /tmp/aws /tmp/awscliv2.zip
 yum install -y https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
 
 # Configure environment with security notice
-echo 'export ENVIRONMENT="${environment}"' >> /etc/bashrc
-echo 'export PS1="[\u@\h-PROD \W]\$ "' >> /etc/bashrc
-echo 'echo "⚠️  PRODUCTION ENVIRONMENT - USE WITH EXTREME CAUTION"' >> /etc/bashrc
+{
+  echo 'export ENVIRONMENT="${environment}"'
+  echo 'export PS1="[\u@\h-PROD \W]\$ "'
+  echo 'echo "⚠️  PRODUCTION ENVIRONMENT - USE WITH EXTREME CAUTION"'
+} >> /etc/bashrc
 
 # Create minimal production aliases
 cat > /etc/profile.d/prod-aliases.sh << 'EOF'
@@ -174,10 +178,12 @@ cat > /etc/logrotate.d/prod-bastion << 'EOF'
 EOF
 
 # Enable detailed bash history with timestamps
-echo 'export HISTTIMEFORMAT="%F %T "' >> /etc/bashrc
-echo 'export HISTSIZE=10000' >> /etc/bashrc
-echo 'export HISTFILESIZE=10000' >> /etc/bashrc
-echo 'shopt -s histappend' >> /etc/bashrc
+{
+  echo 'export HISTTIMEFORMAT="%F %T "'
+  echo 'export HISTSIZE=10000'
+  echo 'export HISTFILESIZE=10000'
+  echo 'shopt -s histappend'
+} >> /etc/bashrc
 
 # Configure rsyslog for centralized logging (if needed)
 cat >> /etc/rsyslog.conf << 'EOF'
@@ -192,6 +198,8 @@ systemctl restart rsyslog
 echo "$(date '+%Y-%m-%d %H:%M:%S UTC') SYSTEM=prod-bastion EVENT=startup STATUS=completed" >> /var/log/prod-bastion-audit.log
 
 # Log completion with security notice
+# shellcheck disable=SC2129 # Keep separate from the status-check append below:
+# distinct commands sharing a log file read clearer as individual redirects.
 echo "$(date): PRODUCTION bastion setup completed - ALL ACTIVITIES MONITORED" >> /var/log/prod-bastion.log
 
 # Run initial status check

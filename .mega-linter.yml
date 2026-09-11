@@ -35,6 +35,11 @@ DISABLE_ERRORS_LINTERS:
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
 
+# .devcontainer/devcontainer.json is JSONC (contains // comments by design),
+# which jsonlint cannot parse. It is still covered by prettier and v8r.
+JSON_JSONLINT_FILTER_REGEX_EXCLUDE:
+  - \.devcontainer/devcontainer\.json
+
 SHOW_ELAPSED_TIME: true
 
 FILEIO_REPORTER: false

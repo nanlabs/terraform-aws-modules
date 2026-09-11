@@ -1,4 +1,6 @@
 #!/bin/bash
+# shellcheck disable=SC2016 # Single quotes are intentional: ${var} tokens are
+# operator-substituted placeholders, not shell variables.
 # Staging Bastion Host Setup Script
 # Environment: ${environment}
 

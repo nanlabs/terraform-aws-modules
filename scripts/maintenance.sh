@@ -62,7 +62,7 @@ format_terraform() {
         return 1
     fi
 
-    find . -name "*.tf" -exec dirname {} \; | sort -u | while read dir; do
+    find . -name "*.tf" -exec dirname {} \; | sort -u | while read -r dir; do
         print_status "Formatting files in $dir"
         (cd "$dir" && terraform fmt)
     done
@@ -79,7 +79,7 @@ validate_terraform() {
         return 1
     fi
 
-    find . -name "*.tf" -exec dirname {} \; | sort -u | while read dir; do
+    find . -name "*.tf" -exec dirname {} \; | sort -u | while read -r dir; do
         print_status "Validating configuration in $dir"
         (cd "$dir" && terraform init -backend=false &>/dev/null && terraform validate)
     done
@@ -96,7 +96,7 @@ generate_docs() {
         return 1
     fi
 
-    find modules -maxdepth 1 -type d ! -path modules | while read module; do
+    find modules -maxdepth 1 -type d ! -path modules | while read -r module; do
         if [ -f "$module/main.tf" ]; then
             print_status "Generating docs for $module"
             terraform-docs markdown table --output-file README.md "$module"
@@ -112,7 +112,7 @@ run_lint() {
 
     # Check for tflint
     if command -v tflint &> /dev/null; then
-        find . -name "*.tf" -exec dirname {} \; | sort -u | while read dir; do
+        find . -name "*.tf" -exec dirname {} \; | sort -u | while read -r dir; do
             print_status "Linting $dir"
             (cd "$dir" && tflint)
         done
@@ -140,7 +140,7 @@ validate_examples() {
         return 1
     fi
 
-    find examples -maxdepth 1 -type d ! -path examples | while read example; do
+    find examples -maxdepth 1 -type d ! -path examples | while read -r example; do
         if [ -f "$example/main.tf" ]; then
             print_status "Validating example: $example"
             (cd "$example" && terraform init -backend=false &>/dev/null && terraform validate)

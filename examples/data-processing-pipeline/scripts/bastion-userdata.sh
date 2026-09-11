@@ -1,4 +1,7 @@
 #!/bin/bash
+# shellcheck disable=SC2016 # Single quotes are intentional: $PATH must expand
+# at login time in /etc/bashrc, and ${var} tokens are operator-substituted
+# placeholders, not shell variables.
 # Data Processing Pipeline Bastion Host Setup Script
 # Environment: ${environment}
 
@@ -52,12 +55,14 @@ pip3 install \
     jsonlines
 
 # Configure environment
-echo 'export ENVIRONMENT="${environment}"' >> /etc/bashrc
-echo 'export PROJECT_NAME="${project_name}"' >> /etc/bashrc
-echo 'export KAFKA_BOOTSTRAP="${kafka_bootstrap}"' >> /etc/bashrc
-echo 'export GLUE_DATABASE="${glue_database}"' >> /etc/bashrc
-echo 'export S3_BUCKET="${s3_bucket}"' >> /etc/bashrc
-echo 'export PS1="[\u@\h-data-pipeline \W]\$ "' >> /etc/bashrc
+{
+  echo 'export ENVIRONMENT="${environment}"'
+  echo 'export PROJECT_NAME="${project_name}"'
+  echo 'export KAFKA_BOOTSTRAP="${kafka_bootstrap}"'
+  echo 'export GLUE_DATABASE="${glue_database}"'
+  echo 'export S3_BUCKET="${s3_bucket}"'
+  echo 'export PS1="[\u@\h-data-pipeline \W]\$ "'
+} >> /etc/bashrc
 
 # Create data processing environment information
 cat > /etc/data-pipeline-info.json << EOF
