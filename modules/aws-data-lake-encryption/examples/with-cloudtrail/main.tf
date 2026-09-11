@@ -76,7 +76,7 @@ output "permission_boundary_arn" {
 
 output "cloudtrail_trail_arn" {
   description = "ARN of the CloudTrail trail"
-  value       = module.data_lake_encryption.cloudtrail_trail_arn
+  value       = module.data_lake_encryption.kms_logging_trail_arn
 }
 
 output "cloudtrail_bucket_name" {
