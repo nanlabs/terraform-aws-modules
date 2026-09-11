@@ -16,3 +16,10 @@ config {
   # `tflint --init` is a no-op without plugins: nothing to download.
   plugin_dir = "./.tflint.d/plugins"
 }
+
+# Reusable modules expose inputs/outputs as their public interface, so
+# "declared but not used" is the norm, not a finding (110 warnings across
+# modules and examples). Keep the rule off; every other core rule stays on.
+rule "terraform_unused_declarations" {
+  enabled = false
+}

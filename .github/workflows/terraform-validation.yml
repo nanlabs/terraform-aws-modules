@@ -21,6 +21,7 @@ jobs:
     outputs:
       modules-changed: ${{ steps.changes.outputs.modules-changed }}
       modules-list: ${{ steps.changes.outputs.modules-list }}
+      modules-list-json: ${{ steps.changes.outputs.modules-list-json }}
       examples-changed: ${{ steps.changes.outputs.examples-changed }}
       any-tf-changed: ${{ steps.changes.outputs.any-tf-changed }}
     steps:
@@ -57,26 +58,34 @@ jobs:
           fi
           echo "any-tf-changed=$ANY_TF_CHANGED" >> $GITHUB_OUTPUT
 
-          # Extract changed modules
+          # Extract changed modules (module names are [a-z0-9-], safe to quote
+          # directly into JSON)
           MODULES_CHANGED="false"
           MODULES_LIST=""
+          MODULES_JSON=""
 
           for file in $CHANGED_FILES; do
             if [[ $file == modules/* ]]; then
               MODULES_CHANGED="true"
               MODULE_NAME=$(echo $file | cut -d'/' -f2)
-              if [[ ! " $MODULES_LIST " =~ " $MODULE_NAME " ]]; then
-                if [[ -z "$MODULES_LIST" ]]; then
-                  MODULES_LIST="$MODULE_NAME"
-                else
-                  MODULES_LIST="$MODULES_LIST $MODULE_NAME"
-                fi
-              fi
+              case " $MODULES_LIST " in
+                *" $MODULE_NAME "*) ;;
+                *)
+                  if [[ -z "$MODULES_LIST" ]]; then
+                    MODULES_LIST="$MODULE_NAME"
+                    MODULES_JSON="\"$MODULE_NAME\""
+                  else
+                    MODULES_LIST="$MODULES_LIST $MODULE_NAME"
+                    MODULES_JSON="$MODULES_JSON,\"$MODULE_NAME\""
+                  fi
+                  ;;
+              esac
             fi
           done
 
           echo "modules-changed=$MODULES_CHANGED" >> $GITHUB_OUTPUT
           echo "modules-list=$MODULES_LIST" >> $GITHUB_OUTPUT
+          echo "modules-list-json=[$MODULES_JSON]" >> $GITHUB_OUTPUT
 
           # Check if examples changed
           EXAMPLES_CHANGED="false"
@@ -124,11 +133,7 @@ jobs:
     if: needs.detect-changes.outputs.modules-changed == 'true'
     strategy:
       matrix:
-        module: ${{
-          fromJson(format('["{0}"]',
-          join(fromJson(format('["{0}"]',
-          needs.detect-changes.outputs.modules-list)), '","')))
-          }}
+        module: ${{ fromJson(needs.detect-changes.outputs.modules-list-json) }}
       fail-fast: false
     steps:
       - name: Checkout
