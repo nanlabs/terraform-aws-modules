@@ -1,9 +1,18 @@
-# TFlint configuration: this repository is AWS-only, so declare only the AWS
-# ruleset plugin. This avoids downloading unrelated provider plugins (e.g.
-# azurerm from MegaLinter's default config), whose registry fetch has failed
-# the MegaLinter gate with transient GitHub API 401s.
-plugin "aws" {
-  enabled = true
-  version = "0.48.0"
-  source  = "github.com/terraform-linters/tflint-ruleset-aws"
+# TFlint configuration: core rules only, no provider plugins.
+#
+# The full provider rulesets (e.g. tflint-ruleset-aws) must be downloaded
+# from GitHub Releases by `tflint --init`, and that download fails inside
+# the MegaLinter CI job with `401 Bad credentials` (persistent since
+# 2026-09-04, main runs 33832608378 and 34555141751), so any declared
+# plugin breaks the gate regardless of the codebase. Keep this file
+# plugin-free until the runner -> api.github.com auth issue is resolved;
+# then re-add:
+#   plugin "aws" {
+#     enabled = true
+#     version = "0.48.0"
+#     source  = "github.com/terraform-linters/tflint-ruleset-aws"
+#   }
+config {
+  # `tflint --init` is a no-op without plugins: nothing to download.
+  plugin_dir = "./.tflint.d/plugins"
 }
