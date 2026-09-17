@@ -1,3 +1,10 @@
+# One-time v5 -> v6 state adoption (sg module rewrite): keeps the live SG
+# instead of replacing it, so outputs stay known during the migration apply
+moved {
+  from = module.app_security_group.aws_security_group.this_name_prefix[0]
+  to   = module.app_security_group.aws_security_group.this[0]
+}
+
 module "app_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 6.0"
