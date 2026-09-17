@@ -7,7 +7,7 @@ repository) instead of duplicating them. Closes #17.
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.16.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.18.0"
 
   name = "starter-vpc"
   tags = { Environment = "dev" }
