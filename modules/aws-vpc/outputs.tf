@@ -46,6 +46,11 @@ output "ssm_parameter_app_subnets" {
   value       = var.create_ssm_parameters ? "${local.ssm_prefix}/app_subnets" : null
 }
 
+output "app_security_group" {
+  description = "The ID of the app security group"
+  value       = module.app_security_group.id
+}
+
 output "ssm_parameter_app_security_group" {
   description = "name of the ssm parameter for the app security group"
   value       = var.create_ssm_parameters ? "${local.ssm_prefix}/app_security_group" : null
