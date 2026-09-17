@@ -104,6 +104,7 @@ module "glue_execution_role" {
 
   name                 = "${local.resource_prefix}-glue-execution"
   description          = "IAM role for AWS Glue Jobs execution"
+  use_name_prefix      = false # v5 iam-assumable-role used the exact role_name
   max_session_duration = var.max_session_duration
 
   trust_policy_permissions = {
