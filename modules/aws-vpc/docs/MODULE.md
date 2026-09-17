@@ -164,6 +164,7 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_app_security_group"></a> [app\_security\_group](#output\_app\_security\_group) | The ID of the app security group |
 | <a name="output_app_subnets"></a> [app\_subnets](#output\_app\_subnets) | Legacy alias for private\_subnets |
 | <a name="output_azs"></a> [azs](#output\_azs) | A list of availability zones specified as argument to this module |
 | <a name="output_cgw_arns"></a> [cgw\_arns](#output\_cgw\_arns) | List of ARNs of the customer gateway |
