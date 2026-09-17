@@ -36,7 +36,7 @@ module "bastion" {
   user_data_base64     = local.user_data
 
   subnet_id              = element(var.private_subnets, 0)
-  vpc_security_group_ids = [module.ec2_security_group.security_group_id]
+  vpc_security_group_ids = [module.ec2_security_group.id]
 
   root_block_device = {
     delete_on_termination = true

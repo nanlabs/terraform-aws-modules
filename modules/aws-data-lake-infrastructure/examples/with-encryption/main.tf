@@ -33,14 +33,13 @@ module "data_lake_infrastructure" {
   # Use custom KMS key for encryption
   kms_key_arn = aws_kms_key.data_lake.arn
 
-  # Custom medallion architecture with additional layers
+  # Custom medallion architecture layers (schema requires raw_zone; no archive layer)
   data_lake_layers = {
-    raw     = "raw"
-    bronze  = "bronze"
-    silver  = "silver"
-    gold    = "gold"
-    export  = "export"
-    archive = "archive"
+    raw_zone = "raw"
+    bronze   = "bronze"
+    silver   = "silver"
+    gold     = "gold"
+    export   = "export"
   }
 
   # Apache Iceberg configuration
@@ -60,12 +59,12 @@ module "data_lake_infrastructure" {
 # Outputs
 output "data_lake_bucket_id" {
   description = "The name of the data lake bucket"
-  value       = module.data_lake_infrastructure.data_lake_bucket_id
+  value       = module.data_lake_infrastructure.storage_bucket_id
 }
 
 output "data_lake_bucket_arn" {
   description = "The ARN of the data lake bucket"
-  value       = module.data_lake_infrastructure.data_lake_bucket_arn
+  value       = module.data_lake_infrastructure.storage_bucket_arn
 }
 
 output "temp_bucket_id" {

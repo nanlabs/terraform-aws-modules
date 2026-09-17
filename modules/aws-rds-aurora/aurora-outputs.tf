@@ -141,12 +141,6 @@ output "cluster_master_user_secret" {
   sensitive   = true
 }
 
-output "cluster_master_password" {
-  description = "The database master password"
-  value       = module.db.cluster_master_password
-  sensitive   = true
-}
-
 output "db_cluster_secretsmanager_secret_rotation_enabled" {
   description = "Specifies whether automatic rotation is enabled for the secret"
   value       = module.db.db_cluster_secretsmanager_secret_rotation_enabled

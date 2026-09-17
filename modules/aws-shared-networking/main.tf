@@ -238,7 +238,7 @@ resource "aws_iam_policy" "cross_account_networking" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "ec2:Region" = data.aws_region.current.id
+            "ec2:Region" = data.aws_region.current.region
           }
         }
       },
@@ -254,7 +254,7 @@ resource "aws_iam_policy" "cross_account_networking" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "ec2:Region" = data.aws_region.current.id
+            "ec2:Region" = data.aws_region.current.region
           }
         }
       }

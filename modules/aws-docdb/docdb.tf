@@ -10,7 +10,7 @@ resource "aws_docdb_cluster" "this" {
   storage_encrypted               = var.storage_encrypted
   kms_key_id                      = var.kms_key_id
   snapshot_identifier             = var.snapshot_identifier
-  vpc_security_group_ids          = [module.security_group.security_group_id]
+  vpc_security_group_ids          = [module.security_group.id]
   db_subnet_group_name            = var.subnet_group
   db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.this.name
   engine                          = var.engine

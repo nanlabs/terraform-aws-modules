@@ -51,7 +51,7 @@ resource "aws_glue_connection" "vpc_connection" {
 
 module "glue_scripts_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "5.2.0"
+  version = "5.16.0"
 
   count = var.create_s3_bucket ? 1 : 0
 
@@ -97,21 +97,31 @@ module "glue_scripts_bucket" {
 #------------------------------------------------------------------------------
 
 module "glue_execution_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
-  version = "5.59.0"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role"
+  version = "6.8.1"
 
-  create_role           = true
-  trusted_role_services = ["glue.amazonaws.com"]
+  create = true
 
-  role_name            = "${local.resource_prefix}-glue-execution"
-  role_description     = "IAM role for AWS Glue Jobs execution"
-  role_requires_mfa    = false
+  name                 = "${local.resource_prefix}-glue-execution"
+  description          = "IAM role for AWS Glue Jobs execution"
   max_session_duration = var.max_session_duration
 
+  trust_policy_permissions = {
+    glue = {
+      actions = ["sts:AssumeRole"]
+      principals = [
+        {
+          type        = "Service"
+          identifiers = ["glue.amazonaws.com"]
+        }
+      ]
+    }
+  }
+
   # Attach AWS managed policy for Glue service
-  custom_role_policy_arns = [
-    "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole",
-  ]
+  policies = {
+    glue_service = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+  }
 
   tags = var.tags
 }
@@ -119,7 +129,7 @@ module "glue_execution_role" {
 # Custom IAM policy for S3 access to scripts bucket
 resource "aws_iam_role_policy" "glue_s3_access" {
   name = "${local.resource_prefix}-glue-s3-access"
-  role = module.glue_execution_role.iam_role_name
+  role = module.glue_execution_role.name
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -155,7 +165,7 @@ resource "aws_iam_role_policy" "glue_data_access" {
   count = length(var.data_bucket_arns) > 0 ? 1 : 0
 
   name = "${local.resource_prefix}-glue-data-access"
-  role = module.glue_execution_role.iam_role_name
+  role = module.glue_execution_role.name
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -184,7 +194,7 @@ resource "aws_iam_role_policy" "glue_data_access" {
         Resource = [var.data_kms_key_arn]
         Condition = {
           StringEquals = {
-            "kms:ViaService" = "s3.${data.aws_region.current.id}.amazonaws.com"
+            "kms:ViaService" = "s3.${data.aws_region.current.region}.amazonaws.com"
           }
         }
     }] : [])
@@ -194,7 +204,7 @@ resource "aws_iam_role_policy" "glue_data_access" {
 # CloudWatch Logs permissions
 resource "aws_iam_role_policy" "glue_cloudwatch_logs" {
   name = "${local.resource_prefix}-glue-cloudwatch-logs"
-  role = module.glue_execution_role.iam_role_name
+  role = module.glue_execution_role.name
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -208,7 +218,7 @@ resource "aws_iam_role_policy" "glue_cloudwatch_logs" {
           "logs:DescribeLogGroups",
           "logs:DescribeLogStreams"
         ]
-        Resource = "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/*"
+        Resource = "arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws-glue/*"
       }
     ]
   })
@@ -239,7 +249,7 @@ resource "aws_glue_job" "this" {
 
   name         = "${local.resource_prefix}-${each.key}"
   description  = each.value.description
-  role_arn     = module.glue_execution_role.iam_role_arn
+  role_arn     = module.glue_execution_role.arn
   glue_version = each.value.glue_version
   # For Python Shell jobs AWS Glue does not allow worker_type/number_of_workers.
   # Those jobs must specify max_capacity instead. For Spark (glueetl / gluestreaming)

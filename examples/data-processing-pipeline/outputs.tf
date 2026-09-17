@@ -38,7 +38,7 @@ output "data_lake_bucket_arn" {
 output "glue_databases" {
   description = "Glue database names for each layer (legacy single outputs replaced)"
   value = {
-    raw_zone = module.glue_catalog.raw_zone_database_name
+    raw_zone = module.glue_catalog.raw_database_name
     bronze   = module.glue_catalog.bronze_database_name
     silver   = module.glue_catalog.silver_database_name
     gold     = module.glue_catalog.gold_database_name

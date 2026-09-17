@@ -4,26 +4,26 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.29.0 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.62.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.4.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion"></a> [bastion](#module\_bastion) | terraform-aws-modules/ec2-instance/aws | 6.4.0 |
-| <a name="module_ec2_security_group"></a> [ec2\_security\_group](#module\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | 5.3.0 |
+| <a name="module_ec2_security_group"></a> [ec2\_security\_group](#module\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | 6.0.0 |
 | <a name="module_ec2messages_vpc_endpoint"></a> [ec2messages\_vpc\_endpoint](#module\_ec2messages\_vpc\_endpoint) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | 6.7.2 |
 | <a name="module_ssm_vpc_endpoint"></a> [ssm\_vpc\_endpoint](#module\_ssm\_vpc\_endpoint) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | 6.7.2 |
 | <a name="module_ssmmessages_vpc_endpoint"></a> [ssmmessages\_vpc\_endpoint](#module\_ssmmessages\_vpc\_endpoint) | terraform-aws-modules/vpc/aws//modules/vpc-endpoints | 6.7.2 |
-| <a name="module_vpc_endpoint_security_group"></a> [vpc\_endpoint\_security\_group](#module\_vpc\_endpoint\_security\_group) | terraform-aws-modules/security-group/aws | 5.3.0 |
+| <a name="module_vpc_endpoint_security_group"></a> [vpc\_endpoint\_security\_group](#module\_vpc\_endpoint\_security\_group) | terraform-aws-modules/security-group/aws | 6.0.0 |
 
 ## Resources
 

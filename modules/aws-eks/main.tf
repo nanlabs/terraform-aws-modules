@@ -66,7 +66,7 @@ locals {
 
 module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
-  version = "4.6.0"
+  version = "4.15.0"
 
   subnet_ids                   = concat(var.private_subnets, var.public_subnets)
   kubernetes_version           = var.kubernetes_version
@@ -108,7 +108,7 @@ module "eks_cluster" {
 
 module "eks_node_groups" {
   source  = "cloudposse/eks-node-group/aws"
-  version = "3.2.0"
+  version = "3.4.0"
 
   for_each = { for idx, node_group in var.node_groups : idx => node_group }
 

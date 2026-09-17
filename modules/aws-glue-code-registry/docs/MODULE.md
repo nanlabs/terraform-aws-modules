@@ -4,19 +4,19 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.42 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.10.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_code_artifacts_bucket"></a> [code\_artifacts\_bucket](#module\_code\_artifacts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.2.0 |
+| <a name="module_code_artifacts_bucket"></a> [code\_artifacts\_bucket](#module\_code\_artifacts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.16.0 |
 
 ## Resources
 
@@ -48,8 +48,8 @@
 | <a name="input_name"></a> [name](#input\_name) | Name to be used as prefix for all resources created by this module | `string` | n/a | yes |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | Name of the S3 bucket for code artifacts. If not provided, will be auto-generated | `string` | `null` | no |
 | <a name="input_s3_kms_key_id"></a> [s3\_kms\_key\_id](#input\_s3\_kms\_key\_id) | KMS key ID for S3 bucket encryption. If not provided, AES256 encryption will be used | `string` | `null` | no |
-| <a name="input_s3_lifecycle_rules"></a> [s3\_lifecycle\_rules](#input\_s3\_lifecycle\_rules) | S3 bucket lifecycle rules for cost optimization | `any` | <pre>[<br>  {<br>    "abort_incomplete_multipart_upload": {<br>      "days_after_initiation": 7<br>    },<br>    "id": "delete_old_versions",<br>    "noncurrent_version_expiration": {<br>      "days": 90<br>    },<br>    "status": "Enabled"<br>  }<br>]</pre> | no |
-| <a name="input_s3_notification_configurations"></a> [s3\_notification\_configurations](#input\_s3\_notification\_configurations) | List of S3 notification configurations for code artifact uploads | <pre>list(object({<br>    id            = string<br>    events        = list(string)<br>    filter_prefix = optional(string)<br>    filter_suffix = optional(string)<br>  }))</pre> | <pre>[<br>  {<br>    "events": [<br>      "s3:ObjectCreated:*"<br>    ],<br>    "filter_suffix": ".jar",<br>    "id": "code-upload-notification"<br>  },<br>  {<br>    "events": [<br>      "s3:ObjectCreated:*"<br>    ],<br>    "filter_suffix": ".whl",<br>    "id": "wheel-upload-notification"<br>  }<br>]</pre> | no |
+| <a name="input_s3_lifecycle_rules"></a> [s3\_lifecycle\_rules](#input\_s3\_lifecycle\_rules) | S3 bucket lifecycle rules for cost optimization | `any` | <pre>[<br/>  {<br/>    "abort_incomplete_multipart_upload": {<br/>      "days_after_initiation": 7<br/>    },<br/>    "id": "delete_old_versions",<br/>    "noncurrent_version_expiration": {<br/>      "days": 90<br/>    },<br/>    "status": "Enabled"<br/>  }<br/>]</pre> | no |
+| <a name="input_s3_notification_configurations"></a> [s3\_notification\_configurations](#input\_s3\_notification\_configurations) | List of S3 notification configurations for code artifact uploads | <pre>list(object({<br/>    id            = string<br/>    events        = list(string)<br/>    filter_prefix = optional(string)<br/>    filter_suffix = optional(string)<br/>  }))</pre> | <pre>[<br/>  {<br/>    "events": [<br/>      "s3:ObjectCreated:*"<br/>    ],<br/>    "filter_suffix": ".jar",<br/>    "id": "code-upload-notification"<br/>  },<br/>  {<br/>    "events": [<br/>      "s3:ObjectCreated:*"<br/>    ],<br/>    "filter_suffix": ".whl",<br/>    "id": "wheel-upload-notification"<br/>  }<br/>]</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to all resources | `map(string)` | `{}` | no |
 | <a name="input_workload_account_ids"></a> [workload\_account\_ids](#input\_workload\_account\_ids) | List of AWS account IDs that should have cross-account access to the code artifacts bucket | `list(string)` | `[]` | no |
 

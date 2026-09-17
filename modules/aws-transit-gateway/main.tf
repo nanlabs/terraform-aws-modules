@@ -5,7 +5,7 @@
 # Transit Gateway
 module "tgw" {
   source  = "terraform-aws-modules/transit-gateway/aws"
-  version = "~> 2.13.0" # Latest version (January 2025)
+  version = "3.3.1"
 
   name        = var.name
   description = var.description

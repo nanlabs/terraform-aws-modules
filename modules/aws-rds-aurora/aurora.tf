@@ -1,6 +1,22 @@
+locals {
+  # v10 moved instance-level settings into the instances map; re-apply our
+  # top-level defaults to entries that don't set them explicitly
+  aurora_instance_defaults = {
+    publicly_accessible     = var.publicly_accessible
+    db_parameter_group_name = var.db_parameter_group_name
+  }
+
+  instances = {
+    for k, v in var.instances : k => merge(v, {
+      for attr, default in local.aurora_instance_defaults : attr => default
+      if try(v[attr], null) == null && default != null
+    })
+  }
+}
+
 module "db" {
   source  = "terraform-aws-modules/rds-aurora/aws"
-  version = "9.15.0"
+  version = "10.4.0"
 
   # Control flags
   create = var.create
@@ -17,17 +33,19 @@ module "db" {
   allow_major_version_upgrade = var.allow_major_version_upgrade
   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
 
-  # Instance Configuration
-  instance_class                  = var.instance_class
-  instances                       = var.instances
+  # Instance Configuration (v10: single cluster-wide class + per-instance map)
+  cluster_instance_class = var.db_cluster_instance_class != null ? var.db_cluster_instance_class : (
+    var.instance_class != "" ? var.instance_class : null
+  )
+  instances                       = local.instances
   instances_use_identifier_prefix = var.instances_use_identifier_prefix
-  db_cluster_instance_class       = var.db_cluster_instance_class
 
-  # Database Configuration
-  database_name   = var.database_name
-  master_username = var.master_username
-  master_password = var.master_password
-  port            = var.port
+  # Database Configuration (v10: write-only master password)
+  database_name              = var.database_name
+  master_username            = var.master_username
+  master_password_wo         = var.manage_master_user_password ? null : var.master_password
+  master_password_wo_version = var.manage_master_user_password ? null : var.master_password_wo_version
+  port                       = var.port
 
   # Password Management
   manage_master_user_password                            = var.manage_master_user_password
@@ -46,8 +64,8 @@ module "db" {
   iops              = var.iops
 
   # Multi-AZ Configuration
-  cluster_members                             = var.cluster_members
-  db_cluster_db_instance_parameter_group_name = var.db_cluster_db_instance_parameter_group_name
+  cluster_members                          = var.cluster_members
+  cluster_db_instance_parameter_group_name = var.db_cluster_db_instance_parameter_group_name
 
   # Network Configuration
   vpc_id                 = var.vpc_id
@@ -55,17 +73,25 @@ module "db" {
   db_subnet_group_name   = var.db_subnet_group_name
   create_db_subnet_group = var.create_db_subnet_group
   vpc_security_group_ids = var.vpc_security_group_ids
-  publicly_accessible    = var.publicly_accessible
   network_type           = var.network_type
   availability_zones     = var.availability_zones
 
-  # Security Group Configuration
+  # Security Group Configuration (v10: structured ingress/egress rule maps)
   create_security_group          = var.create_security_group
   security_group_name            = var.security_group_name
   security_group_use_name_prefix = var.security_group_use_name_prefix
   security_group_description     = var.security_group_description
-  security_group_rules           = var.security_group_rules
-  security_group_tags            = var.security_group_tags
+  security_group_ingress_rules = {
+    for k, v in var.security_group_rules : k => {
+      for attr, val in v : attr => val if attr != "type"
+    } if try(v.type, "ingress") == "ingress"
+  }
+  security_group_egress_rules = {
+    for k, v in var.security_group_rules : k => {
+      for attr, val in v : attr => val if attr != "type"
+    } if try(v.type, "ingress") == "egress"
+  }
+  security_group_tags = var.security_group_tags
 
   # Backup and Maintenance
   backup_retention_period      = var.backup_retention_period
@@ -84,29 +110,23 @@ module "db" {
   restore_to_point_in_time      = var.restore_to_point_in_time
   s3_import                     = var.s3_import
 
-  # Monitoring and Performance
-  monitoring_interval            = var.monitoring_interval
-  monitoring_role_arn            = var.monitoring_role_arn
-  create_monitoring_role         = var.create_monitoring_role
-  iam_role_name                  = var.iam_role_name
-  iam_role_use_name_prefix       = var.iam_role_use_name_prefix
-  iam_role_description           = var.iam_role_description
-  iam_role_path                  = var.iam_role_path
-  iam_role_managed_policy_arns   = var.iam_role_managed_policy_arns
-  iam_role_permissions_boundary  = var.iam_role_permissions_boundary
-  iam_role_force_detach_policies = var.iam_role_force_detach_policies
-  iam_role_max_session_duration  = var.iam_role_max_session_duration
+  # Monitoring and Performance (v10: cluster-level only; per-instance via instances map)
+  monitoring_role_arn           = var.monitoring_role_arn
+  create_monitoring_role        = var.create_monitoring_role
+  iam_role_name                 = var.iam_role_name
+  iam_role_use_name_prefix      = var.iam_role_use_name_prefix
+  iam_role_description          = var.iam_role_description
+  iam_role_path                 = var.iam_role_path
+  iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  iam_role_max_session_duration = var.iam_role_max_session_duration
 
-  # Cluster-level monitoring
-  cluster_monitoring_interval = var.cluster_monitoring_interval
+  # Cluster-level monitoring (legacy instance-level vars fold in when explicitly set)
+  cluster_monitoring_interval = var.monitoring_interval != 0 ? var.monitoring_interval : var.cluster_monitoring_interval
 
   # Performance Insights
-  performance_insights_enabled                  = var.performance_insights_enabled
-  performance_insights_kms_key_id               = var.performance_insights_kms_key_id
-  performance_insights_retention_period         = var.performance_insights_retention_period
-  cluster_performance_insights_enabled          = var.cluster_performance_insights_enabled
-  cluster_performance_insights_kms_key_id       = var.cluster_performance_insights_kms_key_id
-  cluster_performance_insights_retention_period = var.cluster_performance_insights_retention_period
+  cluster_performance_insights_enabled          = var.performance_insights_enabled != null ? var.performance_insights_enabled : var.cluster_performance_insights_enabled
+  cluster_performance_insights_kms_key_id       = var.performance_insights_kms_key_id != null ? var.performance_insights_kms_key_id : var.cluster_performance_insights_kms_key_id
+  cluster_performance_insights_retention_period = var.performance_insights_retention_period != null ? var.performance_insights_retention_period : var.cluster_performance_insights_retention_period
   database_insights_mode                        = var.database_insights_mode
 
   # CloudWatch Logs
@@ -127,9 +147,8 @@ module "db" {
   domain               = var.domain
   domain_iam_role_name = var.domain_iam_role_name
 
-  # Certificate
-  ca_cert_identifier         = var.ca_cert_identifier
-  cluster_ca_cert_identifier = var.cluster_ca_cert_identifier
+  # Certificate (v10: cluster-level only; per-instance via instances map)
+  cluster_ca_cert_identifier = var.ca_cert_identifier != null ? var.ca_cert_identifier : var.cluster_ca_cert_identifier
 
   # Global Cluster
   global_cluster_identifier      = var.global_cluster_identifier
@@ -153,44 +172,49 @@ module "db" {
   autoscaling_target_connections = var.autoscaling_target_connections
   predefined_metric_type         = var.predefined_metric_type
 
-  # Parameter Groups
-  create_db_cluster_parameter_group          = var.create_db_cluster_parameter_group
-  db_cluster_parameter_group_name            = var.db_cluster_parameter_group_name
-  db_cluster_parameter_group_family          = var.db_cluster_parameter_group_family
-  db_cluster_parameter_group_description     = var.db_cluster_parameter_group_description
-  db_cluster_parameter_group_parameters      = var.db_cluster_parameter_group_parameters
-  db_cluster_parameter_group_use_name_prefix = var.db_cluster_parameter_group_use_name_prefix
+  # Parameter Groups (v10: single object per group, null disables creation)
+  cluster_parameter_group_name = var.db_cluster_parameter_group_name
+  cluster_parameter_group = var.create_db_cluster_parameter_group ? {
+    name            = var.db_cluster_parameter_group_name
+    use_name_prefix = var.db_cluster_parameter_group_use_name_prefix
+    description     = var.db_cluster_parameter_group_description
+    family          = var.db_cluster_parameter_group_family
+    parameters      = var.db_cluster_parameter_group_parameters
+  } : null
 
-  create_db_parameter_group          = var.create_db_parameter_group
-  db_parameter_group_name            = var.db_parameter_group_name
-  db_parameter_group_family          = var.db_parameter_group_family
-  db_parameter_group_description     = var.db_parameter_group_description
-  db_parameter_group_parameters      = var.db_parameter_group_parameters
-  db_parameter_group_use_name_prefix = var.db_parameter_group_use_name_prefix
+  db_parameter_group = var.create_db_parameter_group ? {
+    name            = var.db_parameter_group_name
+    use_name_prefix = var.db_parameter_group_use_name_prefix
+    description     = var.db_parameter_group_description
+    family          = var.db_parameter_group_family
+    parameters      = var.db_parameter_group_parameters
+  } : null
 
   # Custom Endpoints
   endpoints = var.endpoints
 
-  # Activity Stream
-  create_db_cluster_activity_stream     = var.create_db_cluster_activity_stream
-  db_cluster_activity_stream_kms_key_id = var.db_cluster_activity_stream_kms_key_id
-  db_cluster_activity_stream_mode       = var.db_cluster_activity_stream_mode
-  engine_native_audit_fields_included   = var.engine_native_audit_fields_included
+  # Activity Stream (v10: single object, null disables creation)
+  cluster_activity_stream = var.create_db_cluster_activity_stream ? {
+    kms_key_id           = var.db_cluster_activity_stream_kms_key_id
+    mode                 = var.db_cluster_activity_stream_mode
+    include_audit_fields = var.engine_native_audit_fields_included
+  } : null
 
-  # IAM Roles
-  iam_roles = var.iam_roles
+  # IAM Roles (v10 renamed iam_roles to role_associations; same shape)
+  role_associations = var.iam_roles
 
   # Aurora Limitless
   cluster_scalability_type = var.cluster_scalability_type
 
-  # Shard Group (Aurora Limitless)
-  create_shard_group        = var.create_shard_group
-  db_shard_group_identifier = var.db_shard_group_identifier
-  compute_redundancy        = var.compute_redundancy
-  max_acu                   = var.max_acu
-  min_acu                   = var.min_acu
-  shard_group_tags          = var.shard_group_tags
-  shard_group_timeouts      = var.shard_group_timeouts
+  # Shard Group - Aurora Limitless (v10: single object, null disables creation)
+  shard_group = var.create_shard_group ? {
+    identifier         = var.db_shard_group_identifier
+    compute_redundancy = var.compute_redundancy
+    max_acu            = var.max_acu
+    min_acu            = var.min_acu
+    tags               = var.shard_group_tags
+    timeouts           = length(var.shard_group_timeouts) > 0 ? var.shard_group_timeouts : null
+  } : null
 
   # Timeouts
   cluster_timeouts  = var.cluster_timeouts

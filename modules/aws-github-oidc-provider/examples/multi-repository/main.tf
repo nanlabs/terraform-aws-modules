@@ -58,7 +58,7 @@ module "github_oidc_multi" {
       attach_additional_permissions = true
       terraform_state_bucket        = var.terraform_state_bucket
       terraform_state_account_id    = data.aws_caller_identity.current.account_id
-      terraform_state_region        = data.aws_region.current.id
+      terraform_state_region        = data.aws_region.current.region
     }
 
     # Data jobs repository with custom permissions

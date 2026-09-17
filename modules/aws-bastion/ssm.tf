@@ -58,7 +58,7 @@ resource "aws_ssm_parameter" "security_group_id" {
 
   name        = "${local.ssm_prefix}/security_group_id"
   type        = "String"
-  value       = module.ec2_security_group.security_group_id
+  value       = module.ec2_security_group.id
   description = "Security group ID of bastion host ${var.name}"
 
   tags = var.tags

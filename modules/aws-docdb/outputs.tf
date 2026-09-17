@@ -62,7 +62,7 @@ output "ssm_parameter_names" {
 # Direct security group output for easier access
 output "security_group_id" {
   description = "ID of the security group associated with the DocumentDB cluster"
-  value       = module.security_group.security_group_id
+  value       = module.security_group.id
 }
 
 # Direct port output for easier access

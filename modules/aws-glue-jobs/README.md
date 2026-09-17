@@ -169,8 +169,8 @@ module "glue_jobs" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| glue_execution_role | terraform-aws-modules/iam/aws//modules/iam-assumable-role | n/a |
-| glue_scripts_bucket | terraform-aws-modules/s3-bucket/aws | n/a |
+| glue_execution_role | terraform-aws-modules/iam/aws//modules/iam-role | 6.8.1 |
+| glue_scripts_bucket | terraform-aws-modules/s3-bucket/aws | 5.16.0 |
 
 ## Resources
 

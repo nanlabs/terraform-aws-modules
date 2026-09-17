@@ -119,7 +119,7 @@ This module follows our standardized pattern:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds/aws | 6.11.0 |
+| <a name="module_db"></a> [db](#module\_db) | terraform-aws-modules/rds/aws | 7.2.1 |
 
 ## Resources
 

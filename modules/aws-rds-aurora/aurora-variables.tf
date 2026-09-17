@@ -67,6 +67,12 @@ variable "master_password" {
   default     = null
 }
 
+variable "master_password_wo_version" {
+  description = "Used together with master_password to trigger an update. Increment this value when a password update is required"
+  type        = number
+  default     = null
+}
+
 variable "port" {
   description = "The port on which the DB accepts connections"
   type        = string
@@ -394,21 +400,9 @@ variable "iam_role_path" {
   default     = null
 }
 
-variable "iam_role_managed_policy_arns" {
-  description = "Set of exclusive IAM managed policy ARNs to attach to the monitoring role"
-  type        = list(string)
-  default     = null
-}
-
 variable "iam_role_permissions_boundary" {
   description = "The ARN of the policy that is used to set the permissions boundary for the monitoring role"
   type        = string
-  default     = null
-}
-
-variable "iam_role_force_detach_policies" {
-  description = "Whether to force detaching any policies the monitoring role has before destroying it"
-  type        = bool
   default     = null
 }
 

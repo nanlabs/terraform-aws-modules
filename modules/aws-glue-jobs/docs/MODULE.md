@@ -4,20 +4,20 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.42 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.10.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_glue_execution_role"></a> [glue\_execution\_role](#module\_glue\_execution\_role) | terraform-aws-modules/iam/aws//modules/iam-assumable-role | 5.59.0 |
-| <a name="module_glue_scripts_bucket"></a> [glue\_scripts\_bucket](#module\_glue\_scripts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.2.0 |
+| <a name="module_glue_execution_role"></a> [glue\_execution\_role](#module\_glue\_execution\_role) | terraform-aws-modules/iam/aws//modules/iam-role | 6.8.1 |
+| <a name="module_glue_scripts_bucket"></a> [glue\_scripts\_bucket](#module\_glue\_scripts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.16.0 |
 
 ## Resources
 
@@ -43,13 +43,13 @@
 | <a name="input_data_kms_key_arn"></a> [data\_kms\_key\_arn](#input\_data\_kms\_key\_arn) | KMS key ARN for data encryption/decryption in S3 data buckets. If not provided, no KMS permissions will be granted | `string` | `null` | no |
 | <a name="input_existing_s3_bucket_name"></a> [existing\_s3\_bucket\_name](#input\_existing\_s3\_bucket\_name) | Name of existing S3 bucket to use for Glue scripts (when create\_s3\_bucket is false) | `string` | `null` | no |
 | <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Whether to allow destruction of S3 bucket with objects (use with caution in production) | `bool` | `false` | no |
-| <a name="input_glue_jobs"></a> [glue\_jobs](#input\_glue\_jobs) | Map of Glue jobs to create | <pre>map(object({<br>    description               = string<br>    glue_version              = optional(string)<br>    worker_type               = optional(string)<br>    number_of_workers         = optional(number)<br>    max_capacity              = optional(number)<br>    max_retries               = optional(number)<br>    timeout                   = optional(number)<br>    security_configuration    = optional(string)<br>    connections               = optional(list(string), [])<br>    max_concurrent_runs       = optional(number)<br>    notify_delay_after        = optional(number)<br>    job_bookmark_option       = optional(string, "job-bookmark-enable")<br>    non_overridable_arguments = optional(map(string), {})<br>    default_arguments         = optional(map(string), {})<br><br>    command = object({<br>      name            = optional(string, "glueetl")<br>      script_location = string<br>      python_version  = optional(string, "3")<br>    })<br>  }))</pre> | `{}` | no |
+| <a name="input_glue_jobs"></a> [glue\_jobs](#input\_glue\_jobs) | Map of Glue jobs to create | <pre>map(object({<br/>    description               = string<br/>    glue_version              = optional(string)<br/>    worker_type               = optional(string)<br/>    number_of_workers         = optional(number)<br/>    max_capacity              = optional(number)<br/>    max_retries               = optional(number)<br/>    timeout                   = optional(number)<br/>    security_configuration    = optional(string)<br/>    connections               = optional(list(string), [])<br/>    max_concurrent_runs       = optional(number)<br/>    notify_delay_after        = optional(number)<br/>    job_bookmark_option       = optional(string, "job-bookmark-enable")<br/>    non_overridable_arguments = optional(map(string), {})<br/>    default_arguments         = optional(map(string), {})<br/><br/>    command = object({<br/>      name            = optional(string, "glueetl")<br/>      script_location = string<br/>      python_version  = optional(string, "3")<br/>    })<br/>  }))</pre> | `{}` | no |
 | <a name="input_log_retention_days"></a> [log\_retention\_days](#input\_log\_retention\_days) | Number of days to retain CloudWatch logs for Glue jobs | `number` | `14` | no |
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum session duration for the Glue execution role (in seconds) | `number` | `3600` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name to be used as prefix for all resources created by this module | `string` | n/a | yes |
 | <a name="input_s3_bucket_name"></a> [s3\_bucket\_name](#input\_s3\_bucket\_name) | Name of the S3 bucket for Glue scripts. If not provided, will be auto-generated | `string` | `null` | no |
 | <a name="input_s3_kms_key_id"></a> [s3\_kms\_key\_id](#input\_s3\_kms\_key\_id) | KMS key ID for S3 bucket encryption. If not provided, AES256 encryption will be used | `string` | `null` | no |
-| <a name="input_s3_lifecycle_rules"></a> [s3\_lifecycle\_rules](#input\_s3\_lifecycle\_rules) | S3 bucket lifecycle rules for cost optimization | `any` | <pre>[<br>  {<br>    "abort_incomplete_multipart_upload": {<br>      "days_after_initiation": 7<br>    },<br>    "id": "delete_old_versions",<br>    "noncurrent_version_expiration": {<br>      "days": 90<br>    },<br>    "status": "Enabled"<br>  }<br>]</pre> | no |
+| <a name="input_s3_lifecycle_rules"></a> [s3\_lifecycle\_rules](#input\_s3\_lifecycle\_rules) | S3 bucket lifecycle rules for cost optimization | `any` | <pre>[<br/>  {<br/>    "abort_incomplete_multipart_upload": {<br/>      "days_after_initiation": 7<br/>    },<br/>    "id": "delete_old_versions",<br/>    "noncurrent_version_expiration": {<br/>      "days": 90<br/>    },<br/>    "status": "Enabled"<br/>  }<br/>]</pre> | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs for Glue jobs. Required when vpc\_id is provided | `list(string)` | `[]` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs where Glue jobs will run. Required when vpc\_id is provided | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resources | `map(string)` | `{}` | no |

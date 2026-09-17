@@ -26,7 +26,7 @@ output "code_artifacts_bucket_domain_name" {
 
 output "code_artifacts_bucket_regional_domain_name" {
   description = "Regional domain name of the S3 bucket used for code artifacts"
-  value       = var.create_s3_bucket ? module.code_artifacts_bucket[0].s3_bucket_bucket_regional_domain_name : "${var.existing_s3_bucket_name}.s3.${data.aws_region.current.id}.amazonaws.com"
+  value       = var.create_s3_bucket ? module.code_artifacts_bucket[0].s3_bucket_bucket_regional_domain_name : "${var.existing_s3_bucket_name}.s3.${data.aws_region.current.region}.amazonaws.com"
 }
 
 # IAM Role Outputs

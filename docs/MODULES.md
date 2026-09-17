@@ -18,7 +18,7 @@ This guide explains how to use and create modules in this repository, along with
   - Complete customization support
 - **Use Cases**: Network foundation, multi-AZ setup, isolated environments
 - **Example Cost**: ~$45/month (with NAT Gateway)
-- **Module Version**: terraform-aws-modules/vpc/aws v5.21.0
+- **Module Version**: terraform-aws-modules/vpc/aws v6.7.2
 
 **Simple Usage:**
 ```hcl
@@ -72,7 +72,7 @@ module "vpc" {
   - Complete customization support
 - **Use Cases**: Application databases, data persistence, OLTP workloads
 - **Example Cost**: ~$15-200/month (depending on instance size)
-- **Module Version**: terraform-aws-modules/rds/aws v6.11.0
+- **Module Version**: terraform-aws-modules/rds/aws v7.2.1
 
 **Simple Usage:**
 ```hcl
