@@ -6,7 +6,7 @@ settings:
 
 overrides:
   qs: ^6.16.0
-  undici: ^6.28.0
+  undici: ^6.28.1
 
 importers:
 
@@ -137,7 +137,7 @@ packages:
     engines: {node: '>=18.17'}
     hasBin: true
     peerDependencies:
-      undici: ^6.28.0
+      undici: ^6.28.1
     peerDependenciesMeta:
       undici:
         optional: true
