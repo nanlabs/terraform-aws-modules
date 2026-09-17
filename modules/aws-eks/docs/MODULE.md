@@ -9,13 +9,13 @@
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | cloudposse/eks-cluster/aws | 4.15.0 |
 | <a name="module_eks_node_groups"></a> [eks\_node\_groups](#module\_eks\_node\_groups) | cloudposse/eks-node-group/aws | 3.4.0 |
 | <a name="module_vpc_cni_eks_iam_role"></a> [vpc\_cni\_eks\_iam\_role](#module\_vpc\_cni\_eks\_iam\_role) | cloudposse/eks-iam-role/aws | 2.2.1 |
@@ -34,7 +34,7 @@
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_access_entries"></a> [access\_entries](#input\_access\_entries) | List of IAM principles to allow to access the EKS cluster.<br/>It is recommended to use the default `user_name` because the default includes<br/>the IAM role or user name and the session name for assumed roles.<br/>Use when Principal ARN is not known at plan time. | <pre>list(object({<br/>    principal_arn     = string<br/>    user_name         = optional(string, null)<br/>    kubernetes_groups = optional(list(string), null)<br/>  }))</pre> | `[]` | no |
 | <a name="input_access_entries_for_nodes"></a> [access\_entries\_for\_nodes](#input\_access\_entries\_for\_nodes) | Map of list of IAM roles for the EKS non-managed worker nodes.<br/>The map key is the node type, either `EC2_LINUX` or `EC2_WINDOWS`,<br/>and the list contains the IAM roles of the nodes of that type.<br/>There is no need for or utility in creating Fargate access entries, as those<br/>are always created automatically by AWS, just as with managed nodes.<br/>Use when Principal ARN is not known at plan time. | `map(list(string))` | `{}` | no |
 | <a name="input_access_entry_map"></a> [access\_entry\_map](#input\_access\_entry\_map) | Map of IAM Principal ARNs to access configuration.<br/>Preferred over other inputs as this configuration remains stable<br/>when elements are added or removed, but it requires that the Principal ARNs<br/>and Policy ARNs are known at plan time.<br/>Can be used along with other `access_*` inputs, but do not duplicate entries.<br/>Map `access_policy_associations` keys are policy ARNs, policy<br/>full name (AmazonEKSViewPolicy), or short name (View).<br/>It is recommended to use the default `user_name` because the default includes<br/>IAM role or user name and the session name for assumed roles.<br/>As a special case in support of backwards compatibility, membership in the<br/>`system:masters` group is is translated to an association with the ClusterAdmin policy.<br/>In all other cases, including any `system:*` group in `kubernetes_groups` is prohibited. | <pre>map(object({<br/>    # key is principal_arn<br/>    user_name = optional(string)<br/>    # Cannot assign "system:*" groups to IAM users, use ClusterAdmin and Admin instead<br/>    kubernetes_groups = optional(list(string), [])<br/>    type              = optional(string, "STANDARD")<br/>    access_policy_associations = optional(map(object({<br/>      # key is policy_arn or policy_name<br/>      access_scope = optional(object({<br/>        type       = optional(string, "cluster")<br/>        namespaces = optional(list(string))<br/>      }), {}) # access_scope<br/>    })), {})  # access_policy_associations<br/>  }))</pre> | `{}` | no |

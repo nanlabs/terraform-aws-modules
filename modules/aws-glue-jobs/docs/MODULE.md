@@ -9,13 +9,13 @@
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_glue_execution_role"></a> [glue\_execution\_role](#module\_glue\_execution\_role) | terraform-aws-modules/iam/aws//modules/iam-role | 6.8.1 |
 | <a name="module_glue_scripts_bucket"></a> [glue\_scripts\_bucket](#module\_glue\_scripts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.16.0 |
 

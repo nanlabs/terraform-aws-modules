@@ -9,13 +9,13 @@
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_code_artifacts_bucket"></a> [code\_artifacts\_bucket](#module\_code\_artifacts\_bucket) | terraform-aws-modules/s3-bucket/aws | 5.16.0 |
 
 ## Resources

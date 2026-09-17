@@ -9,7 +9,7 @@
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
@@ -25,7 +25,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | Map of additional databases to create outside of the standard data lake layers | <pre>map(object({<br/>    description = string<br/>    location    = optional(string, null)<br/>    parameters  = optional(map(string), {})<br/>  }))</pre> | `{}` | no |
 | <a name="input_catalog_id"></a> [catalog\_id](#input\_catalog\_id) | The ID of the Glue Catalog. If not provided, the AWS account ID will be used | `string` | `null` | no |
 | <a name="input_create_export_database"></a> [create\_export\_database](#input\_create\_export\_database) | Whether to create an export database for final outputs | `bool` | `true` | no |

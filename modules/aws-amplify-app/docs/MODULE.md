@@ -9,7 +9,7 @@
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
@@ -27,7 +27,7 @@
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_auto_branch_creation_config"></a> [auto\_branch\_creation\_config](#input\_auto\_branch\_creation\_config) | The automated branch creation configuration for the Amplify app | <pre>object({<br/>    basic_auth_credentials        = optional(string)<br/>    build_spec                    = optional(string)<br/>    enable_auto_build             = optional(bool)<br/>    enable_basic_auth             = optional(bool)<br/>    enable_performance_mode       = optional(bool)<br/>    enable_pull_request_preview   = optional(bool)<br/>    environment_variables         = optional(map(string))<br/>    framework                     = optional(string)<br/>    pull_request_environment_name = optional(string)<br/>    stage                         = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_auto_branch_creation_patterns"></a> [auto\_branch\_creation\_patterns](#input\_auto\_branch\_creation\_patterns) | The automated branch creation glob patterns for the Amplify app | `list(string)` | `[]` | no |
 | <a name="input_basic_auth_credentials"></a> [basic\_auth\_credentials](#input\_basic\_auth\_credentials) | The credentials for basic authorization for the Amplify app | `string` | `null` | no |
