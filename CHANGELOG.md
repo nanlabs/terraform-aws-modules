@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `docs/STARTER_COMPATIBILITY.md`: starter-to-library module map and migration notes (closes #17)
+- `examples/starter-reference/`: minimal VPC + bastion starter consuming pinned modules (closes #18)
+
+### Fixed
+- Standardized pinned remote source examples across all module READMEs; local paths labeled for in-repository development (closes #19)
+- `README.md` quick usage now pins `?ref=v1.16.0` instead of `v0.2.0`
+
 
 
 ## [1.16.0] - 2026-09-17

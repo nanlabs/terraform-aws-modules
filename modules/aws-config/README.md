@@ -4,6 +4,17 @@ This module creates an AWS Config configuration recorder and delivery channel wi
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "config" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-config?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "aws_config" {
   source = "./modules/aws/aws-config"

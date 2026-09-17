@@ -13,6 +13,17 @@ This module creates shared networking infrastructure components and stores criti
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "shared-networking" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-shared-networking?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "shared_networking" {
   source = "./modules/aws/aws-shared-networking"

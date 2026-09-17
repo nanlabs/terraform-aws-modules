@@ -14,6 +14,17 @@ This custom module provides advanced IAM role capabilities:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "iam-role" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-iam-role?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 This example creates a role with the name eg-prod-app with permission to grant read-write access to S3 bucket, and gives permission to the entities specified in principals_arns to assume the role.
 
 ```hcl

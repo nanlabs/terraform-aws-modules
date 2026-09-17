@@ -30,6 +30,17 @@ This custom module provides comprehensive MongoDB Atlas cluster management:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "mongodb-atlas-cluster" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/mongodb-atlas-cluster?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage
 
 ```hcl

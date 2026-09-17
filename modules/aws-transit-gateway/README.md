@@ -12,6 +12,17 @@ This module creates an AWS Transit Gateway for hub-and-spoke networking architec
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "transit-gateway" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-transit-gateway?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage
 
 ```hcl

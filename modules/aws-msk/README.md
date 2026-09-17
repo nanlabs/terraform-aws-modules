@@ -23,6 +23,17 @@ Before using this module, ensure you have:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "msk" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-msk?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 To use this module, include the following code in your Terraform configuration:
 
 ```hcl

@@ -12,6 +12,17 @@ This module creates the necessary AWS resources to enable GitHub Actions to auth
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "github-oidc-provider" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-github-oidc-provider?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Single Repository Mode (Backward Compatibility)
 
 ```hcl

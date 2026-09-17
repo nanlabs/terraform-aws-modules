@@ -147,7 +147,7 @@ Each module is designed to be **plug-and-play** with sensible defaults, yet high
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v0.2.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.16.0"
 
   vpc_cidr = "10.0.0.0/16"
   # That's it! VPC with best practices is ready 🎉

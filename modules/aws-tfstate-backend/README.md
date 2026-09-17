@@ -25,6 +25,17 @@ This module provisions an S3 bucket to store `terraform.tfstate` file and uses S
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "tfstate-backend" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-tfstate-backend?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Example
 
 ```hcl
