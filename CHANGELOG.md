@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.18.0] - 2026-09-17
+
+
+
 ## [1.17.0] - 2026-09-17
 ### Added
 - `docs/STARTER_COMPATIBILITY.md`: starter-to-library module map and migration notes (closes #17)
@@ -209,7 +213,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.17.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.18.0...HEAD
+[1.18.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.18.0
 [1.17.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.17.0
 [1.16.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.16.0
 [1.15.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.15.0
