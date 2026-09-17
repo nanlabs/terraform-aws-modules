@@ -36,3 +36,6 @@ override.tf.json
 .envrc
 
 megalinter-reports/
+
+# Node dependencies (tools/danger installs at CI time)
+**/node_modules/
