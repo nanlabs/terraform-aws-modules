@@ -14,6 +14,17 @@ This Terraform module creates and manages AWS Glue Code Registry infrastructure 
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "glue-code-registry" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-glue-code-registry?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage
 
 ```hcl

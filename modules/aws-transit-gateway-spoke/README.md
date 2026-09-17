@@ -17,6 +17,17 @@ This module creates a Transit Gateway spoke configuration for hub-and-spoke netw
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "transit-gateway-spoke" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-transit-gateway-spoke?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "transit_gateway_spoke" {
   source = "../../aws/aws-transit-gateway-spoke"

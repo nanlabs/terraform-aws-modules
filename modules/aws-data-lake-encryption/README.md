@@ -32,6 +32,17 @@ Data Lake Encryption:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "data-lake-encryption" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-data-lake-encryption?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage
 
 ```hcl

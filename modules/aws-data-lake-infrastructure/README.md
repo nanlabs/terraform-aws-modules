@@ -37,6 +37,17 @@ s3://dwh-{env}-{account}-storage/
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "data-lake-infrastructure" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-data-lake-infrastructure?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage
 
 ```hcl

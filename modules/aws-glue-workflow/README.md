@@ -12,7 +12,18 @@ supports.
 - Predicate conditions for sequential dependencies
 - Tag propagation & naming convention alignment
 
-## Usage (Example)
+## Usage
+
+### Consume from GitHub (pinned)
+
+```hcl
+module "glue-workflow" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-glue-workflow?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+ (Example)
 
 ```hcl
 module "glue_workflows" {

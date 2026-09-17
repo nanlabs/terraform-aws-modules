@@ -16,6 +16,17 @@ This custom module provides comprehensive DocumentDB cluster management:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "docdb" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-docdb?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "db" {
   source = "../../modules/aws-docdb"

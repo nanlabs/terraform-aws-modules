@@ -23,6 +23,17 @@ This module implements the separation of infrastructure and ETL code as recommen
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "glue-jobs" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-glue-jobs?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Example
 
 ```hcl

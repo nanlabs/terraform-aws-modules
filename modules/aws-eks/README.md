@@ -15,6 +15,17 @@ This wrapper adds significant value over using the base CloudPosse modules direc
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "eks" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-eks?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "eks" {
   source = "../../modules/aws-eks"

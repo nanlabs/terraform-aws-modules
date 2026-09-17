@@ -24,6 +24,17 @@ This wrapper adds significant value over using the base terraform-aws-modules VP
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "vpc" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Simple Usage (Recommended)
 
 ```hcl

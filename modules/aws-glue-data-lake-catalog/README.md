@@ -85,6 +85,17 @@ This creates:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "glue-data-lake-catalog" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-glue-data-lake-catalog?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### With sublayers (recommended for multi-source environments):
 ```hcl
 module "glue_catalog" {

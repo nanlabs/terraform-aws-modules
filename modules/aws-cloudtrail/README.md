@@ -13,6 +13,17 @@ This module creates an AWS CloudTrail with S3 bucket and CloudWatch Logs integra
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "cloudtrail" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-cloudtrail?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Basic Usage (Single Account with Local S3 Bucket)
 
 ```hcl

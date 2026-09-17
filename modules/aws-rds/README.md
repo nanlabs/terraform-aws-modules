@@ -15,6 +15,17 @@ This wrapper adds significant value over using the base terraform-aws-modules RD
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "rds" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-rds?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ### Simple Usage (Recommended)
 
 ```hcl

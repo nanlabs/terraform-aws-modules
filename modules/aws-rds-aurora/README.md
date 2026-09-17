@@ -24,6 +24,17 @@ This module follows a standardized structure for better organization:
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "rds-aurora" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-rds-aurora?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "aurora_cluster" {
   source = "../../modules/aws-rds-aurora"

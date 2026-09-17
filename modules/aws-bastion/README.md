@@ -19,6 +19,17 @@ A bastion host, sometimes called a `jump box`, is a server that provides a singl
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "bastion" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-bastion?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "bastion" {
   source = "../../modules/aws-bastion"

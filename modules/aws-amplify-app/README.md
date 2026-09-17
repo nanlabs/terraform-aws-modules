@@ -13,6 +13,17 @@ This wrapper adds several valuable features on top of the base CloudPosse module
 
 ## Usage
 
+### Consume from GitHub (pinned)
+
+```hcl
+module "amplify-app" {
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-amplify-app?ref=v1.16.0"
+}}
+```
+
+> The remaining examples use local paths for repository-local development.
+
+
 ```hcl
 module "app" {
   source = "../../modules/aws-amplify-app"
