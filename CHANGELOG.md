@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [1.19.0] - 2026-09-17
 ### Added
 - DangerJS PR validation baseline (`tools/danger`, `danger.yml`): changelog/remediation enforcement for module changes, starter-impact guard for cross-repo callers (closes #26)
 - MegaLinter workflow standardization with pinned configuration and fixed registries
+
 
 
 ## [1.18.0] - 2026-09-17
@@ -216,7 +220,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.18.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.19.0...HEAD
+[1.19.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.19.0
 [1.18.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.18.0
 [1.17.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.17.0
 [1.16.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.16.0
