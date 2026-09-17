@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- DangerJS PR validation baseline (`tools/danger`, `danger.yml`): changelog/remediation enforcement for module changes, starter-impact guard for cross-repo callers (closes #26)
+- MegaLinter workflow standardization with pinned configuration and fixed registries
 
 
 ## [1.18.0] - 2026-09-17
