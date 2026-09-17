@@ -164,7 +164,7 @@ module "msk" {
   source = "../../modules/aws-msk"
 
   name   = "${local.name}-msk"
-  region = data.aws_region.current.id
+  region = data.aws_region.current.region
   tags   = local.common_tags
 
   # Network configuration

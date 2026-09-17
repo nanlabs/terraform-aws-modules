@@ -97,7 +97,7 @@ resource "aws_ssm_parameter" "app_security_group" {
 
   name  = "${local.ssm_prefix}/app_security_group"
   type  = "String"
-  value = module.app_security_group.security_group_id
+  value = module.app_security_group.id
 
   tags = var.tags
 }

@@ -160,7 +160,7 @@ module "app" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 1.1.0 |
+| <a name="module_amplify_app"></a> [amplify\_app](#module\_amplify\_app) | cloudposse/amplify-app/aws | 1.2.0 |
 
 ## Resources
 

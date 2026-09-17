@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Updated all third-party module pins to latest: `vpc` 6.7.2, `security-group` 6.0.0, `rds` 7.2.1, `rds-aurora` 10.4.0, `s3-bucket` 5.16.0, `iam` 6.8.1, `transit-gateway` 3.3.1, `eks-cluster` 4.15.0, `eks-node-group` 3.4.0, `msk-apache-kafka-cluster` 2.6.0
+- Raised minimum AWS provider constraints to match upstream requirements and refreshed all committed `.terraform.lock.hcl` files
+- Regenerated all `docs/MODULE.md` files with terraform-docs
+
+### Fixed
+- Fixed 3 configs that failed validation and were not covered by CI: `examples/data-processing-pipeline`, `modules/aws-data-lake-infrastructure/examples/with-encryption`, `modules/__template__`
+- Replaced deprecated `data.aws_region.current.id` with `.region` across 8 files
+
+### Removed (BREAKING)
+- `aws-rds-aurora`: output `cluster_master_password` (upstream uses write-only passwords); variables `iam_role_managed_policy_arns` and `iam_role_force_detach_policies` (feature removed upstream)
+- `modules/__template__`: outputs `bucket_website_endpoint` and `bucket_website_domain` (removed from AWS provider v6)
+
 
 
 ## [1.14.0] - 2026-09-11

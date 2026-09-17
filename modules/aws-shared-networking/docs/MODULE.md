@@ -9,8 +9,8 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.10.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
@@ -51,7 +51,7 @@ No modules.
 | <a name="input_enable_flow_logs"></a> [enable\_flow\_logs](#input\_enable\_flow\_logs) | Enable VPC Flow Logs | `bool` | `true` | no |
 | <a name="input_flow_logs_s3_bucket"></a> [flow\_logs\_s3\_bucket](#input\_flow\_logs\_s3\_bucket) | S3 bucket name for VPC Flow Logs | `string` | `""` | no |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Name prefix for all resources | `string` | n/a | yes |
-| <a name="input_shared_accounts"></a> [shared\_accounts](#input\_shared\_accounts) | Map of accounts that can access shared networking resources | <pre>map(object({<br>    account_id = string<br>    role_name  = string<br>  }))</pre> | `{}` | no |
+| <a name="input_shared_accounts"></a> [shared\_accounts](#input\_shared\_accounts) | Map of accounts that can access shared networking resources | <pre>map(object({<br/>    account_id = string<br/>    role_name  = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_shared_services_private_route_table_ids"></a> [shared\_services\_private\_route\_table\_ids](#input\_shared\_services\_private\_route\_table\_ids) | List of private route table IDs in the Shared Services VPC | `list(string)` | n/a | yes |
 | <a name="input_shared_services_private_subnets"></a> [shared\_services\_private\_subnets](#input\_shared\_services\_private\_subnets) | List of private subnet IDs in the Shared Services VPC | `list(string)` | n/a | yes |
 | <a name="input_shared_services_public_route_table_ids"></a> [shared\_services\_public\_route\_table\_ids](#input\_shared\_services\_public\_route\_table\_ids) | List of public route table IDs in the Shared Services VPC | `list(string)` | n/a | yes |

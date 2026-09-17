@@ -39,7 +39,7 @@ resource "aws_kms_key" "s3" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "kms:ViaService" = "s3.${data.aws_region.current.id}.amazonaws.com"
+            "kms:ViaService" = "s3.${data.aws_region.current.region}.amazonaws.com"
           }
         }
       },
@@ -58,7 +58,7 @@ resource "aws_kms_key" "s3" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "kms:ViaService" = "s3.${data.aws_region.current.id}.amazonaws.com"
+            "kms:ViaService" = "s3.${data.aws_region.current.region}.amazonaws.com"
           }
         }
       }
@@ -78,7 +78,7 @@ resource "aws_kms_key" "s3" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "kms:ViaService" = "s3.${data.aws_region.current.id}.amazonaws.com"
+            "kms:ViaService" = "s3.${data.aws_region.current.region}.amazonaws.com"
           }
         }
       }
@@ -132,7 +132,7 @@ resource "aws_kms_key" "glue" {
         Resource = "*"
         Condition = {
           StringEquals = {
-            "kms:ViaService" = "glue.${data.aws_region.current.id}.amazonaws.com"
+            "kms:ViaService" = "glue.${data.aws_region.current.region}.amazonaws.com"
           }
         }
       }
@@ -231,9 +231,9 @@ resource "aws_iam_policy" "data_lake_boundary" {
           "glue:BatchUpdatePartition"
         ]
         Resource = [
-          "arn:aws:glue:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:catalog",
-          "arn:aws:glue:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:database/${var.name}_*",
-          "arn:aws:glue:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:table/${var.name}_*/*"
+          "arn:aws:glue:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:catalog",
+          "arn:aws:glue:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:database/${var.name}_*",
+          "arn:aws:glue:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:table/${var.name}_*/*"
         ]
       },
       {
@@ -246,7 +246,7 @@ resource "aws_iam_policy" "data_lake_boundary" {
           "logs:DescribeLogGroups",
           "logs:DescribeLogStreams"
         ]
-        Resource = "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/glue/*"
+        Resource = "arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/glue/*"
       },
       {
         Sid    = "DenyDangerousActions"

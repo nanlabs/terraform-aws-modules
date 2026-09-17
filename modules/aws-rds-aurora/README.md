@@ -133,7 +133,7 @@ resource "aws_instance" "app" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_aurora"></a> [aurora](#module\_aurora) | terraform-aws-modules/rds-aurora/aws | 9.15.0 |
+| <a name="module_aurora"></a> [aurora](#module\_aurora) | terraform-aws-modules/rds-aurora/aws | 10.4.0 |
 
 ## Module Documentation
 

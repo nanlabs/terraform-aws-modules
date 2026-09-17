@@ -9,8 +9,8 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.10.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
@@ -34,7 +34,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_kms_policy_statements"></a> [additional\_kms\_policy\_statements](#input\_additional\_kms\_policy\_statements) | Additional policy statements to add to the KMS key policies | `list(any)` | `[]` | no |
-| <a name="input_allowed_services"></a> [allowed\_services](#input\_allowed\_services) | List of AWS services that should have access to the KMS keys | `list(string)` | <pre>[<br>  "s3.amazonaws.com",<br>  "glue.amazonaws.com"<br>]</pre> | no |
+| <a name="input_allowed_services"></a> [allowed\_services](#input\_allowed\_services) | List of AWS services that should have access to the KMS keys | `list(string)` | <pre>[<br/>  "s3.amazonaws.com",<br/>  "glue.amazonaws.com"<br/>]</pre> | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | The name of the S3 bucket for CloudTrail logs (required if enable\_kms\_logging is true) | `string` | `null` | no |
 | <a name="input_create_permission_boundary"></a> [create\_permission\_boundary](#input\_create\_permission\_boundary) | Whether to create an IAM permission boundary for data lake jobs | `bool` | `true` | no |
 | <a name="input_enable_key_rotation"></a> [enable\_key\_rotation](#input\_enable\_key\_rotation) | Whether to enable automatic rotation of the KMS keys | `bool` | `true` | no |

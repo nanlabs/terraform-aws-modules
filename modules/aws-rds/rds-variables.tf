@@ -263,6 +263,12 @@ variable "password" {
   default     = null
 }
 
+variable "password_wo_version" {
+  description = "Used together with password to trigger an update. Increment this value when a password update is required"
+  type        = number
+  default     = null
+}
+
 variable "manage_master_user_password" {
   description = "Set to true to allow RDS to manage the master user password in Secrets Manager"
   type        = bool

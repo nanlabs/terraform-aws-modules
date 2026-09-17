@@ -9,8 +9,8 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.10.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.65.0 |
 
 ## Modules
 
@@ -38,7 +38,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_temp_bucket"></a> [create\_temp\_bucket](#input\_create\_temp\_bucket) | Whether to create a separate temporary bucket for working data | `bool` | `false` | no |
-| <a name="input_data_lake_layers"></a> [data\_lake\_layers](#input\_data\_lake\_layers) | Configuration for data lake layers (medallion architecture) | <pre>object({<br>    raw_zone = string<br>    bronze   = string<br>    silver   = string<br>    gold     = string<br>    export   = string<br>  })</pre> | <pre>{<br>  "bronze": "iceberg-warehouse/bronze",<br>  "export": "export",<br>  "gold": "iceberg-warehouse/gold",<br>  "raw_zone": "raw-zone",<br>  "silver": "iceberg-warehouse/silver"<br>}</pre> | no |
+| <a name="input_data_lake_layers"></a> [data\_lake\_layers](#input\_data\_lake\_layers) | Configuration for data lake layers (medallion architecture) | <pre>object({<br/>    raw_zone = string<br/>    bronze   = string<br/>    silver   = string<br/>    gold     = string<br/>    export   = string<br/>  })</pre> | <pre>{<br/>  "bronze": "iceberg-warehouse/bronze",<br/>  "export": "export",<br/>  "gold": "iceberg-warehouse/gold",<br/>  "raw_zone": "raw-zone",<br/>  "silver": "iceberg-warehouse/silver"<br/>}</pre> | no |
 | <a name="input_enable_lifecycle_rules"></a> [enable\_lifecycle\_rules](#input\_enable\_lifecycle\_rules) | Whether to enable lifecycle rules for cost optimization | `bool` | `true` | no |
 | <a name="input_enable_versioning"></a> [enable\_versioning](#input\_enable\_versioning) | Whether to enable versioning on the S3 storage bucket | `bool` | `true` | no |
 | <a name="input_export_retention_days"></a> [export\_retention\_days](#input\_export\_retention\_days) | Number of days to retain files in the export layer before deletion | `number` | `30` | no |

@@ -23,17 +23,17 @@ output "glue_job_ids" {
 
 output "glue_execution_role_arn" {
   description = "ARN of the Glue execution IAM role"
-  value       = module.glue_execution_role.iam_role_arn
+  value       = module.glue_execution_role.arn
 }
 
 output "glue_execution_role_name" {
   description = "Name of the Glue execution IAM role"
-  value       = module.glue_execution_role.iam_role_name
+  value       = module.glue_execution_role.name
 }
 
 output "glue_execution_role_id" {
   description = "ID of the Glue execution IAM role"
-  value       = module.glue_execution_role.iam_role_arn
+  value       = module.glue_execution_role.arn
 }
 
 #------------------------------------------------------------------------------

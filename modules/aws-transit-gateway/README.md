@@ -137,7 +137,7 @@ This module is designed to replace the existing VPC peering solution. Key differ
 
 | Name | Source | Version |
 |------|--------|---------|
-| tgw | terraform-aws-modules/transit-gateway/aws | ~> 2.13.0 |
+| tgw | terraform-aws-modules/transit-gateway/aws | 3.3.1 |
 
 ## Resources
 

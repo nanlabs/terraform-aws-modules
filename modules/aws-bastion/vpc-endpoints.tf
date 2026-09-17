@@ -6,7 +6,7 @@ locals {
 # Security group for VPC endpoints
 module "vpc_endpoint_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "5.3.0"
+  version = "6.0.0"
 
   count = var.create_vpc_endpoints ? 1 : 0
 
@@ -14,17 +14,22 @@ module "vpc_endpoint_security_group" {
   description = "Security group for VPC endpoints used by bastion host"
   vpc_id      = var.vpc_id
 
-  ingress_with_source_security_group_id = [
-    {
-      from_port                = 443
-      to_port                  = 443
-      protocol                 = "tcp"
-      source_security_group_id = module.ec2_security_group.security_group_id
-      description              = "HTTPS from bastion host"
+  ingress_rules = {
+    https = {
+      from_port                    = 443
+      to_port                      = 443
+      ip_protocol                  = "tcp"
+      referenced_security_group_id = module.ec2_security_group.id
+      description                  = "HTTPS from bastion host"
     }
-  ]
+  }
 
-  egress_rules = ["all-all"]
+  egress_rules = {
+    all = {
+      ip_protocol = "-1"
+      cidr_ipv4   = "0.0.0.0/0"
+    }
+  }
 
   tags = merge(var.tags, {
     Name = "${var.name}-vpc-endpoints"
@@ -45,7 +50,7 @@ module "ssm_vpc_endpoint" {
       service             = "ssm"
       service_type        = "Interface"
       subnet_ids          = local.vpc_endpoints_subnet_ids
-      security_group_ids  = [module.vpc_endpoint_security_group[0].security_group_id]
+      security_group_ids  = [module.vpc_endpoint_security_group[0].id]
       private_dns_enabled = true
       policy              = var.vpc_endpoint_policy
 
@@ -72,7 +77,7 @@ module "ec2messages_vpc_endpoint" {
       service             = "ec2messages"
       service_type        = "Interface"
       subnet_ids          = local.vpc_endpoints_subnet_ids
-      security_group_ids  = [module.vpc_endpoint_security_group[0].security_group_id]
+      security_group_ids  = [module.vpc_endpoint_security_group[0].id]
       private_dns_enabled = true
       policy              = var.vpc_endpoint_policy
 
@@ -99,7 +104,7 @@ module "ssmmessages_vpc_endpoint" {
       service             = "ssmmessages"
       service_type        = "Interface"
       subnet_ids          = local.vpc_endpoints_subnet_ids
-      security_group_ids  = [module.vpc_endpoint_security_group[0].security_group_id]
+      security_group_ids  = [module.vpc_endpoint_security_group[0].id]
       private_dns_enabled = true
       policy              = var.vpc_endpoint_policy
 

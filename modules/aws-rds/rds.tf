@@ -1,6 +1,6 @@
 module "db" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "6.12.0"
+  version = "7.2.1"
 
   # Control flags
   create_db_instance = var.create_db_instance
@@ -30,10 +30,11 @@ module "db" {
   dedicated_log_volume  = var.dedicated_log_volume
 
   # Database Configuration
-  db_name  = var.db_name
-  username = var.username
-  password = var.password
-  port     = var.port
+  db_name             = var.db_name
+  username            = var.username
+  password_wo         = var.manage_master_user_password ? null : var.password
+  password_wo_version = var.manage_master_user_password ? null : var.password_wo_version
+  port                = var.port
 
   # Password Management
   manage_master_user_password                            = var.manage_master_user_password

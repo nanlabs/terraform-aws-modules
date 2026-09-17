@@ -176,7 +176,7 @@ module "glue_jobs" {
         "--bronze_database"         = module.glue_catalog.bronze_database_name
         "--silver_database"         = module.glue_catalog.silver_database_name
         "--gold_database"           = module.glue_catalog.gold_database_name
-        "--raw_database"            = module.glue_catalog.raw_zone_database_name
+        "--raw_database"            = module.glue_catalog.raw_database_name
       }, {})
 
       command = {

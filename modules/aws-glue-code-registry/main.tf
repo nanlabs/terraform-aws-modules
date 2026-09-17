@@ -16,7 +16,7 @@ module "code_artifacts_bucket" {
   count = var.create_s3_bucket ? 1 : 0
 
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "5.2.0"
+  version = "5.16.0"
 
   bucket = var.s3_bucket_name != null ? var.s3_bucket_name : "${local.resource_prefix}-glue-code-artifacts"
 

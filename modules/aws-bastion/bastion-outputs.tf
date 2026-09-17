@@ -35,12 +35,12 @@ output "instance_state" {
 # Security group details
 output "security_group_id" {
   description = "ID of the security group attached to the bastion host"
-  value       = module.ec2_security_group.security_group_id
+  value       = module.ec2_security_group.id
 }
 
 output "security_group_arn" {
   description = "ARN of the security group attached to the bastion host"
-  value       = module.ec2_security_group.security_group_arn
+  value       = module.ec2_security_group.arn
 }
 
 # SSH key details
@@ -84,7 +84,7 @@ output "vpc_endpoints_created" {
 
 output "vpc_endpoint_security_group_id" {
   description = "Security group ID for VPC endpoints"
-  value       = var.create_vpc_endpoints ? module.vpc_endpoint_security_group[0].security_group_id : null
+  value       = var.create_vpc_endpoints ? module.vpc_endpoint_security_group[0].id : null
 }
 
 output "ssm_vpc_endpoint_id" {
