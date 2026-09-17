@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.16.0] - 2026-09-17
+
+
+
 ## [1.15.0] - 2026-09-17
 ### Changed
 - Updated all third-party module pins to latest: `vpc` 6.7.2, `security-group` 6.0.0, `rds` 7.2.1, `rds-aurora` 10.4.0, `s3-bucket` 5.16.0, `iam` 6.8.1, `transit-gateway` 3.3.1, `eks-cluster` 4.15.0, `eks-node-group` 3.4.0, `msk-apache-kafka-cluster` 2.6.0
@@ -193,7 +197,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.15.0...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.16.0...HEAD
+[1.16.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.16.0
 [1.15.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.15.0
 [1.14.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.14.0
 [1.13.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.13.0
