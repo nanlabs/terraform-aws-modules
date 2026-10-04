@@ -1,0 +1,4 @@
+# Temporary source-level mitigation: braces is pinned to the upstream fix in
+# micromatch/braces#72 and passes its test suite. Remove when a fixed npm release
+# is published and replace the pin with that release.
+CVE-2026-93687 exp:2026-11-04

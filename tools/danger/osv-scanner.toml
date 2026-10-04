@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2026-11-04
+reason = "No patched release is published yet. Danger's braces 3.0.3 is pinned to upstream PR 72 commit 28d440b5dd449dbf1fe6f3506cf94ecca4d02660, which adds bounded recursion guards; its upstream suite passes (904 tests). Recheck and remove this exception when braces publishes a fixed release."
