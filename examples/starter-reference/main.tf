@@ -24,7 +24,7 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.18.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-vpc?ref=v1.19.0"
 
   name = "starter-reference-vpc"
   cidr = "10.0.0.0/16"
