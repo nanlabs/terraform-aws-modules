@@ -32,6 +32,10 @@ permissions:
   pull-requests: write
   actions: write
 
+concurrency:
+  group: terraform-aws-modules-release
+  cancel-in-progress: false
+
 jobs:
   detect-changes:
     name: 🔍 Detect Changes
@@ -76,9 +80,15 @@ jobs:
               release_type="patch"
             fi
 
-            # Check if CHANGELOG.md has unreleased changes
+            # Check only the [Unreleased] section. A fixed line window can
+            # accidentally match bullets from an already-published version.
             if [[ "${{ github.event.inputs.skip_changelog_check }}" != "true" ]]; then
-              if grep -A 50 "## \[Unreleased\]" CHANGELOG.md | grep -E "^- " > /dev/null; then
+              unreleased_changes=$(awk '
+                /^## \[Unreleased\]/ { in_unreleased = 1; next }
+                in_unreleased && /^## \[/ { exit }
+                in_unreleased && /^- / { print }
+              ' CHANGELOG.md)
+              if [[ -n "$unreleased_changes" ]]; then
                 should_release="true"
                 echo "Unreleased changes found in CHANGELOG.md"
               fi
@@ -294,7 +304,29 @@ jobs:
         run: |
           git add CHANGELOG.md
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }}"
-          git push origin main
+
+          # main can advance while this job prepares the release. Rebase the
+          # generated changelog commit so concurrent contributor commits are
+          # retained, then retry a non-fast-forward push a few times.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "Unable to rebase the release changelog onto current main."
+              exit 1
+            fi
+
+            if git push origin HEAD:refs/heads/main; then
+              exit 0
+            fi
+
+            if [[ "$attempt" -eq 5 ]]; then
+              echo "main kept advancing; release changelog push failed" \
+                "after 5 attempts."
+              exit 1
+            fi
+            sleep "$((attempt * 2))"
+          done
 
       - name: Create Git Tag
         run: |
