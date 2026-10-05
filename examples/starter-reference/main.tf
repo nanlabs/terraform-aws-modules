@@ -41,7 +41,7 @@ module "vpc" {
 }
 
 module "bastion" {
-  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-bastion?ref=v1.18.0"
+  source = "git::https://github.com/nanlabs/terraform-aws-modules.git//modules/aws-bastion?ref=v1.19.0"
 
   name            = "starter-reference-bastion"
   vpc_id          = module.vpc.vpc_id
