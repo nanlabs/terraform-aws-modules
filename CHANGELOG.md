@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [1.20.0] - 2026-10-05
 ### Security
+
 
 ## [1.19.1] - 2026-10-04
 - Pin Danger's transitive `braces` dependency to the upstream recursion-guard patch while no fixed release is published.
@@ -226,7 +230,8 @@ When creating a release:
 - Description of change (#PR-number)
 
 Links format:
-[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.19.1...HEAD
+[Unreleased]: https://github.com/nanlabs/terraform-aws-modules/compare/v1.20.0...HEAD
+[1.20.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.20.0
 [1.19.1]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.19.1
 [1.19.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.19.0
 [1.18.0]: https://github.com/nanlabs/terraform-aws-modules/releases/tag/v1.18.0
