@@ -22,7 +22,7 @@
   "homepage": "https://github.com/nanlabs/terraform-aws-modules#readme",
   "dependencies": {
     "danger": "^14.0.7",
-    "undici": "^6.28.1"
+    "undici": "^7.30.1"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
@@ -30,8 +30,7 @@
   "pnpm": {
     "overrides": {
       "braces": "https://codeload.github.com/micromatch/braces/tar.gz/28d440b5dd449dbf1fe6f3506cf94ecca4d02660",
-      "qs": "^6.16.0",
-      "undici": "^6.28.1"
+      "qs": "^6.17.1"
     }
   }
 }
